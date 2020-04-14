@@ -1225,6 +1225,11 @@
   resolved "https://registry.yarnpkg.com/@nodelib/fs.stat/-/fs.stat-1.1.3.tgz#2b5a3ab3f918cca48a8c754c08168e3f03eba61b"
   integrity sha512-shAmDyaQC4H92APFoIaVDHCx5bStIocgvbwQyxPRrbUY20V1EYTbSDchWbuwlMG3V17cprZhA6+78JfB+3DTPw==
 
+"@patternfly/patternfly@^2.71.4":
+  version "2.71.4"
+  resolved "https://registry.yarnpkg.com/@patternfly/patternfly/-/patternfly-2.71.4.tgz#f2ceb3985132a9a8a99a7d958f631242dd915e1e"
+  integrity sha512-UdDX91uLOOZz9m072zq8m+rGJ4yoPTxuyhsW7iYoJmk+65Lvqnkr62oX9USX9JCqymNwh6qyw9lShKPppi6khw==
+
 "@patternfly/react-core@^3.153.3":
   version "3.153.3"
   resolved "https://registry.yarnpkg.com/@patternfly/react-core/-/react-core-3.153.3.tgz#14a2ae31d10eef40e7b42a8de048082ef2b9d430"

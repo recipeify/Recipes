@@ -1,26 +1,48 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Page, PageHeader, PageSidebar, PageSection, PageSectionVariants } from '@patternfly/react-core';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isNavOpen: true
+    };
+    this.onNavToggle = () => {
+      this.setState({
+        isNavOpen: !this.state.isNavOpen
+      });
+    };
+  }
+
+  render() {
+    const { isNavOpen } = this.state;
+
+    const logoProps = {
+      href: 'https://patternfly.org',
+      onClick: () => console.log('clicked logo'),
+      target: '_blank'
+    };
+    const Header = (
+      <PageHeader
+        logo="Logo"
+        logoProps={logoProps}
+        toolbar="Toolbar"
+        avatar=" | Avatar"
+        showNavToggle
+        isNavOpen={isNavOpen}
+        onNavToggle={this.onNavToggle}
+      />
+    );
+    const Sidebar = <PageSidebar nav="Navigation" isNavOpen={isNavOpen} theme="dark" />;
+
+    return (
+      <Page header={Header} sidebar={Sidebar}>
+        <PageSection variant={PageSectionVariants.darker}>Section with darker background</PageSection>
+        <PageSection variant={PageSectionVariants.dark}>Section with dark background</PageSection>
+        <PageSection variant={PageSectionVariants.light}>Section with light background</PageSection>
+      </Page>
+    );
+  }
 }
 
 export default App;
