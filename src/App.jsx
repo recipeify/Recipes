@@ -1,5 +1,5 @@
 import React from 'react';
-import { Page, PageHeader, PageSidebar, PageSection, PageSectionVariants } from '@patternfly/react-core';
+import { Page, PageHeader, PageSidebar, PageSection } from '@patternfly/react-core';
 
 class App extends React.Component {
   constructor(props) {
@@ -37,9 +37,7 @@ class App extends React.Component {
 
     return (
       <Page header={Header} sidebar={Sidebar}>
-        <PageSection variant={PageSectionVariants.darker}>Section with darker background</PageSection>
-        <PageSection variant={PageSectionVariants.dark}>Section with dark background</PageSection>
-        <PageSection variant={PageSectionVariants.light}>Section with light background</PageSection>
+        <PageSection>Hello World</PageSection>
       </Page>
     );
   }
