@@ -1,40 +1,20 @@
 import React from 'react';
-import { Page, PageHeader, PageSidebar, PageSection } from '@patternfly/react-core';
+import {
+  Page, PageHeader, PageSidebar, PageSection,
+} from '@patternfly/react-core';
+
+import RecipeList from './components/recipeList';
 
 class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isNavOpen: true
-    };
-    this.onNavToggle = () => {
-      this.setState({
-        isNavOpen: !this.state.isNavOpen
-      });
-    };
+  async componentDidMount() {
+    // nothing
   }
 
-  callApi = async () => {
-    const response = await fetch('/api/hello');
-    const body = await response.json();
-    if (response.status !== 200) throw Error(body.message);
-    
-    return body;
-  };
-
-  componentDidMount() {
-    this.callApi()
-      .then(res => console.log('got api response', { response: res.express }))
-      .catch(err => console.log(err));
-  }
-  
   render() {
-    const { isNavOpen } = this.state;
-
     const logoProps = {
       href: 'https://patternfly.org',
       onClick: () => console.log('clicked logo'),
-      target: '_blank'
+      target: '_blank',
     };
     const Header = (
       <PageHeader
@@ -42,12 +22,10 @@ class App extends React.Component {
         logoProps={logoProps}
         toolbar="Toolbar"
         avatar=" | Avatar"
-        showNavToggle
-        isNavOpen={isNavOpen}
-        onNavToggle={this.onNavToggle}
+        isNavOpen
       />
     );
-    const Sidebar = <PageSidebar nav="Navigation" isNavOpen={isNavOpen} theme="light" />;
+    const Sidebar = <PageSidebar nav="Navigation" isNavOpen theme="light" />;
 
     return (
       <Page header={Header} sidebar={Sidebar}>
@@ -55,6 +33,9 @@ class App extends React.Component {
           isFilled
         >
           Hello World
+        </PageSection>
+        <PageSection>
+          <RecipeList />
         </PageSection>
       </Page>
     );

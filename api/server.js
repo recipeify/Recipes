@@ -1,8 +1,9 @@
+/* eslint-disable no-underscore-dangle */
 const express = require('express');
 const bodyParser = require('body-parser');
 const elasticsearch = require('elasticsearch');
 
-require('dotenv').config(); 
+require('dotenv').config();
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -21,12 +22,11 @@ const esClient = new elasticsearch.Client({
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.get('/api/search/ingredient', async (req, res) => {
+app.post('/api/search/ingredient', async (request, resoponse) => {
+  const { term, from = 0, size = 10 } = request.body;
 
-  const { q, from = 0, size = 10 } = req.query;
-
-  if (!q) {
-    res.sendStatus(400);
+  if (!term) {
+    resoponse.sendStatus(400);
     return;
   }
 
@@ -36,19 +36,18 @@ app.get('/api/search/ingredient', async (req, res) => {
     body: {
       query: {
         match: {
-          ingredients: q
-        }
+          ingredients: term,
+        },
       },
       from,
-      size
-    }
-  })
-   
-  // for (const hit of response.hits.hits) {
-  //   console.log('hit:', hit);
-  // }
+      size,
+    },
+  });
 
-  res.send(response.hits);
+  resoponse.send({
+    total: response.hits.total,
+    items: response.hits.hits.map((e) => e._source),
+  });
 });
 
 app.listen(port, () => console.log(`Listening on port ${port}`));
