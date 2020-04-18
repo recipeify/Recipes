@@ -1,9 +1,11 @@
 import React from 'react';
 import {
-  Page, PageHeader, PageSidebar, PageSection,
+  Page, PageHeader, PageSidebar, PageSection, Brand,
 } from '@patternfly/react-core';
 
-import RecipeList from './components/recipeList';
+import RecipeList from './components/RecipeList';
+import Sidebar from './components/Sidebar/Sidebar';
+import logo from './assets/cake-pop.svg';
 
 class App extends React.Component {
   async componentDidMount() {
@@ -12,23 +14,24 @@ class App extends React.Component {
 
   render() {
     const logoProps = {
-      href: 'https://patternfly.org',
-      onClick: () => console.log('clicked logo'),
-      target: '_blank',
+      href: '/',
     };
+
+    const brand = <Brand src={logo} alt="Recipeify" />;
     const Header = (
       <PageHeader
-        logo="Logo"
+        logo={brand}
         logoProps={logoProps}
         toolbar="Toolbar"
         avatar=" | Avatar"
         isNavOpen
       />
     );
-    const Sidebar = <PageSidebar nav="Navigation" isNavOpen theme="light" />;
+    const sidebarComponent = <Sidebar />;
+    const sidebar = <PageSidebar nav={sidebarComponent} isNavOpen theme="light" />;
 
     return (
-      <Page header={Header} sidebar={Sidebar}>
+      <Page header={Header} sidebar={sidebar}>
         <PageSection
           isFilled
         >

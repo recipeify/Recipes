@@ -1,4 +1,4 @@
-import { searchIngredient } from '../service/apiRequests';
+import { searchByIngredients } from '../service/apiRequests';
 
 export const FETCH_RECIPES_PENDING = 'FETCH_RECIPES_PENDING';
 export const FETCH_RECIPES_SUCCESS = 'FETCH_RECIPES_SUCCESS';
@@ -18,11 +18,11 @@ export const fetchRecipesFailure = (error) => ({
   payload: { error },
 });
 
-export function fetchRecipesByIngredient(term, from = 0, size = 10) {
+export function fetchRecipesByIngredients(terms, from = 0, size = 10) {
   return async (dispatch) => {
     try {
       dispatch(fetchRecipesPending());
-      const response = await searchIngredient(term, from, size);
+      const response = await searchByIngredients(terms, from, size);
       dispatch(fetchRecipesSuccess(response.items));
       return response.items;
     } catch (error) {
@@ -31,4 +31,4 @@ export function fetchRecipesByIngredient(term, from = 0, size = 10) {
   };
 }
 
-export default { fetchRecipesByIngredient };
+export default { fetchRecipesByIngredients };

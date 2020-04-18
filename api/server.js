@@ -22,10 +22,10 @@ const esClient = new elasticsearch.Client({
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.post('/api/search/ingredient', async (request, resoponse) => {
-  const { term, from = 0, size = 10 } = request.body;
+app.post('/api/search/ingredients', async (request, resoponse) => {
+  const { terms, from = 0, size = 10 } = request.body;
 
-  if (!term) {
+  if (!Array.isArray(terms)) {
     resoponse.sendStatus(400);
     return;
   }
@@ -35,8 +35,8 @@ app.post('/api/search/ingredient', async (request, resoponse) => {
     type: 'recipe',
     body: {
       query: {
-        match: {
-          ingredients: term,
+        bool: {
+          must: terms.map((term) => ({ match: { ingredients: term } })),
         },
       },
       from,

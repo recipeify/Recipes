@@ -4,8 +4,34 @@ $pf-global--enable-fontawesome-cdn: true;
 $pf-global--BackgroundColor--light-300: #fcf8f5;
 $pf-global--BackgroundColor--dark-100: #ec7533;
 $pf-global--BackgroundColor--light-100: #f5b43c;
-.page_header {
-  background-color: #ec7533;
+
+.recipe-image {
+  object-fit: cover;
+  width: 250px;
+  height: 250px;
+}
+
+#page-sidebar {
+  max-width: 350px;
+  width: 350px;
+  > div {
+    padding: 20px;
+  }
+}
+
+#search-by-ingredient {
+  background-color: white;
+}
+
+#ingredient-search-button {
+  background-color: white;
+}
+
+.pf-c-chip.include-ingredient-chip {
+  background-color: yellowgreen;
+  > span {
+    font-size: 18px;
+  }
 }
 
 @import "../node_modules/@patternfly/patternfly/patternfly.scss";
