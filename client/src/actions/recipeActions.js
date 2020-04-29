@@ -18,11 +18,11 @@ export const fetchRecipesFailure = (error) => ({
   payload: { error },
 });
 
-export function fetchRecipesByIngredients(terms, from = 0, size = 10) {
+export function fetchRecipesByIngredients(includeTerms, excludeTerms, from = 0, size = 10) {
   return async (dispatch) => {
     try {
       dispatch(fetchRecipesPending());
-      const response = await searchByIngredients(terms, from, size);
+      const response = await searchByIngredients(includeTerms, excludeTerms, from, size);
       dispatch(fetchRecipesSuccess(response.items));
       return response.items;
     } catch (error) {

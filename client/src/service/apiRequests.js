@@ -24,7 +24,11 @@ export const searchIngredient = async (term, from = 0, size = 10) => {
   return response.json();
 };
 
-export const searchByIngredients = async (terms, from = 0, size = 10) => {
+export const searchByIngredients = async (
+  includeTerms,
+  excludeTerms,
+  from = 0,
+  size = 10) => {
   const response = await fetch('/api/search/ingredients',
     {
       method: 'POST',
@@ -32,7 +36,8 @@ export const searchByIngredients = async (terms, from = 0, size = 10) => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        terms,
+        includeTerms,
+        excludeTerms,
         from,
         size,
       }),

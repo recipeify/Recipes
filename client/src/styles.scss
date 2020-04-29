@@ -5,6 +5,11 @@ $pf-global--BackgroundColor--light-300: #fcf8f5;
 $pf-global--BackgroundColor--dark-100: #ec7533;
 $pf-global--BackgroundColor--light-100: #f5b43c;
 
+#root {
+  height: 100%;
+  margin: 0;
+}
+
 .recipe-image {
   object-fit: cover;
   width: 250px;
@@ -28,7 +33,14 @@ $pf-global--BackgroundColor--light-100: #f5b43c;
 }
 
 .pf-c-chip.include-ingredient-chip {
-  background-color: yellowgreen;
+  background-color: #35D073;
+  > span {
+    font-size: 18px;
+  }
+}
+
+.pf-c-chip.exclude-ingredient-chip {
+  background-color: #D8664D;
   > span {
     font-size: 18px;
   }

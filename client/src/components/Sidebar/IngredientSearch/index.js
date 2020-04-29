@@ -1,21 +1,27 @@
 import { connect } from 'react-redux';
 import IngredientSearch from './IngredientSearch';
-import { addIngredientToInclude, removeIngredientToInclude } from '../../../actions/searchActions';
-import { fetchRecipesByIngredients } from '../../../actions/recipeActions';
+import {
+  addIngredientToInclude,
+  removeIngredientToInclude,
+  addIngredientToExclude,
+  removeIngredientToExclude,
+} from '../../../actions/searchActions';
 
 const mapStateToProps = (state, ownProps) => {
   const { filters } = state;
   return {
-    ingredientList: ownProps.include ? filters.include : null,
+    ingredientList: ownProps.include ? filters.include : filters.exclude,
+    includeItems: filters.include,
+    excludeItems: filters.exclude,
   };
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {
-  const addIngredientAction = ownProps.include ? addIngredientToInclude : null;
-  const removeIngredientAction = ownProps.include ? removeIngredientToInclude : null;
+  const addIngredientAction = ownProps.include
+    ? addIngredientToInclude : addIngredientToExclude;
+  const removeIngredientAction = ownProps.include
+    ? removeIngredientToInclude : removeIngredientToExclude;
   return {
-    getRecipes:
-      (terms, from = 0, size = 30) => dispatch(fetchRecipesByIngredients(terms, from, size)),
     addIngredient: (ingredient) => dispatch(addIngredientAction(ingredient)),
     removeIngredient: (ingredient) => dispatch(removeIngredientAction(ingredient)),
   };

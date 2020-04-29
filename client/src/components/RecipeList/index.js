@@ -1,10 +1,18 @@
 import { connect } from 'react-redux';
-import { fetchRecipesByIngredients } from '../../actions/recipeActions';
+// import { fetchRecipesByIngredients } from '../../actions/recipeActions';
 import RecipeList from './RecipeList';
 
-const mapDispatchToProps = (dispatch) => ({
-  getRecipes: (terms, from, size) => dispatch(fetchRecipesByIngredients(terms, from, size)),
-});
+// const mapDispatchToProps = (dispatch) => ({
+//   getRecipes:
+//     (
+//       includeTerms = [],
+//       excludeTerms = [],
+//       from,
+//       size,
+//     ) => dispatch(
+//       fetchRecipesByIngredients(includeTerms, excludeTerms, from, size),
+//     ),
+// });
 
 const mapStateToProps = (state) => ({
   recipes: state.recipes.items,
@@ -12,4 +20,4 @@ const mapStateToProps = (state) => ({
   error: state.recipes.error,
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(RecipeList);
+export default connect(mapStateToProps, null)(RecipeList);

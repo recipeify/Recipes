@@ -21,19 +21,6 @@ class IngredientSearch extends React.Component {
     };
   }
 
-  componentDidMount() {
-    const { ingredientList, getRecipes } = this.props;
-    getRecipes(ingredientList);
-  }
-
-  componentDidUpdate(prevProps) {
-    const { ingredientList, getRecipes } = this.props;
-    const { ingredientList: prevIngredients } = prevProps;
-    if (ingredientList.length !== prevIngredients.length) {
-      getRecipes(ingredientList);
-    }
-  }
-
   onEnterIngredient() {
     const { addIngredient } = this.props;
     const { currentValue } = this.state;
@@ -49,7 +36,7 @@ class IngredientSearch extends React.Component {
     return (
       <Stack gutter="sm">
         <StackItem key="search1">
-          <h1>{`Ingredients to ${include ? 'include' : 'exclue'}`}</h1>
+          <h1>{`Ingredients to ${include ? 'include' : 'exclude'}`}</h1>
           <InputGroup>
             <TextInput
               name="search-by-ingredient"
@@ -94,7 +81,6 @@ class IngredientSearch extends React.Component {
 
 IngredientSearch.propTypes = {
   include: PropTypes.bool,
-  getRecipes: PropTypes.func.isRequired,
   ingredientList: PropTypes.arrayOf(PropTypes.string).isRequired,
   addIngredient: PropTypes.func.isRequired,
   removeIngredient: PropTypes.func.isRequired,

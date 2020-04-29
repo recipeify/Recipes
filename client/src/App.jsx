@@ -4,7 +4,7 @@ import {
 } from '@patternfly/react-core';
 
 import RecipeList from './components/RecipeList';
-import Sidebar from './components/Sidebar/Sidebar';
+import Sidebar from './components/Sidebar';
 import logo from './assets/cake-pop.svg';
 
 class App extends React.Component {
@@ -32,12 +32,12 @@ class App extends React.Component {
 
     return (
       <Page header={Header} sidebar={sidebar}>
+        <PageSection>
+          Recipes
+        </PageSection>
         <PageSection
           isFilled
         >
-          Hello World
-        </PageSection>
-        <PageSection>
           <RecipeList />
         </PageSection>
       </Page>
