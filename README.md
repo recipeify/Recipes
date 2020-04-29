@@ -6,6 +6,7 @@ What you need to have installed locally - prerequitues:
 - terminal (windows: gitbash)
 - node js
 - yarn 
+- nodemon: get it by `npm i -g nodemon`
 
 Create a .env file located at /api/.env and paste there 
 `ELASTIC_SEARCH_HOST=`(address sent personally) 
