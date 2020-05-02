@@ -24,6 +24,17 @@ export const searchIngredient = async (term, from = 0, size = 10) => {
   return response.json();
 };
 
+export const getIngredientDataset = async () => {
+  const response = await fetch('/api/resources/ingredients', {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+  handleErrors(response);
+  return response.json();
+};
+
 export const searchByIngredients = async (
   includeTerms,
   excludeTerms,
@@ -47,5 +58,5 @@ export const searchByIngredients = async (
   return response.json();
 };
 
-const apiRequests = { searchIngredient, searchByIngredients };
+const apiRequests = { searchIngredient, searchByIngredients, getIngredientDataset };
 export default apiRequests;

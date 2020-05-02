@@ -5,8 +5,14 @@ import IngredientSearch from './IngredientSearch';
 
 class Sidebar extends React.Component {
   componentDidMount() {
-    const { getRecipesByIngredients, includeTerms, excludeTerms } = this.props;
+    const {
+      getRecipesByIngredients,
+      includeTerms,
+      excludeTerms,
+      getIngredientDataset,
+    } = this.props;
     getRecipesByIngredients(includeTerms, excludeTerms);
+    getIngredientDataset();
   }
 
   componentDidUpdate() {
@@ -21,6 +27,8 @@ class Sidebar extends React.Component {
       >
         <StackItem>
           <IngredientSearch include />
+        </StackItem>
+        <StackItem>
           <IngredientSearch include={false} />
         </StackItem>
       </Stack>
@@ -30,6 +38,7 @@ class Sidebar extends React.Component {
 
 Sidebar.propTypes = {
   getRecipesByIngredients: PropTypes.func.isRequired,
+  getIngredientDataset: PropTypes.func.isRequired,
   includeTerms: PropTypes.arrayOf(PropTypes.string).isRequired,
   excludeTerms: PropTypes.arrayOf(PropTypes.string).isRequired,
 };

@@ -1,11 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FaRegPlusSquare } from 'react-icons/fa';
+import '@patternfly/pfe-autocomplete';
 import {
-  Button,
   InputGroup,
-  TextInput,
-  Bullseye,
   Stack,
   StackItem,
   ChipGroup,
@@ -16,47 +13,46 @@ import { getRandomID } from '../../../common/helpers';
 class IngredientSearch extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      currentValue: '',
-    };
+    this.autocompeleteRef = React.createRef();
   }
 
-  onEnterIngredient() {
+  componentDidMount() {
+    this.autocompeleteRef.current.autocompleteRequest = (params, callback) => {
+      const { ingredientDataset } = this.props;
+      this.autocompeleteRef.current.setAttribute('loading', '');
+      const ret = ingredientDataset.filter(
+        (item) => item.indexOf(params.query.toLowerCase()) > -1,
+      ).slice(0, 10);
+      callback(ret);
+      this.autocompeleteRef.current.removeAttribute('loading');
+    };
+
+    this.autocompeleteRef.current.addEventListener('pfe-search-event', (e) => {
+      this.onEnterIngredient(e.detail.searchValue);
+      this.autocompeleteRef.current.initValue = '';
+    });
+  }
+
+  onEnterIngredient(ingredient) {
     const { addIngredient } = this.props;
-    const { currentValue } = this.state;
-    if (currentValue !== '') {
-      addIngredient(currentValue);
-      this.setState({ currentValue: '' });
+    if (ingredient !== '') {
+      addIngredient(ingredient);
     }
   }
 
   render() {
     const { ingredientList, include, removeIngredient } = this.props;
-    const { currentValue } = this.state;
     return (
       <Stack gutter="sm">
         <StackItem key="search1">
           <h1>{`Ingredients to ${include ? 'include' : 'exclude'}`}</h1>
           <InputGroup>
-            <TextInput
-              name="search-by-ingredient"
-              id="search-by-ingredient"
-              type="search"
-              aria-label="search-by-ingredient"
-              value={currentValue}
-              onChange={(value) => { this.setState({ currentValue: value }); }}
-              onKeyDown={(e) => { if (e.key === 'Enter') { this.onEnterIngredient(); } }}
-            />
-            <Button
-              id="ingredient-search-button"
-              variant="control"
-              aria-label="ingredient-search-button"
-              onClick={() => this.onEnterIngredient()}
+            <pfe-autocomplete
+              ref={this.autocompeleteRef}
+              debounce="500"
             >
-              <Bullseye>
-                <FaRegPlusSquare />
-              </Bullseye>
-            </Button>
+              <input placeholder="Enter Your Search Term" />
+            </pfe-autocomplete>
           </InputGroup>
         </StackItem>
         <StackItem key="chips1">
@@ -82,6 +78,7 @@ class IngredientSearch extends React.Component {
 IngredientSearch.propTypes = {
   include: PropTypes.bool,
   ingredientList: PropTypes.arrayOf(PropTypes.string).isRequired,
+  ingredientDataset: PropTypes.arrayOf(PropTypes.string).isRequired,
   addIngredient: PropTypes.func.isRequired,
   removeIngredient: PropTypes.func.isRequired,
 };

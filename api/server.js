@@ -3,11 +3,20 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const elasticsearch = require('elasticsearch');
+const fs = require('fs');
+const csv = require('fast-csv');
 
 require('dotenv').config();
 
 const app = express();
 const port = process.env.PORT || 5000;
+
+const ingredients = [];
+fs.createReadStream('./ingredients.csv')
+  .pipe(csv.parse())
+  .on('data', (data) => {
+    ingredients.push(data[0]);
+  });
 
 if (!process.env.ELASTIC_SEARCH_HOST) {
   console.error('missing ELASTIC_SEARCH_HOST');
@@ -22,6 +31,13 @@ const esClient = new elasticsearch.Client({
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+app.get('/api/resources/ingredients', async (_, response) => {
+  response.send({
+    items: ingredients,
+  });
+});
+
 
 app.post('/api/search/ingredients', async (request, resoponse) => {
   const {

@@ -1230,6 +1230,24 @@
   resolved "https://registry.yarnpkg.com/@patternfly/patternfly/-/patternfly-2.71.4.tgz#f2ceb3985132a9a8a99a7d958f631242dd915e1e"
   integrity sha512-UdDX91uLOOZz9m072zq8m+rGJ4yoPTxuyhsW7iYoJmk+65Lvqnkr62oX9USX9JCqymNwh6qyw9lShKPppi6khw==
 
+"@patternfly/pfe-autocomplete@^1.0.0-prerelease.45":
+  version "1.0.0-prerelease.45"
+  resolved "https://registry.yarnpkg.com/@patternfly/pfe-autocomplete/-/pfe-autocomplete-1.0.0-prerelease.45.tgz#e4a35d039207864da50f3f372d9181fdc6926f7e"
+  integrity sha512-3qsehKkMCRFCFWS62p0+dxMRh9YmQKPeDzYSRVYmnbkT6Aard1oxggjsLtLMixOPhdKP30/Myz/S+OJQMLU+ng==
+  dependencies:
+    "@patternfly/pfe-sass" "^1.0.0-prerelease.45"
+    "@patternfly/pfelement" "^1.0.0-prerelease.45"
+
+"@patternfly/pfe-sass@^1.0.0-prerelease.45":
+  version "1.0.0-prerelease.45"
+  resolved "https://registry.yarnpkg.com/@patternfly/pfe-sass/-/pfe-sass-1.0.0-prerelease.45.tgz#2ba19a45fb39413ab77496c15af5f42e83601b66"
+  integrity sha512-lZjTB9gK+pDadrVd03lQUi3lkCAZ/BWKmibbrow8ax2DmgJciTWkK1bnRJpc92KpMQobwitEVH8WnOLu1CaXzA==
+
+"@patternfly/pfelement@^1.0.0-prerelease.45":
+  version "1.0.0-prerelease.45"
+  resolved "https://registry.yarnpkg.com/@patternfly/pfelement/-/pfelement-1.0.0-prerelease.45.tgz#5b5613b77d1d690f0842587ce1b46d4971e5ab25"
+  integrity sha512-YcFwKNj9Vo02hIwnUH4pjwC3wyRfmvnF2mPCBfKlYbDV/53SHymvdm0qrG95Bn8y9X2u3e6I99OHiSTLx8zgJg==
+
 "@patternfly/react-core@^3.153.3":
   version "3.153.3"
   resolved "https://registry.yarnpkg.com/@patternfly/react-core/-/react-core-3.153.3.tgz#14a2ae31d10eef40e7b42a8de048082ef2b9d430"

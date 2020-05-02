@@ -8,8 +8,9 @@ import {
 } from '../../../actions/searchActions';
 
 const mapStateToProps = (state, ownProps) => {
-  const { filters } = state;
+  const { filters, ingredients } = state;
   return {
+    ingredientDataset: ingredients.items,
     ingredientList: ownProps.include ? filters.include : filters.exclude,
     includeItems: filters.include,
     excludeItems: filters.exclude,
