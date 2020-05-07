@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Gallery, GalleryItem } from '@patternfly/react-core';
-
 import { getRandomID } from '../../common/helpers';
 import RecipeCard from './components/RecipeCard';
 
@@ -28,7 +27,7 @@ class RecipeList extends React.Component {
 
     return (
       <Gallery
-        gutter="md"
+        id="recipe-list-grid"
       >
         {
           recipes.map((recipe) => (

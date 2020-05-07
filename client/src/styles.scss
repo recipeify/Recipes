@@ -1,19 +1,66 @@
-// This is where I override the default color selections. to apply the changes call yarn sass
-$pf-global--enable-font-overpass-cdn: true;
-$pf-global--enable-fontawesome-cdn: true;
-$pf-global--BackgroundColor--light-300: #fcf8f5;
-$pf-global--BackgroundColor--dark-100: #ec7533;
-$pf-global--BackgroundColor--light-100: #f5b43c;
+@font-face {
+  font-family: 'sidebar';
+  src: url(https://fonts.googleapis.com/css2?family=Baloo+2:wght@500&display=swap)
+}
 
 #root {
   height: 100%;
   margin: 0;
 }
 
+#header {
+  background-color: #ec7533;
+  padding-left: 10px;
+  height: 70px;
+}
+
+#sidebar {
+  height: 100%;
+  background-color: #f5b43c;
+}
+
+.sidebar {
+  height: 100%;
+  margin-top: 20px;
+}
+
+#content {
+  background-color: #fcf8f5;
+}
+
+.search-box {
+  width: 100%;
+}
+
+.search-box-label {
+  font-family: 'Manrope', sans-serif;
+  font-size: 20px;
+  color: #900c3f;
+}
+
+#logo {
+  height: auto;
+  width: auto;
+  max-width: 64px;
+}
+
+#recipe-list-grid {
+  padding-top: 20px;
+  grid-gap: 20px;
+}
+
 .recipe-image {
   object-fit: cover;
-  width: 250px;
-  height: 250px;
+  width: 300px;
+  height: 300px;
+}
+
+.recipe-card-meta {
+  height: 60px;
+  div.ant-card-meta-detail > div.ant-card-meta-title {
+    white-space: pre-wrap;
+    overflow: auto;
+  }
 }
 
 #page-sidebar {
@@ -32,18 +79,26 @@ $pf-global--BackgroundColor--light-100: #f5b43c;
   background-color: white;
 }
 
-.pf-c-chip.include-ingredient-chip {
-  background-color: #35D073;
+.ingredient-chip {
+  overflow: auto;
+  text-align: center;
   > span {
-    font-size: 18px;
+    font-size: 16px;
+    display: 'inline-block'; 
+    padding: 2px,
   }
 }
 
-.pf-c-chip.exclude-ingredient-chip {
-  background-color: #D8664D;
-  > span {
-    font-size: 18px;
-  }
+.ingredient-tag-button {
+  padding: 5px;
+  background: #f5b43c !important;
+  position: -8px !important;
 }
 
-@import '~antd/dist/antd.css';
+.ingredient-tag-button:hover {
+  color: #000 !important;
+  border-color: #000 !important;
+}
+
+@import 'antd/dist/antd.css';
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@500&family=Pompiere&display=swap');
