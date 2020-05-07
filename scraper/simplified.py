@@ -10,9 +10,8 @@ with np.load('simplified-recipes-1M.npz') as data:
     for i, ingredient in enumerate(ingredients):
         if len(ingredient) < 3:
             continue
-        ings.append(ingredient)
+        ings.append({'value': ingredient})
 
-
-with open('ingredients.csv', 'w+') as outfile:
-    for ingredient in ings:
-        outfile.write(ingredient + '\n')
+with open('ingredients.json', 'w+') as outfile:
+    d = {'ingredients': ings}
+    json.dump(d, outfile)

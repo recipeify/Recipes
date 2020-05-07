@@ -1,7 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Stack, StackItem } from '@patternfly/react-core';
+import { Row } from 'antd';
+// import { Stack, StackItem } from '@patternfly/react-core';
 import IngredientSearch from './IngredientSearch';
+
+
 
 class Sidebar extends React.Component {
   componentDidMount() {
@@ -22,16 +25,14 @@ class Sidebar extends React.Component {
 
   render() {
     return (
-      <Stack
-        gutter="sm"
-      >
-        <StackItem>
+      <div>
+        <Row>
           <IngredientSearch include />
-        </StackItem>
-        <StackItem>
+        </Row>
+        <Row>
           <IngredientSearch include={false} />
-        </StackItem>
-      </Stack>
+        </Row>
+      </div>
     );
   }
 }

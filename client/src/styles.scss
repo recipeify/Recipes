@@ -10,6 +10,10 @@ $pf-global--BackgroundColor--light-100: #f5b43c;
   margin: 0;
 }
 
+.sidebar {
+  background-color: #ec7533;
+}
+
 .recipe-image {
   object-fit: cover;
   width: 250px;
@@ -46,4 +50,4 @@ $pf-global--BackgroundColor--light-100: #f5b43c;
   }
 }
 
-@import '~antd/dist/antd.css';
+@import 'antd/dist/antd.css';
