@@ -29,5 +29,7 @@ yarn dev
 
 To run elasticsearch + recipeify service in containers:
 ```
+# in main repo dir
+docker-compose build
 docker-compose up
 ```
