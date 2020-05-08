@@ -5,11 +5,14 @@ const bodyParser = require('body-parser');
 const elasticsearch = require('elasticsearch');
 const fs = require('fs');
 const csv = require('fast-csv');
+const path = require('path');
 
 require('dotenv').config();
 
 const app = express();
 const port = process.env.PORT || 5000;
+
+app.use(express.static(path.join(__dirname, 'build')));
 
 const ingredients = [];
 fs.createReadStream('./ingredients.csv')

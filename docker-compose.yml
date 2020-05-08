@@ -3,21 +3,23 @@ services:
 # Elasticsearch
   elasticsearch:
     image: docker.pkg.github.com/recipeify/recipes/es-recipes:0.2
+    environment:
+      - discovery.type=single-node
     ports:
       - 9200:9200
 # TODO : mongoDB
 # Recipeify
   recipeify:
-     image: recipeify:0.1
+     image: recipeify:0.2.1
      build:
       context: .
       dockerfile: Dockerfile
      ports:
-       - 3000:3000
+       - 5000:5000
      depends_on:
       - elasticsearch
      env_file:
        - api/docker.env
      stdin_open: true
      tty: true
-     entrypoint: ['yarn', 'dev']
+     entrypoint: ["nodemon", "server.js"]

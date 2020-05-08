@@ -1,8 +1,6 @@
-FROM node:carbon
+FROM node:carbon-alpine as builder
 ENV HOME /usr/src/
 WORKDIR $HOME
-
-RUN npm install -g nodemon
 
 # copy the tarballs
 COPY ["api/yarn-offline-mirror", "$HOME/api/yarn-offline-mirror/"]
@@ -21,7 +19,7 @@ WORKDIR $HOME/api
 # the offline flag will mean that an error is raised if any
 # module needs to be fetched remotely. It can be removed to allow
 # yarn to fetch any missing modules if that was to happen.
-RUN yarn --offline --frozen-lockfile
+RUN yarn --offline --frozen-lockfile --production=true
 
 WORKDIR $HOME/client
 
@@ -31,18 +29,31 @@ COPY ["client/src/styles.scss", "$HOME/client/src/"]
 # the offline flag will mean that an error is raised if any
 # module needs to be fetched remotely. It can be removed to allow
 # yarn to fetch any missing modules if that was to happen.
-RUN yarn --offline --frozen-lockfile
-
-# copy the rest.. could be further broken up into multiple instructions
-# for cache optimisation
-COPY ./api/  $HOME/api/
+RUN yarn --offline --frozen-lockfile --production=true
 
 # copy the rest.. could be further broken up into multiple instructions
 # for cache optimisation
 COPY ./client/  $HOME/client/
 
-WORKDIR $HOME/api
+# Build
+RUN yarn build
 
-EXPOSE 3000
+FROM node:carbon-alpine
+ENV HOME /usr/src/
+ENV NODE_ENV production
+WORKDIR $HOME
 
-CMD [ "yarn", "dev" ]
+RUN npm install -g nodemon
+
+# copy api node_modules
+COPY --from=builder $HOME/api/node_modules $HOME/node_modules
+
+# copy build dir of react app
+COPY --from=builder $HOME/client/build $HOME/build
+
+# copy api code
+COPY ./api/  $HOME/
+
+EXPOSE 5000
+
+ENTRYPOINT [ "nodemon", "server.js" ]
