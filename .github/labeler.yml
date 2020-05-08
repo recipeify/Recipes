@@ -1,0 +1,16 @@
+backend:
+    - api/**/*
+
+frontend:
+    - client/**/*
+
+scraper:
+    - scraper/**/*
+
+infrastructure:
+    - ./**/Dockerfile
+    - ./**/.dockerignore
+    - ./**/docker-compose.yml
+
+github:
+    - .github/*
