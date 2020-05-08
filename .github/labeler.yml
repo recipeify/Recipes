@@ -11,3 +11,6 @@ infrastructure:
     - ./**/Dockerfile
     - ./**/.dockerignore
     - ./**/docker-compose.yml
+
+github:
+    - ./.github/*
