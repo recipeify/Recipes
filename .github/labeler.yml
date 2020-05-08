@@ -13,4 +13,4 @@ infrastructure:
     - ./**/docker-compose.yml
 
 github:
-    - ./.github/*
+    - .github/*
