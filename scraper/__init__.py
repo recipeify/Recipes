@@ -24,7 +24,7 @@ from .allrecipes import AllRecipes
 # from .tasty import Tasty
 
 URLS = {
-    recipescrapers.recipe_scrapers.AllRecipes.host(): [AllRecipes, "https://www.allrecipes.com/?page=1"]
+    recipescrapers.recipe_scrapers.AllRecipes.host(): [AllRecipes, "https://www.allrecipes.com/recipes/22908/everyday-cooking/special-collections/new/?page=1"]
     # recipescrapers.BBCFood.host(): BBCFood,
     # recipescrapers.BBCFood.host(domain='co.uk'): BBCFood,
     # recipescrapers.BBCGoodFood.host(): BBCGoodFood,
@@ -57,8 +57,8 @@ def init_crawler(num):
     es = connect_to_es()
     for host, site in URLS.items():
         #try:
-            obj = site[0](site[1], math.floor(num / len(URLS.items())))
-            r = obj.crawl(es)
+            obj = site[0](host, site[1], math.floor(num / len(URLS.items())))
+            obj.crawl(es)
         #except #We'll get to this:
             #raise #We'll get to this
 

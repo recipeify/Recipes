@@ -1,38 +1,34 @@
 import recipescrapers.recipe_scrapers
 from ._abstract import AbstractCrawler
-import json
-import requests
+from ._utils import insert_to_es
 from bs4 import BeautifulSoup
+import requests
+
+HEADERS = {
+    'User-Agent': 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.9.0.7) Gecko/2009021910 Firefox/3.0.7'
+}
 
 
 class AllRecipes(AbstractCrawler):
 
     def crawl(self, es):
-        recipe_cards = self.soup.findAll("h3", {"class": "fixed-recipe-card__h3"})
         i = 0
+        j = 1
         while i < self.num:
             recipe_cards = self.soup.findAll("h3", {"class": "fixed-recipe-card__h3"})
             for recipe_card in recipe_cards:
-                r = {}
-                s = recipescrapers.recipe_scrapers.scrape_me(recipe_card.find("a", {"class":"fixed-recipe-card__title-link"})['href'])
-                print(s.title())
                 try:
-                    r['title'] = s.title()
-                    r['ingredients'] = s.ingredients()
-                    r['link'] = s.url
-                    r['image'] = s.image()
-                    r['total_time'] = s.total_time()
-                    r['tags'] = s.tags()
-                    r['diet'] = s.suitable_for_diet()
-                    r['id'] = "allrecipes" + s.id()
-                except Exception as e:
-                    print(e)
-                    print('failed to get ' + s.url)
-                try:
-                    r['rating'] = s.ratings()
-                except Exception as e:
-                    r['rating'] = None
-                es.create(index='recipes', doc_type='recipe', id=r['id'], body=json.dumps(r), ignore=409)
-            break
-
+                    s = recipescrapers.recipe_scrapers.scrape_me(recipe_card.find("a", {"class":"fixed-recipe-card__title-link"})['href'])
+                except TypeError:
+                    continue
+                print(s.title() + ", i = " + str(i))
+                result = insert_to_es(es, s, "allrecipes")
+                if result:
+                    i += 1
+                if i >= self.num:
+                    return
+            j += 1
+            print(j)
+            page_data = requests.get("https://www.allrecipes.com/recipes/22908/everyday-cooking/special-collections/new/?page=" + str(j), headers=HEADERS).content
+            self.soup = BeautifulSoup(page_data, "html.parser")
 

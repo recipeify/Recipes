@@ -8,12 +8,14 @@ HEADERS = {
 
 class AbstractCrawler:
 
-    def __init__(self, url, num):
+    def __init__(self, host, scraping_url, num):
+        print(host)
         self.num = num
-        self.url = url
-        page_data = requests.get(url, headers=HEADERS).content
+        self.url = host
+        self.scraping_url = scraping_url
+        page_data = requests.get(scraping_url, headers=HEADERS).content
 
         self.soup = BeautifulSoup(page_data, "html.parser")
 
-    def crawl(self, url):
+    def crawl(self, es):
         raise NotImplementedError("This should be implemented.")
