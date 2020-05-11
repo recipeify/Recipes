@@ -4,11 +4,21 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const elasticsearch = require('elasticsearch');
 const fs = require('fs');
+const path = require('path');
+const { auth } = require('express-openid-connect');
 
 require('dotenv').config();
 
 const app = express();
 const port = process.env.PORT || 5000;
+
+/* setup auth0 middleware with required authentication for all /user/ routes */
+app.use(auth({
+  required: req => req.originalUrl.startsWith('/api/user/'),
+  redirectUriPath: '/'
+}));
+
+app.use(express.static(path.join(__dirname, 'build')));
 
 const rawData = fs.readFileSync('ingredients.json');
 const ingredients = JSON.parse(rawData);
@@ -71,6 +81,11 @@ app.post('/api/search/ingredients', async (request, resoponse) => {
     total: response.hits.total,
     items: response.hits.hits.map((e) => e._source),
   });
+});
+
+/* test user */
+app.get('/api/user/check', async (request, response) => {
+  response.send(`hello ${request.openid.user.name}`);
 });
 
 app.listen(port, () => console.log(`Listening on port ${port}`));
