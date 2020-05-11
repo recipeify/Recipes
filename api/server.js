@@ -6,11 +6,17 @@ const elasticsearch = require('elasticsearch');
 const fs = require('fs');
 const csv = require('fast-csv');
 const path = require('path');
+const auth = require('express-openid-connect');
 
 require('dotenv').config();
 
 const app = express();
 const port = process.env.PORT || 5000;
+
+/* setup auth0 middleware with required authentication for all /user/ routes */
+app.use(auth({
+  required: req => req.originalUrl.startsWith('/user/')
+}));
 
 app.use(express.static(path.join(__dirname, 'build')));
 
