@@ -1,76 +1,85 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import '@patternfly/pfe-autocomplete';
 import {
-  InputGroup,
-  Stack,
-  StackItem,
-  ChipGroup,
-  Chip,
-} from '@patternfly/react-core';
-import { getRandomID } from '../../../common/helpers';
+  Select, Row, Col,
+} from 'antd';
+import IngredientTags from './IngredientTags';
+
+const { Option } = Select;
 
 class IngredientSearch extends React.Component {
   constructor(props) {
     super(props);
-    this.autocompeleteRef = React.createRef();
-  }
-
-  componentDidMount() {
-    this.autocompeleteRef.current.autocompleteRequest = (params, callback) => {
-      const { ingredientDataset } = this.props;
-      this.autocompeleteRef.current.setAttribute('loading', '');
-      const ret = ingredientDataset.filter(
-        (item) => item.indexOf(params.query.toLowerCase()) > -1,
-      ).slice(0, 10);
-      callback(ret);
-      this.autocompeleteRef.current.removeAttribute('loading');
+    this.state = {
+      data: [],
+      value: '',
     };
-
-    this.autocompeleteRef.current.addEventListener('pfe-search-event', (e) => {
-      this.onEnterIngredient(e.detail.searchValue);
-      this.autocompeleteRef.current.initValue = '';
-    });
   }
 
-  onEnterIngredient(ingredient) {
+  onEnterIngredient(value) {
     const { addIngredient } = this.props;
-    if (ingredient !== '') {
-      addIngredient(ingredient);
+    if (value !== '') {
+      addIngredient(value);
+      this.setState({ value: '', data: [] });
     }
   }
 
+  handleChange(value) {
+    const { ingredientDataset } = this.props;
+    this.setState({ value });
+    const results = ingredientDataset.filter((ingredient) => (
+      ingredient.value.toUpperCase().indexOf(value.toUpperCase()) !== -1
+    ));
+    this.setState({ data: results });
+  }
+
   render() {
-    const { ingredientList, include, removeIngredient } = this.props;
+    const {
+      include, ingredientList, removeIngredient,
+    } = this.props;
+    const { data, value } = this.state;
+    const options = data.map((ingredient) => (
+      <Option key={ingredient.value}>{ingredient.value}</Option>
+    ));
     return (
-      <Stack gutter="sm">
-        <StackItem key="search1">
-          <h1>{`Ingredients to ${include ? 'include' : 'exclude'}`}</h1>
-          <InputGroup>
-            <pfe-autocomplete
-              ref={this.autocompeleteRef}
-              debounce="500"
+      <>
+        <Row gutter={[0, 20]}>
+          <Col span={24}>
+            <h1
+              className="search-box-label"
             >
-              <input placeholder="Enter Your Search Term" />
-            </pfe-autocomplete>
-          </InputGroup>
-        </StackItem>
-        <StackItem key="chips1">
-          <ChipGroup
-            numChips={10}
-          >
-            {ingredientList.map((ingredient) => (
-              <Chip
-                className={`${include ? 'include' : 'exclude'}-ingredient-chip`}
-                key={`${include ? 'include' : 'exclude'}${getRandomID()}`}
-                onClick={() => removeIngredient(ingredient)}
-              >
-                {ingredient}
-              </Chip>
-            ))}
-          </ChipGroup>
-        </StackItem>
-      </Stack>
+              {`Ingredients to ${include ? 'include' : 'exclude'}`}
+            </h1>
+            <Select
+              className="search-box"
+              showSearch
+              allowClear
+              size="middle"
+              value={value}
+              placeholder="Enter your search term"
+              showArrow={false}
+              filterOption={false}
+              onSelect={(inputValue) => this.onEnterIngredient(inputValue)}
+              onSearch={(inputValue) => this.handleChange(inputValue)}
+              notFoundContent={null}
+              onKeyDown={(e) => {
+                if (e.keyCode === 13 && data.length === 0) {
+                  this.onEnterIngredient(value);
+                }
+              }}
+            >
+              {options}
+            </Select>
+          </Col>
+        </Row>
+        <Row gutter={[0, 20]}>
+          <IngredientTags
+            ingredientList={ingredientList}
+            onClose={removeIngredient}
+            include={include}
+          />
+        </Row>
+      </>
     );
   }
 }
@@ -78,7 +87,7 @@ class IngredientSearch extends React.Component {
 IngredientSearch.propTypes = {
   include: PropTypes.bool,
   ingredientList: PropTypes.arrayOf(PropTypes.string).isRequired,
-  ingredientDataset: PropTypes.arrayOf(PropTypes.string).isRequired,
+  ingredientDataset: PropTypes.arrayOf(PropTypes.object).isRequired,
   addIngredient: PropTypes.func.isRequired,
   removeIngredient: PropTypes.func.isRequired,
 };
