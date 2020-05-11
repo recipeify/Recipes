@@ -37,9 +37,9 @@ docker tag ... # tag a current version of a docker saving any new layers
 ```
 Futher usage can be found easily using Google search and [this cheatsheet](https://www.docker.com/sites/default/files/d8/2019-09/docker-cheat-sheet.pdf)
 
-### To run elasticsearch (with sample recipes) in a attached container:
+### To run elasticsearch (with sample recipes) in an attached/detached container:
 ```
-docker run -p 9200:9200 -p 9300:9300 -e "discovery.type=single-node" hagais/es-recipes:0.2
+docker run -p 9200:9200 -p 9300:9300 -e "discovery.type=single-node" [-d] hagais/es-recipes:0.2
 ```
 then make sure that .env has `ELASTIC_SEARCH_HOST=http://localhost:9200` set before runing `yarn`
 
