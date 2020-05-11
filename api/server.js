@@ -4,8 +4,6 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const elasticsearch = require('elasticsearch');
 const fs = require('fs');
-const csv = require('fast-csv');
-const path = require('path');
 const { auth } = require('express-openid-connect');
 
 require('dotenv').config();
@@ -21,12 +19,8 @@ app.use(auth({
 
 app.use(express.static(path.join(__dirname, 'build')));
 
-const ingredients = [];
-fs.createReadStream('./ingredients.csv')
-  .pipe(csv.parse())
-  .on('data', (data) => {
-    ingredients.push(data[0]);
-  });
+const rawData = fs.readFileSync('ingredients.json');
+const ingredients = JSON.parse(rawData);
 
 if (!process.env.ELASTIC_SEARCH_HOST) {
   console.error('missing ELASTIC_SEARCH_HOST');
@@ -44,7 +38,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get('/api/resources/ingredients', async (_, response) => {
   response.send({
-    items: ingredients,
+    items: ingredients.ingredients,
   });
 });
 
