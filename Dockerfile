@@ -1,4 +1,4 @@
-FROM node:carbon-alpine as builder
+FROM node:erbium-alpine as builder
 ENV HOME /usr/src/
 WORKDIR $HOME
 
@@ -38,7 +38,7 @@ COPY ./client/  $HOME/client/
 # Build
 RUN yarn build
 
-FROM node:carbon-alpine
+FROM node:erbium-alpine
 ENV HOME /usr/src/
 ENV NODE_ENV production
 WORKDIR $HOME
