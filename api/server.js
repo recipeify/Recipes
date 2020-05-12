@@ -80,7 +80,7 @@ app.post('/api/search/recipes', asyncHandler(async (request, resoponse, next) =>
  if (freeText) {
     body.query.bool.must.push({'simple_query_string' : {
       query: freeText,
-      fields: ['title','ingredients'],
+      fields: ['title','ingredients', 'tags', 'diet'],
     }})
   };
 
@@ -102,7 +102,7 @@ app.post('/api/search/recipes', asyncHandler(async (request, resoponse, next) =>
   }
 
   if (tags.length > 0) {
-    body.query.bool.must = excludeTerms.map((term) => ({ match: { tags: term } }));
+    body.query.bool.must = tags.map((term) => ({ match: { tags: term } }));
   }
 
   const response = await esClient.search({
