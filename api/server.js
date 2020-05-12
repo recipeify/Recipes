@@ -6,6 +6,7 @@ const elasticsearch = require('elasticsearch');
 const fs = require('fs');
 const path = require('path');
 const { auth } = require('express-openid-connect');
+const asyncHandler = require('express-async-handler')
 
 require('dotenv').config();
 
@@ -37,22 +38,31 @@ const esClient = new elasticsearch.Client({
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.get('/api/resources/ingredients', async (_, response) => {
+app.get('/api/resources/ingredients', asyncHandler(async (request, resoponse, next) => {
   response.send({
     items: ingredients.ingredients,
   });
-});
+}));
 
+function isString (value) {
+  return typeof value === 'string' || value instanceof String;
+}
 
-app.post('/api/search/ingredients', async (request, resoponse) => {
+app.post('/api/search/recipes', asyncHandler(async (request, resoponse, next) => {
   const {
+    freeText,
     includeTerms,
     excludeTerms,
+    fromCookTime = 0,
+    toCookTime = 600,
+    tags,
+    diet,
     from = 0,
     size = 10,
   } = request.body;
 
-  if (!Array.isArray(includeTerms) || !Array.isArray(excludeTerms)) {
+  if (!Array.isArray(includeTerms) || !Array.isArray(excludeTerms) ||
+      !isString(freeText) || !Array.isArray(tags) || !Array.isArray(diet)) {
     resoponse.sendStatus(400);
     return;
   }
@@ -67,13 +77,36 @@ app.post('/api/search/ingredients', async (request, resoponse) => {
     size,
   };
 
+ if (freeText) {
+    body.query.bool.must.push({'simple_query_string' : {
+      query: freeText,
+      fields: ['title','ingredients'],
+    }})
+  };
+
+  body.query.bool.filter = {
+    range : {
+      total_time : {
+        gte: fromCookTime,
+        lte: toCookTime,
+      },
+    },
+  };
+
   if (excludeTerms.length > 0) {
     body.query.bool.must_not = excludeTerms.map((term) => ({ match: { ingredients: term } }));
   }
 
+  if (diet.length > 0) {
+    body.query.bool.must = diet.map((term) => ({ match: { diet: term } }));
+  }
+
+  if (tags.length > 0) {
+    body.query.bool.must = excludeTerms.map((term) => ({ match: { tags: term } }));
+  }
+
   const response = await esClient.search({
     index: 'test-index',
-    type: 'recipe',
     body,
   });
 
@@ -81,7 +114,7 @@ app.post('/api/search/ingredients', async (request, resoponse) => {
     total: response.hits.total,
     items: response.hits.hits.map((e) => e._source),
   });
-});
+}));
 
 /* test user */
 app.get('/api/user/check', async (request, response) => {
