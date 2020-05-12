@@ -1,14 +1,20 @@
+from scrapy.crawler import CrawlerProcess
+
 import recipescrapers.recipe_scrapers
-import json
 import certifi
 from elasticsearch import Elasticsearch
 from dotenv import load_dotenv
 import os
 import math
+from time import sleep
 
 from .allrecipes import AllRecipes
+from .bbcfood import BBCFood
 
-# from .bbcfood import BBCFood
+HEADERS = {
+   'USER_AGENT': 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)'
+}
+
 # from .bbcgoodfood import BBCGoodFood
 # from .bettycrocker import BettyCrocker
 # from .bonappetit import BonAppetit
@@ -24,8 +30,10 @@ from .allrecipes import AllRecipes
 # from .tasty import Tasty
 
 URLS = {
-    recipescrapers.recipe_scrapers.AllRecipes.host(): [AllRecipes, "https://www.allrecipes.com/recipes/22908/everyday-cooking/special-collections/new/?page=1"]
-    # recipescrapers.BBCFood.host(): BBCFood,
+    recipescrapers.recipe_scrapers.BBCFood.host(): BBCFood,
+    recipescrapers.recipe_scrapers.AllRecipes.host(): AllRecipes
+
+
     # recipescrapers.BBCFood.host(domain='co.uk'): BBCFood,
     # recipescrapers.BBCGoodFood.host(): BBCGoodFood,
     # recipescrapers.BettyCrocker.host(): BettyCrocker,
@@ -53,14 +61,20 @@ def connect_to_es():
     return es
 
 
-def init_crawler(num):
+# Default = periodic crawler
+def init_crawler(num, init=1):
     es = connect_to_es()
+    process = CrawlerProcess({'USER_AGENT': 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)'})
     for host, site in URLS.items():
-        #try:
-            obj = site[0](host, site[1], math.floor(num / len(URLS.items())))
-            obj.crawl(es)
-        #except #We'll get to this:
-            #raise #We'll get to this
+        # try:
+        obj = site(math.floor(num / len(URLS.items())), init)
+        obj.crawl(es, process)
+    sleep(5)
+    process.start()
+    process.stop()
+
+    # except #We'll get to this:
+    # raise #We'll get to this
 
 
 __all__ = ['init_crawler']
