@@ -48,7 +48,7 @@ URLS = {
 
 
 def connect_to_es():
-    load_dotenv(dotenv_path='Recipes/api/.env')
+    load_dotenv(dotenv_path='Recipes/scraper/.env')
     elastic_search_host = os.getenv("ELASTIC_SEARCH_HOST")
     es = Elasticsearch(
         [elastic_search_host],

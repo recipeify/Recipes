@@ -1,2 +1,3 @@
 simplified-recipes-1M.npz
-scraper/__pycache__/
+/__pycache__/
+.env
