@@ -1,10 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {
-  Card,
-  CardHeader,
-  CardBody,
-} from '@patternfly/react-core';
+import { Card } from 'antd';
+
+const { Meta } = Card;
 
 const openRecipe = (link) => {
   window.open(link, 'noopener noreferrer');
@@ -15,19 +13,21 @@ const RecipeCard = (props) => {
   const { title, link, image: imageURL } = recipe;
   return (
     <Card
+      className="recipe-card"
       onClick={() => openRecipe(link)}
-      isHoverable
-    >
-      <CardHeader>
-        {title}
-      </CardHeader>
-      <CardBody>
+      hoverable
+      cover={(
         <img
           className="recipe-image"
           src={imageURL}
           alt={title}
         />
-      </CardBody>
+      )}
+    >
+      <Meta
+        className="recipe-card-meta"
+        title={title}
+      />
     </Card>
   );
 };

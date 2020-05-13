@@ -1,0 +1,25 @@
+version: '3.4'
+services:
+# Elasticsearch
+  elasticsearch:
+    image: hagais/es-recipes:0.2
+    environment:
+      - discovery.type=single-node
+    ports:
+      - 9200:9200
+# TODO : mongoDB
+# Recipeify
+  recipeify:
+     image: 635062671985.dkr.ecr.eu-central-1.amazonaws.com/recipeify:0.3.1
+     build:
+      context: .
+      dockerfile: Dockerfile
+     ports:
+       - 3000:5000
+     depends_on:
+      - elasticsearch
+     env_file:
+       - api/docker.env
+     stdin_open: true
+     tty: true
+     entrypoint: ["nodemon", "server.js"]

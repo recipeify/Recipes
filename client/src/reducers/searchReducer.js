@@ -4,6 +4,20 @@ import pull from 'lodash/pull';
 import { searchActions } from '../actions/searchActions';
 
 const initialState = {
+  // include: [
+  //   'flour',
+  //   'coconut',
+  //   'coconut milk',
+  //   'margarine',
+  //   'almond milk',
+  //   'ginger ale',
+  //   'peaches',
+  //   'strawberries',
+  //   'blueberries',
+  //   'bananas',
+  //   'oranges',
+  //   'tangerines',
+  // ],
   include: [],
   exclude: [],
 };
