@@ -6,43 +6,39 @@ from elasticsearch import Elasticsearch
 from dotenv import load_dotenv
 import os
 import math
-from time import sleep
 
 from .allrecipes import AllRecipes
 from .bbcfood import BBCFood
-
-HEADERS = {
-   'USER_AGENT': 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)'
-}
-
-# from .bbcgoodfood import BBCGoodFood
-# from .bettycrocker import BettyCrocker
-# from .bonappetit import BonAppetit
-# from .budgetbytes import BudgetBytes
+from .bbcgoodfood import BBCGoodFood
+from .bettycrocker import BettyCrocker
+from .bonappetit import BonAppetit
+from .budgetbytes import BudgetBytes
 # from .closetcooking import ClosetCooking
-# from .cookstr import Cookstr
-# from .copykat import CopyKat
-# from .delish import Delish
+from .cookstr import Cookstr
+from .copykat import CopyKat
+from .delish import Delish
 # from .epicurious import Epicurious
 # from .food import Food
 # from .foodnetwork import FoodNetwork
 # from .foodrepublic import FoodRepublic
 # from .tasty import Tasty
 
+
+HEADERS = {
+    'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64; rv:48.0) Gecko/20100101 Firefox/48.0'
+}
+
 URLS = {
-    recipescrapers.recipe_scrapers.BBCFood.host(): BBCFood,
-    recipescrapers.recipe_scrapers.AllRecipes.host(): AllRecipes
-
-
-    # recipescrapers.BBCFood.host(domain='co.uk'): BBCFood,
-    # recipescrapers.BBCGoodFood.host(): BBCGoodFood,
-    # recipescrapers.BettyCrocker.host(): BettyCrocker,
-    # recipescrapers.BonAppetit.host(): BonAppetit,
-    # recipescrapers.BudgetBytes.host(): BudgetBytes,
+    # recipescrapers.recipe_scrapers.BBCFood.host(): BBCFood,
+    # recipescrapers.recipe_scrapers.BBCGoodFood.host(): BBCGoodFood,
+    # recipescrapers.recipe_scrapers.BettyCrocker.host(): BettyCrocker,
+    # recipescrapers.recipe_scrapers.BonAppetit.host(): BonAppetit,
+    # recipescrapers.recipe_scrapers.AllRecipes.host(): AllRecipes,
+    # recipescrapers.recipe_scrapers.BudgetBytes.host(): BudgetBytes
     # recipescrapers.ClosetCooking.host(): ClosetCooking,
-    # recipescrapers.Cookstr.host(): Cookstr,
-    # recipescrapers.CopyKat.host(): CopyKat,
-    # recipescrapers.Delish.host(): Delish,
+    # recipescrapers.recipe_scrapers.Cookstr.host(): Cookstr,
+    # recipescrapers.recipe_scrapers.CopyKat.host(): CopyKat,
+    recipescrapers.recipe_scrapers.Delish.host(): Delish,
     # recipescrapers.Epicurious.host(): Epicurious,
     # recipescrapers.Food.host(): Food,
     # recipescrapers.FoodNetwork.host(): FoodNetwork,
@@ -64,12 +60,17 @@ def connect_to_es():
 # Default = periodic crawler
 def init_crawler(num, init=1):
     es = connect_to_es()
-    process = CrawlerProcess({'USER_AGENT': 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)'})
+    process = CrawlerProcess(HEADERS)
+    process.settings.set(
+        'DOWNLOAD_DELAY', 0.05,
+    )
+    process.settings.set(
+        'CONCURRENT_REQUESTS', 8
+    )
     for host, site in URLS.items():
         # try:
         obj = site(math.floor(num / len(URLS.items())), init)
         obj.crawl(es, process)
-    sleep(5)
     process.start()
     process.stop()
 

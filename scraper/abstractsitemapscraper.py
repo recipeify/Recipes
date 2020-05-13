@@ -23,6 +23,7 @@ class FilteredSitemapSpider(SitemapSpider):
             self.num = kwargs.get('num')
             self.sitename = kwargs.get('sitename')
             self.init = kwargs.get('init')
+            self.name = "FilteredSitemapSpider" + kwargs.get('sitename')
             super(FilteredSitemapSpider, self).__init__(*args, **kwargs)
 
     def sitemap_filter(self, entries):
@@ -40,7 +41,10 @@ class FilteredSitemapSpider(SitemapSpider):
                 pass
 
     def parse_recipes(self, response):
-        if self.i <= self.num:
-            self.i += insert_to_es(self.es, scrape_me(response.url, response.body), self.sitename)
-        else:
-            raise CloseSpider('Crawled enough pages')
+        try:
+            if self.i <= self.num:
+                self.i += insert_to_es(self.es, scrape_me(response.url, response.body), self.sitename)
+            else:
+                raise CloseSpider('Crawled enough pages')
+        except ValueError:
+            pass

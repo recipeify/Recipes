@@ -5,9 +5,10 @@ from elasticsearch import exceptions
 def insert_to_es(es, s, name):
     r = {}
     try:
-        r['id'] = name + s.id()
+        r['id'] = name + '-' + s.id()
     except (NotImplementedError, TypeError):
         print('failed to get ' + s.url)
+        return False
 
     try:
         r['title'] = s.title()
