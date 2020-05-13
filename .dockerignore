@@ -1,0 +1,7 @@
+api/node_modules
+client/node_modules
+!client/yarn-offline-mirror/
+!client/src/
+!client/package.json
+!client/yarn.lock
+!client/.yarnrc
