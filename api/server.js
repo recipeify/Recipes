@@ -6,7 +6,7 @@ const elasticsearch = require('elasticsearch');
 const fs = require('fs');
 const path = require('path');
 const { auth } = require('express-openid-connect');
-const asyncHandler = require('express-async-handler')
+const asyncHandler = require('express-async-handler');
 
 require('dotenv').config();
 
@@ -15,8 +15,8 @@ const port = process.env.PORT || 5000;
 
 /* setup auth0 middleware with required authentication for all /user/ routes */
 app.use(auth({
-  required: req => req.originalUrl.startsWith('/api/user/'),
-  redirectUriPath: '/'
+  required: (req) => req.originalUrl.startsWith('/api/user/'),
+  redirectUriPath: '/',
 }));
 
 app.use(express.static(path.join(__dirname, 'build')));
@@ -38,17 +38,17 @@ const esClient = new elasticsearch.Client({
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.get('/api/resources/ingredients', asyncHandler(async (request, resoponse, next) => {
+app.get('/api/resources/ingredients', asyncHandler(async (_request, response, _next) => {
   response.send({
     items: ingredients.ingredients,
   });
 }));
 
-function isString (value) {
+function isString(value) {
   return typeof value === 'string' || value instanceof String;
 }
 
-app.post('/api/search/recipes', asyncHandler(async (request, resoponse, next) => {
+app.post('/api/search/recipes', asyncHandler(async (request, resoponse, _next) => {
   const {
     freeText,
     includeTerms,
@@ -61,8 +61,8 @@ app.post('/api/search/recipes', asyncHandler(async (request, resoponse, next) =>
     size = 10,
   } = request.body;
 
-  if (!Array.isArray(includeTerms) || !Array.isArray(excludeTerms) ||
-      !isString(freeText) || !Array.isArray(tags) || !Array.isArray(diet)) {
+  if (!Array.isArray(includeTerms) || !Array.isArray(excludeTerms)
+      || !isString(freeText) || !Array.isArray(tags) || !Array.isArray(diet)) {
     resoponse.sendStatus(400);
     return;
   }
@@ -77,16 +77,18 @@ app.post('/api/search/recipes', asyncHandler(async (request, resoponse, next) =>
     size,
   };
 
- if (freeText) {
-    body.query.bool.must.push({'simple_query_string' : {
-      query: freeText,
-      fields: ['title','ingredients', 'tags', 'diet'],
-    }})
-  };
+  if (freeText) {
+    body.query.bool.must.push({
+      simple_query_string: {
+        query: freeText,
+        fields: ['title', 'ingredients', 'tags', 'diet'],
+      },
+    });
+  }
 
   body.query.bool.filter = {
-    range : {
-      total_time : {
+    range: {
+      total_time: {
         gte: fromCookTime,
         lte: toCookTime,
       },
@@ -113,6 +115,31 @@ app.post('/api/search/recipes', asyncHandler(async (request, resoponse, next) =>
   resoponse.send({
     total: response.hits.total,
     items: response.hits.hits.map((e) => e._source),
+  });
+}));
+
+// eslint-disable-next-line no-unused-vars
+app.post('/api/search/ids', asyncHandler(async (request, resoponse, _next) => {
+  const {
+    ids,
+  } = request.body;
+
+  if (!Array.isArray(ids)) {
+    resoponse.sendStatus(400);
+    return;
+  }
+
+  const body = {
+    ids,
+  };
+
+  const response = await esClient.mget({
+    index: 'test-index',
+    body,
+  });
+
+  resoponse.send({
+    items: response.docs.map((e) => e._source),
   });
 }));
 
