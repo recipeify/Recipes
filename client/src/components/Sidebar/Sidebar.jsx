@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
 import { Row, Col } from 'antd';
 // import { Stack, StackItem } from '@patternfly/react-core';
 import IngredientSearch from './IngredientSearch';

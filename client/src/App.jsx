@@ -1,11 +1,9 @@
 import React from 'react';
-
 import 'antd/dist/antd.css';
 import { Layout, Row, Col } from 'antd';
 import RecipeList from './components/RecipeList';
 import Sidebar from './components/Sidebar';
 import logo from './assets/cake-pop.svg';
-
 
 const { Header, Sider } = Layout;
 
@@ -15,20 +13,6 @@ class App extends React.Component {
   }
 
   render() {
-
-    // const brand = <Brand src={logo} alt="Recipeify" />;
-    // const Header = (
-    //   <PageHeader
-    //     logo={brand}
-    //     logoProps={logoProps}
-    //     toolbar="Toolbar"
-    //     avatar=" | Avatar"
-    //     isNavOpen
-    //   />
-    // );
-    // const sidebarComponent = <Sidebar />;
-    // const sidebar = <PageSidebar nav={sidebarComponent} isNavOpen theme="light" />;
-
     return (
       <Layout style={{ height: '100vh' }}>
         <Header id="header">

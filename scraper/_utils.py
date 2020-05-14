@@ -45,14 +45,14 @@ def insert_to_es(es, s, name):
         r['total_time'] = s.total_time()
     except (NotImplementedError, TypeError):
         r['total_time'] = None
-        print('failed to get ' + s.url)
+        print('failed to get ' + s.url + ' - Total-time failed')
 
     try:
         r['rating'] = s.ratings()
     except (NotImplementedError, TypeError):
         r['rating'] = None
     try:
-        s = es.create(index='recipes', doc_type='recipe', id=r['id'], body=json.dumps(r))
+        s = es.create(index='recipes', id=r['id'], body=json.dumps(r))
     except exceptions.ConflictError as e:
         if e.status_code == 409:
             return False

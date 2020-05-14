@@ -6,6 +6,7 @@ from elasticsearch import Elasticsearch
 from dotenv import load_dotenv
 import os
 import math
+from scrapy.utils.project import get_project_settings
 
 from .allrecipes import AllRecipes
 from .bbcfood import BBCFood
@@ -23,6 +24,8 @@ from .delish import Delish
 # from .foodrepublic import FoodRepublic
 # from .tasty import Tasty
 
+
+load_dotenv(dotenv_path='Recipes/scraper/.env')
 
 HEADERS = {
     'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64; rv:48.0) Gecko/20100101 Firefox/48.0'
@@ -48,7 +51,6 @@ URLS = {
 
 
 def connect_to_es():
-    load_dotenv(dotenv_path='Recipes/scraper/.env')
     elastic_search_host = os.getenv("ELASTIC_SEARCH_HOST")
     es = Elasticsearch(
         [elastic_search_host],
@@ -57,25 +59,18 @@ def connect_to_es():
     return es
 
 
-# Default = periodic crawler
+# Default = periodic crawler(init=0), for Testing purposes I am using the initial crawler(init=1)
 def init_crawler(num, init=1):
     es = connect_to_es()
-    process = CrawlerProcess(HEADERS)
-    process.settings.set(
-        'DOWNLOAD_DELAY', 0.05,
-    )
-    process.settings.set(
-        'CONCURRENT_REQUESTS', 8
-    )
+    #Create a crawling process for all crawlers to make use of Scrapy's concurrency
+    process = CrawlerProcess(settings=get_project_settings())
     for host, site in URLS.items():
-        # try:
+        #Create an instance of each site's crawler
         obj = site(math.floor(num / len(URLS.items())), init)
+        #Instruct the process to crawl each individual site, but only start the actual crawling process once they're all ready
         obj.crawl(es, process)
     process.start()
     process.stop()
-
-    # except #We'll get to this:
-    # raise #We'll get to this
 
 
 __all__ = ['init_crawler']

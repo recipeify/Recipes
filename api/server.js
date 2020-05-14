@@ -4,10 +4,8 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const elasticsearch = require('elasticsearch');
 const fs = require('fs');
-
 const path = require('path');
 const { auth } = require('express-openid-connect');
-
 
 require('dotenv').config();
 

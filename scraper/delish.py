@@ -10,8 +10,3 @@ class Delish(AbstractCrawler):
         domains = ['delish.com']
         process.crawl(FilteredSitemapSpider, es=es, num=self.num, sitemap_urls=URL, sitemap_rules=rules,
                       sitename='delish', allowed_domains=domains, init=self.flag)
-
-
-
-
-

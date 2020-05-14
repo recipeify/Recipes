@@ -10,14 +10,3 @@ class CopyKat(AbstractCrawler):
         domains = ['copykat.com']
         process.crawl(FilteredSitemapSpider, es=es, num=self.num, sitemap_urls=URL, sitemap_rules=rules,
                       sitename='copykat', allowed_domains=domains, init=self.flag)
-
-
-
-
-
-
-
-
-
-
-
