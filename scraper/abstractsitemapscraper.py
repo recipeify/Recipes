@@ -30,7 +30,7 @@ class FilteredSitemapSpider(SitemapSpider):
         for entry in entries:
             try:
                 date_time = parser.parse(entry['lastmod'], ignoretz=True)
-                time_difference = date_time - datetime.now()
+                time_difference = datetime.now() - date_time
                 if self.init:
                     if time_difference.days <= (4 * 365):
                         yield entry

@@ -14,39 +14,30 @@ from .bbcgoodfood import BBCGoodFood
 from .bettycrocker import BettyCrocker
 from .bonappetit import BonAppetit
 from .budgetbytes import BudgetBytes
-# from .closetcooking import ClosetCooking
 from .cookstr import Cookstr
 from .copykat import CopyKat
 from .delish import Delish
-# from .epicurious import Epicurious
-# from .food import Food
-# from .foodnetwork import FoodNetwork
-# from .foodrepublic import FoodRepublic
-# from .tasty import Tasty
-
+from .epicurious import Epicurious
+from .food import Food
+from .foodnetwork import FoodNetwork
+from .tasty import Tasty
 
 load_dotenv(dotenv_path='Recipes/scraper/.env')
 
-HEADERS = {
-    'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64; rv:48.0) Gecko/20100101 Firefox/48.0'
-}
-
 URLS = {
-    # recipescrapers.recipe_scrapers.BBCFood.host(): BBCFood,
-    # recipescrapers.recipe_scrapers.BBCGoodFood.host(): BBCGoodFood,
-    # recipescrapers.recipe_scrapers.BettyCrocker.host(): BettyCrocker,
-    # recipescrapers.recipe_scrapers.BonAppetit.host(): BonAppetit,
-    # recipescrapers.recipe_scrapers.AllRecipes.host(): AllRecipes,
-    # recipescrapers.recipe_scrapers.BudgetBytes.host(): BudgetBytes
-    # recipescrapers.ClosetCooking.host(): ClosetCooking,
-    # recipescrapers.recipe_scrapers.Cookstr.host(): Cookstr,
-    # recipescrapers.recipe_scrapers.CopyKat.host(): CopyKat,
+    recipescrapers.recipe_scrapers.BBCFood.host(): BBCFood,
+    recipescrapers.recipe_scrapers.BBCGoodFood.host(): BBCGoodFood,
+    recipescrapers.recipe_scrapers.BettyCrocker.host(): BettyCrocker,
+    recipescrapers.recipe_scrapers.BonAppetit.host(): BonAppetit,
+    recipescrapers.recipe_scrapers.AllRecipes.host(): AllRecipes,
+    recipescrapers.recipe_scrapers.BudgetBytes.host(): BudgetBytes,
+    recipescrapers.recipe_scrapers.Cookstr.host(): Cookstr,
+    recipescrapers.recipe_scrapers.CopyKat.host(): CopyKat,
     recipescrapers.recipe_scrapers.Delish.host(): Delish,
-    # recipescrapers.Epicurious.host(): Epicurious,
-    # recipescrapers.Food.host(): Food,
-    # recipescrapers.FoodNetwork.host(): FoodNetwork,
-    # recipescrapers.FoodRepublic.host(): FoodRepublic,
-    # recipescrapers.Tasty.host(): Tasty
+    recipescrapers.recipe_scrapers.Epicurious.host(): Epicurious,
+    recipescrapers.recipe_scrapers.Food.host(): Food,
+    recipescrapers.recipe_scrapers.FoodNetwork.host(): FoodNetwork,
+    recipescrapers.recipe_scrapers.Tasty.host(): Tasty
 }
 
 
