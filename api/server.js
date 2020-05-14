@@ -13,13 +13,17 @@ require('dotenv').config();
 const app = express();
 const port = process.env.PORT || 5000;
 
-/* setup auth0 middleware with required authentication for all /user/ routes */
+/* setup auth0 middleware with required authentication for all /api/users routes */
 app.use(auth({
-  required: (req) => req.originalUrl.startsWith('/api/user/'),
+  required: (req) => req.originalUrl.startsWith('/api/users'),
   redirectUriPath: '/',
 }));
 
+/* static routes */
 app.use(express.static(path.join(__dirname, 'build')));
+
+/* users routes */
+app.use('/api/users', require('./users.js').router);
 
 const rawData = fs.readFileSync('ingredients.json');
 const ingredients = JSON.parse(rawData);
@@ -38,6 +42,7 @@ const esClient = new elasticsearch.Client({
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+// eslint-disable-next-line no-unused-vars
 app.get('/api/resources/ingredients', asyncHandler(async (_request, response, _next) => {
   response.send({
     items: ingredients.ingredients,
@@ -48,7 +53,8 @@ function isString(value) {
   return typeof value === 'string' || value instanceof String;
 }
 
-app.post('/api/search/recipes', asyncHandler(async (request, resoponse, _next) => {
+// eslint-disable-next-line no-unused-vars
+app.post('/api/search/recipes', asyncHandler(async (request, response, _next) => {
   const {
     freeText,
     includeTerms,
@@ -63,7 +69,7 @@ app.post('/api/search/recipes', asyncHandler(async (request, resoponse, _next) =
 
   if (!Array.isArray(includeTerms) || !Array.isArray(excludeTerms)
       || !isString(freeText) || !Array.isArray(tags) || !Array.isArray(diet)) {
-    resoponse.sendStatus(400);
+    response.sendStatus(400);
     return;
   }
 
@@ -107,25 +113,25 @@ app.post('/api/search/recipes', asyncHandler(async (request, resoponse, _next) =
     body.query.bool.must = tags.map((term) => ({ match: { tags: term } }));
   }
 
-  const response = await esClient.search({
+  const query = await esClient.search({
     index: 'test-index',
     body,
   });
 
-  resoponse.send({
-    total: response.hits.total,
-    items: response.hits.hits.map((e) => e._source),
+  response.send({
+    total: query.hits.total,
+    items: query.hits.hits.map((e) => e._source),
   });
 }));
 
 // eslint-disable-next-line no-unused-vars
-app.post('/api/search/ids', asyncHandler(async (request, resoponse, _next) => {
+app.post('/api/search/ids', asyncHandler(async (request, response, _next) => {
   const {
     ids,
   } = request.body;
 
   if (!Array.isArray(ids)) {
-    resoponse.sendStatus(400);
+    response.sendStatus(400);
     return;
   }
 
@@ -133,19 +139,14 @@ app.post('/api/search/ids', asyncHandler(async (request, resoponse, _next) => {
     ids,
   };
 
-  const response = await esClient.mget({
+  const query = await esClient.mget({
     index: 'test-index',
     body,
   });
 
-  resoponse.send({
-    items: response.docs.map((e) => e._source),
+  response.send({
+    items: query.docs.map((e) => e._source),
   });
 }));
-
-/* test user */
-app.get('/api/user/check', async (request, response) => {
-  response.send(`hello ${request.openid.user.name}`);
-});
 
 app.listen(port, () => console.log(`Listening on port ${port}`));
