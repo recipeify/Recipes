@@ -11,7 +11,22 @@
 #header {
   background-color: #ec7533;
   padding-left: 10px;
+  padding-right: 20px;
   height: 70px;
+}
+
+div.authentication {
+  > button {
+    margin-top: 20px;
+    &.login {
+      background-color: #900c3f;
+      border-color: #900c3f;
+    } 
+  }
+  #logout:hover {
+    color: #000 !important;
+    border-color: #000 !important;
+  }
 }
 
 #sidebar {
@@ -55,6 +70,13 @@
   height: 300px;
 }
 
+
+.recipe-card {
+  div.ant-card-body {
+    height: 120px;
+  }
+}
+
 .recipe-card-meta {
   height: 60px;
   div.ant-card-meta-detail > div.ant-card-meta-title {
@@ -95,7 +117,8 @@
   position: -8px !important;
 }
 
-.ingredient-tag-button:hover {
+// ghost button style
+.ingredient-tag-button:hover, .logout:hover{
   color: #000 !important;
   border-color: #000 !important;
 }

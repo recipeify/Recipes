@@ -56,7 +56,6 @@ class IngredientSearch extends React.Component {
               allowClear
               size="middle"
               value={value}
-              placeholder="Enter your search term"
               showArrow={false}
               filterOption={false}
               onSelect={(inputValue) => this.onEnterIngredient(inputValue)}
