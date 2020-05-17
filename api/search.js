@@ -75,7 +75,7 @@ router.post('/recipes', asyncHandler(async (request, response, _next) => {
   }
 
   const query = await esClient.search({
-    index: 'test-index',
+    index: process.env.ELASTIC_SEARCH_INDEX,
     body,
   });
 
@@ -102,7 +102,7 @@ router.post('/ids', asyncHandler(async (request, response, _next) => {
   };
 
   const query = await esClient.mget({
-    index: 'test-index',
+    index: process.env.ELASTIC_SEARCH_INDEX,
     body,
   });
 
