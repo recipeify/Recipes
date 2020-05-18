@@ -14,8 +14,8 @@ const port = process.env.PORT || 5000;
 
 /* setup auth0 middleware with required authentication for all /user/ routes */
 app.use(auth({
-  required: req => req.originalUrl.startsWith('/api/user/'),
-  redirectUriPath: '/'
+  required: (req) => req.originalUrl.startsWith('/api/user/'),
+  redirectUriPath: '/',
 }));
 
 app.use(express.static(path.join(__dirname, 'build')));
@@ -72,8 +72,8 @@ app.post('/api/search/ingredients', async (request, resoponse) => {
   }
 
   const response = await esClient.search({
-    index: 'test-index',
-    type: 'recipe',
+    index: 'recipes',
+    type: '_doc',
     body,
   });
 
