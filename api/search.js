@@ -17,13 +17,13 @@ function isString(value) {
 // eslint-disable-next-line no-unused-vars
 router.post('/recipes', asyncHandler(async (request, response, _next) => {
   const {
-    freeText,
-    includeTerms,
-    excludeTerms,
+    freeText = '',
+    includeTerms = [],
+    excludeTerms = [],
     fromCookTime = 0,
     toCookTime = 600,
-    tags,
-    diet,
+    tags = [],
+    diet = [],
     from = 0,
     size = 10,
   } = request.body;
