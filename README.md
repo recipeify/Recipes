@@ -44,7 +44,7 @@ docker run -p 9200:9200 -p 9300:9300 -e "discovery.type=single-node" [-d] hagais
 then make sure that .env has `ELASTIC_SEARCH_HOST=http://localhost:9200` set before runing `yarn`
 
 
-### To run elasticsearch + recipeify service in containers:
+### To run elasticsearch + mongoDB + recipeify service in containers:
 ```
 # in main repo dir
 docker-compose build
