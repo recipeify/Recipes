@@ -8,8 +8,8 @@ import { Auth0Provider } from './react-auth0-spa';
 import * as serviceWorker from './serviceWorker';
 
 const config = {
-  domain: 'dev-recipeify.eu.auth0.com',
-  clientId: 'nnDOj6v98hAMJImPNwgMK5b5uKF670Cf',
+  domain: process.env.REACT_APP_AUTH0_DOMAIN,
+  clientId: process.env.REACT_APP_AUTH0_CLIENT_ID,
 };
 
 // A function that routes the user to the right place
