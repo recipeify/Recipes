@@ -40,7 +40,7 @@ export const searchByIngredients = async (
   excludeTerms,
   from = 0,
   size = 10) => {
-  const response = await fetch('/api/search/ingredients',
+  const response = await fetch('/api/search/recipes',
     {
       method: 'POST',
       headers: {
