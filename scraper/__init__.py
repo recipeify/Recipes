@@ -1,3 +1,5 @@
+# import json
+
 from scrapy.crawler import CrawlerProcess
 
 import recipescrapers.recipe_scrapers
@@ -63,6 +65,12 @@ def init_crawler(num, init=1):
     process.start()
     process.stop()
 
+
+# def change_index(x):
+#     es = connect_to_es()
+#     return es.indices.create(index='recipes', body=x)
+#
+#     #es.indices.put_mapping(index='recipes', )
 
 __all__ = ['init_crawler']
 name = "scraper"

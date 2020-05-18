@@ -59,12 +59,6 @@ def insert_to_es(es, s, name):
         logging.log(logging.WARNING, 'Scrapy failed to get tags from ' + s.url)
 
     try:
-        r['diet'] = s.suitable_for_diet()
-    except (NotImplementedError, TypeError):
-        r['diet'] = []
-        logging.log(logging.WARNING, 'Scrapy failed to get dietary preferences from ' + s.url)
-
-    try:
         x = s.total_time()
         if x == 0:
             r['total_time'] = None
@@ -76,9 +70,15 @@ def insert_to_es(es, s, name):
 
     try:
         r['rating'] = s.ratings()
-    except (NotImplementedError, TypeError):
+    except (NotImplementedError, TypeError, AttributeError):
         r['rating'] = None
         logging.log(logging.WARNING, 'Scrapy failed to get ratings from ' + s.url)
+
+    try:
+        r['number_of_raters'] = s.number_of_raters()
+    except (NotImplementedError, TypeError, AttributeError):
+        r['number_of_raters'] = None
+        logging.log(logging.WARNING, 'Scrapy failed to get number of raters from ' + s.url)
 
     try:
         s = es.create(index='recipes', id=r['id'], body=json.dumps(r))
