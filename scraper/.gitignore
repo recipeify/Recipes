@@ -1,2 +1,4 @@
 simplified-recipes-1M.npz
-*.env
+/__pycache__/
+.env
+scrapy.log
