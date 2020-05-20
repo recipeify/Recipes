@@ -1,6 +1,7 @@
 const express = require('express');
 const elasticsearch = require('elasticsearch');
 const asyncHandler = require('express-async-handler');
+const get = require('lodash/get');
 
 const router = express.Router();
 
@@ -20,16 +21,17 @@ router.post('/recipes', asyncHandler(async (request, response, _next) => {
     freeText = '',
     includeTerms = [],
     excludeTerms = [],
+    diet = [],
+    cuisine = [],
+    dishType = [],
     fromCookTime = 0,
     toCookTime = 600,
-    tags = [],
-    diet = [],
     from = 0,
     size = 10,
   } = request.body;
-
   if (!Array.isArray(includeTerms) || !Array.isArray(excludeTerms)
-        || !isString(freeText) || !Array.isArray(tags) || !Array.isArray(diet)) {
+      || !isString(freeText) || !Array.isArray(diet) || !Array.isArray(cuisine)
+      || !Array.isArray(dishType)) {
     response.sendStatus(400);
     return;
   }
@@ -83,12 +85,97 @@ router.post('/recipes', asyncHandler(async (request, response, _next) => {
     body.query.bool.must_not = excludeTerms.map((term) => ({ match: { ingredients: term } }));
   }
 
+  const dietQueryPart = {
+    bool: {
+      must: [],
+    },
+  };
+  diet.forEach((item) => {
+    if (!get(item, 'tags', null)) {
+      dietQueryPart.bool.must.push(
+        {
+          bool: {
+            must: [
+              { match: { tags: item.key } },
+            ],
+          },
+        },
+      );
+    } else {
+      dietQueryPart.bool.must.push(
+        {
+          bool: {
+            should: item.tags.map((tag) => ({ match: { tags: tag } })),
+            minimum_should_match: 1,
+          },
+        },
+      );
+    }
+  });
   if (diet.length > 0) {
-    body.query.bool.must = diet.map((term) => ({ match: { diet: term } }));
+    body.query.bool.must.push(dietQueryPart);
   }
 
-  if (tags.length > 0) {
-    body.query.bool.must = tags.map((term) => ({ match: { tags: term } }));
+  const dishTypeQueryPart = {
+    bool: {
+      should: [],
+    },
+  };
+  dishType.forEach((item) => {
+    if (!get(item, 'tags', null)) {
+      dishTypeQueryPart.bool.should.push(
+        {
+          bool: {
+            must: [
+              { match: { tags: item.key } },
+            ],
+          },
+        },
+      );
+    } else {
+      dishTypeQueryPart.bool.should.push(
+        {
+          bool: {
+            should: item.tags.map((tag) => ({ match: { tags: tag } })),
+            minimum_should_match: 1,
+          },
+        },
+      );
+    }
+  });
+  if (dishType.length > 0) {
+    body.query.bool.must.push(dishTypeQueryPart);
+  }
+
+  const cuisineQueryPart = {
+    bool: {
+      should: [],
+    },
+  };
+  cuisine.forEach((item) => {
+    if (!get(item, 'tags', null)) {
+      cuisineQueryPart.bool.should.push(
+        {
+          bool: {
+            must: [
+              { match: { tags: item.key } },
+            ],
+          },
+        },
+      );
+    } else {
+      cuisineQueryPart.bool.should.push(
+        {
+          bool: {
+            should: item.tags.map((tag) => ({ match: { tags: tag } })),
+            minimum_should_match: 1,
+          },
+        },
+      );
+    }
+  });
+  if (cuisine.length > 0) {
+    body.query.bool.must.push(cuisineQueryPart);
   }
 
   const query = await esClient.search({

@@ -1,0 +1,72 @@
+{
+  "tags": [
+    {
+      "key": "quick & easy",
+      "tags": ["quick", "easy", "beginner", "simple"]
+    },
+    {
+      "key": "kid friendly",
+      "tags": ["kid_friendly", "kids"]
+    },
+    {
+      "key": "inexpensive",
+      "tags": ["inexpensive", "budget", "cheap"]
+    },
+    {
+      "key": "gourmet",
+      "tags": ["experienced", "gourmet"]
+    },
+    {
+      "key": "indulgent sweets",
+      "tags": ["indulgent_sweets"]
+    },
+    {
+      "key": "under 30 minutes",
+      "tags": ["under_30_minutes"]
+    },
+    {
+      "key": "freezer friendly",
+      "tags": ["freezable"]
+    },
+    {
+      "key": "pan fry",
+      "tags": ["pan_fry"]
+    },
+    {
+      "key": "5 ingredients or less",
+      "tags": ["5_ingredients_or_less"]
+    },
+    {
+      "key": "curry",
+      "tags": ["curry"]
+    },
+    {
+      "key": "indulgent",
+      "tags": ["indulgent"]
+    },
+    {
+      "key": "one pot or pan",
+      "tags": ["one_pot_or_pan", "onepotmeals"]
+    },
+    {
+      "key": "student meals",
+      "tags": ["student"]
+    },
+    {
+      "key": "no bake desserts",
+      "tags": ["no_bake_desserts"]
+    },
+    {
+      "key": "Veganuary",
+      "tags": ["veganuary"]
+    },
+    {
+      "key": "meal prep",
+      "tags": ["meal_prep", "mealprep"]
+    },
+    {
+      "key": "cook with leftovers",
+      "tags": ["leftovers"]
+    }
+  ]
+}
