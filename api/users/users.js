@@ -127,7 +127,31 @@ router.post('/remove_recipes', asyncHandler(async (request, response, next) => {
   const userHash = crypto.createHash('sha256').update(request.openid.user.sub).digest('hex');
   const removals = [];
   recipes.forEach((recipeId) => {
-    removals.push(new rqs.DeletePurchase(userHash, recipeId, { cascadeCreate: true }));
+    removals.push(new rqs.DeletePurchase(userHash, recipeId));
+  });
+
+  await recombeeClient.send(new rqs.Batch(removals)).catch((err) => {
+    if (err) next(err);
+  });
+}));
+
+router.post('/recipes_viewed', asyncHandler(async (request, response, next) => {
+  const {
+    recipes,
+  } = request.body;
+
+  if (!Array.isArray(recipes)) {
+    response.sendStatus(400);
+    return;
+  }
+
+  response.sendStatus(200);
+
+  /* can perform after response, send events to recommendation engine */
+  const userHash = crypto.createHash('sha256').update(request.openid.user.sub).digest('hex');
+  const removals = [];
+  recipes.forEach((recipeId) => {
+    removals.push(new rqs.AddDetailView(userHash, recipeId, { cascadeCreate: true }));
   });
 
   await recombeeClient.send(new rqs.Batch(removals)).catch((err) => {
