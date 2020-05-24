@@ -22,7 +22,8 @@
     "helmet": "^3.22.0",
     "mongodb": "^3.5.7",
     "mongoose": "^5.9.14",
-    "querystring": "^0.2.0"
+    "querystring": "^0.2.0",
+    "recombee-api-client": "^3.0.0"
   },
   "devDependencies": {
     "concurrently": "^5.1.0",

@@ -1,8 +1,14 @@
 const express = require('express');
 const asyncHandler = require('express-async-handler');
-const mongo = require('mongodb').MongoClient;
 const mongoose = require('mongoose');
+const recombee = require('recombee-api-client');
+const crypto = require('crypto');
 const User = require('./userModel');
+
+const rqs = recombee.requests;
+const recombeeClient = new recombee.ApiClient(process.env.RECOMBEE_DATABASE_ID,
+  process.env.RECOMBEE_PRIVATE_TOKEN);
+
 
 const router = express.Router();
 
@@ -80,6 +86,17 @@ router.post('/add_recipes', asyncHandler(async (request, response, next) => {
 
   user = await user.save();
   response.sendStatus(200);
+
+  /* can perform after response, send events to recommendation engine */
+  const userHash = crypto.createHash('sha256').update(request.openid.user.sub).digest('hex');
+  const additions = [];
+  recipes.forEach((recipeId) => {
+    additions.push(new rqs.AddPurchase(userHash, recipeId, { cascadeCreate: true }));
+  });
+
+  await recombeeClient.send(new rqs.Batch(additions)).catch((err) => {
+    if (err) next(err);
+  });
 }));
 
 router.post('/remove_recipes', asyncHandler(async (request, response, next) => {
@@ -105,6 +122,35 @@ router.post('/remove_recipes', asyncHandler(async (request, response, next) => {
 
   user = await user.save();
   response.sendStatus(200);
+
+  /* can perform after response, send events to recommendation engine */
+  const userHash = crypto.createHash('sha256').update(request.openid.user.sub).digest('hex');
+  const removals = [];
+  recipes.forEach((recipeId) => {
+    removals.push(new rqs.DeletePurchase(userHash, recipeId, { cascadeCreate: true }));
+  });
+
+  await recombeeClient.send(new rqs.Batch(removals)).catch((err) => {
+    if (err) next(err);
+  });
+}));
+
+router.post('/recently_viewed', asyncHandler(async (request, response, next) => {
+  const {
+    count = 10,
+  } = request.body;
+
+  const userHash = crypto.createHash('sha256').update(request.openid.user.sub).digest('hex');
+  await recombeeClient.send(
+    new rqs.RecommendItemsToUser(userHash, count, { scenario: 'recently_viewed' }),
+  )
+    .then((recommendation) => {
+      response.send({ recipes: recommendation.recomms.map((e) => e.id) || [] });
+    })
+    .catch(() => response.send({ recipes: [] }))
+    .catch((err) => {
+      if (err) next(err);
+    });
 }));
 
 module.exports.router = router;

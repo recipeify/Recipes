@@ -46,6 +46,9 @@ app.use('/api/users', require('./users/users').router);
 /* search routes */
 app.use('/api/search', require('./search').router);
 
+/* recommendation routes */
+app.use('/api/recommend', require('./recommend').router);
+
 // eslint-disable-next-line no-unused-vars
 app.get('/api/resources/ingredients', asyncHandler(async (_request, response, _next) => {
   response.send({
