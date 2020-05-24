@@ -1,4 +1,4 @@
-
+.DS_Store
 scraper/__pycache__/
 api/package-lock.json
 scraper/__pycache__/__init__.cpython-38.pyc
