@@ -149,12 +149,12 @@ router.post('/recipes_viewed', asyncHandler(async (request, response, next) => {
 
   /* can perform after response, send events to recommendation engine */
   const userHash = crypto.createHash('sha256').update(request.openid.user.sub).digest('hex');
-  const removals = [];
+  const views = [];
   recipes.forEach((recipeId) => {
-    removals.push(new rqs.AddDetailView(userHash, recipeId, { cascadeCreate: true }));
+    views.push(new rqs.AddDetailView(userHash, recipeId, { cascadeCreate: true }));
   });
 
-  await recombeeClient.send(new rqs.Batch(removals)).catch((err) => {
+  await recombeeClient.send(new rqs.Batch(views)).catch((err) => {
     if (err) next(err);
   });
 }));

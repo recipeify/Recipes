@@ -54,7 +54,7 @@ router.post('/popular', asyncHandler(async (request, response, next) => {
   }
 
   await recombeeClient.send(
-    new rqs.RecommendItemsToUser(userHash, count, { scenario: 'personal_view' }),
+    new rqs.RecommendItemsToUser(userHash, count, { scenario: 'popular_view' }),
   )
     .then((recommendation) => {
       response.send({ recipes: recommendation.recomms.map((e) => e.id) || [] });
