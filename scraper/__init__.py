@@ -53,7 +53,7 @@ def connect_to_es():
 
 
 # Default = periodic crawler(init=0), for Testing purposes I am using the initial crawler(init=1)
-def init_crawler(num, init=1):
+def init_crawler(num=0, init=1):
     es = connect_to_es()
     #Create a crawling process for all crawlers to make use of Scrapy's concurrency
     process = CrawlerProcess(settings=get_project_settings())
