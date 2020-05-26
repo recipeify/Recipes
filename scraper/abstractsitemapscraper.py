@@ -42,7 +42,7 @@ class FilteredSitemapSpider(SitemapSpider):
 
     def parse_recipes(self, response):
         try:
-            if self.i <= self.num:
+            if self.num == 0 or self.i <= self.num:
                 self.i += insert_to_es(self.es, scrape_me(response.url, response.body), self.sitename)
             else:
                 raise CloseSpider('Crawled enough pages')
