@@ -27,14 +27,14 @@ const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 
-router.get('/prefrences', asyncHandler(async (request, response, next) => {
+router.get('/preferences', asyncHandler(async (request, response, next) => {
   await User.findById(request.openid.user.sub, 'excludeTerms diet', (err, user) => {
     if (err) next(err);
     if (!user) { response.sendStatus(404); } else { response.send(user); }
   });
 }));
 
-router.post('/prefrences', asyncHandler(async (request, response, next) => {
+router.post('/preferences', asyncHandler(async (request, response, next) => {
   const {
     excludeTerms,
     diet,
@@ -53,6 +53,17 @@ router.post('/prefrences', asyncHandler(async (request, response, next) => {
 
       response.send(user);
     });
+
+  /* can perform after response, send user prefs to recommendation engine */
+  const userHash = crypto.createHash('sha256').update(request.openid.user.sub).digest('hex');
+  const userPreferences = [new rqs.SetUserValues(
+    userHash,
+    { excludeTerms, diet },
+    { cascadeCreate: true },
+  )];
+  await recombeeClient.send(new rqs.Batch(userPreferences)).catch((err) => {
+    if (err) next(err);
+  });
 }));
 
 router.get('/get_recipes', asyncHandler(async (request, response, next) => {
