@@ -1,4 +1,5 @@
 /* eslint-disable no-console */
+/* eslint no-unused-vars: ["error", { "argsIgnorePattern": "^_" }] */
 const express = require('express');
 const asyncHandler = require('express-async-handler');
 const mongoose = require('mongoose');

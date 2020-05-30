@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-/* eslint-disable no-underscore-dangle */
+/* eslint no-unused-vars: ["error", { "argsIgnorePattern": "^_" }] */
 // disabling this because we send requests to the _search endpoint of the ES client
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -51,7 +51,6 @@ app.use('/api/search', require('./search').router);
 /* recommendation routes */
 app.use('/api/recommend', require('./recommend').router);
 
-// eslint-disable-next-line no-unused-vars
 app.get('/api/resources/ingredients', asyncHandler(async (_request, response, _next) => {
   response.send({
     items: ingredients.ingredients,
