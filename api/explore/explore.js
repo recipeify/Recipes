@@ -17,15 +17,18 @@ function randomChoice(arr, del) {
     return retval; 
 }
 
-function get_boxes(amount, first, date, retval){
-    var month_ings = month_json[date.toLocaleDateString('default', { month: 'long' })];
-    var keys = Object.keys(retval);
+function get_boxes(size, first, date_string){
+    var month_ings = month_json[new Date(date_string).toLocaleDateString('default', { month: 'long' })];
+    var keys = Object.keys(boxes_json);
+    keys.push("ingredient");
+    var retval = {};
 
     if (first){
-        amount -= 1;
+        retval["next holiday"] = holiday(date_string);
+        size -= 1;
     }
 
-    while(amount > 0){
+    while(size > 0){
         let key = randomChoice(keys, false);
         if(key === "ingredient"){
             retval["ingredient"].push(randomChoice(month_ings, true));
@@ -33,7 +36,7 @@ function get_boxes(amount, first, date, retval){
         else{
             retval[key].push(randomChoice(boxes_json[key], true));
         }
-        amount -= 1;
+        size -= 1;
     }
 
     return retval;
@@ -42,34 +45,14 @@ function get_boxes(amount, first, date, retval){
 router.get('/get_explore', asyncHandler(async (request, response) => {
     const first = request.query.first; /*true if this is the first request for explore, or just an addition request*/
     const date_string = request.query.time; 
-    const amount = request.query.amount; /*how many boxes are required*/
-    const date = new Date(date_string);
+    const size = request.query.size; /*how many boxes are required*/
 
-    if (isNaN(date) || typeof(first) != 'boolean' || typeof(amount) != 'number') {
+    if (isNaN(new Date(date_string)) || typeof(first) != 'boolean' || typeof(size) != 'number') {
         response.sendStatus(400);
         return;
     }
 
-    let next_holiday; 
-
-    if (first){
-        next_holiday = holiday(date_string);
-    }
-    else{
-        next_holiday = null;
-    }
-
-    var retval = {
-        "cuisine": [],
-        "daily cooking": [],
-        "easy": [],
-        "guests": [],
-        "ingredient": [],
-        "nextholiday": next_holiday,
-        "try making": []
-        };
-
-    retval = get_boxes(amount, first, date, retval);
+    var retval = get_boxes(size, first, date_string);
     
     response.send(retval);
 }));
