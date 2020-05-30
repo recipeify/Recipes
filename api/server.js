@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable no-underscore-dangle */
 // disabling this because we send requests to the _search endpoint of the ES client
 const express = require('express');
@@ -7,6 +8,7 @@ const path = require('path');
 const { auth } = require('express-openid-connect');
 const asyncHandler = require('express-async-handler');
 const compression = require('compression');
+// eslint-disable-next-line no-unused-vars
 const helmet = require('helmet');
 
 require('dotenv').config();

@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 const express = require('express');
 const asyncHandler = require('express-async-handler');
 const mongoose = require('mongoose');
