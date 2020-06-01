@@ -1,4 +1,5 @@
-/* eslint-disable no-underscore-dangle */
+/* eslint-disable no-console */
+/* eslint no-unused-vars: ["error", { "argsIgnorePattern": "^_" }] */
 // disabling this because we send requests to the _search endpoint of the ES client
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -7,6 +8,7 @@ const path = require('path');
 const { auth } = require('express-openid-connect');
 const asyncHandler = require('express-async-handler');
 const compression = require('compression');
+// eslint-disable-next-line no-unused-vars
 const helmet = require('helmet');
 
 require('dotenv').config();
@@ -46,7 +48,9 @@ app.use('/api/users', require('./users/users').router);
 /* search routes */
 app.use('/api/search', require('./search').router);
 
-// eslint-disable-next-line no-unused-vars
+/* recommendation routes */
+app.use('/api/recommend', require('./recommend').router);
+
 app.get('/api/resources/ingredients', asyncHandler(async (_request, response, _next) => {
   response.send({
     items: ingredients.ingredients,

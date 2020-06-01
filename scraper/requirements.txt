@@ -3,3 +3,4 @@ Scrapy==1.6.0
 elasticsearch==7.0.4
 python-dotenv==0.13.0
 python_dateutil==2.8.1
+recombee-api-client
