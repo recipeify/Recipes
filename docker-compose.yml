@@ -2,7 +2,7 @@ version: '3.4'
 services:
 # Elasticsearch
   elasticsearch:
-    image: hagais/es-recipes:0.2
+    image: hagais/es-recipes:1.0
     environment:
       - discovery.type=single-node
     ports:
