@@ -1,4 +1,4 @@
-{
+  {
   "name": "api",
   "version": "1.0.0",
   "description": "",
@@ -22,12 +22,22 @@
     "helmet": "^3.22.0",
     "mongodb": "^3.5.7",
     "mongoose": "^5.9.14",
-    "querystring": "^0.2.0"
+    "querystring": "^0.2.0",
+    "recombee-api-client": "^3.0.0"
   },
   "devDependencies": {
     "concurrently": "^5.1.0",
     "eslint": "^6.8.0",
     "eslint-config-airbnb-base": "^14.1.0",
     "eslint-plugin-import": "^2.20.2"
+  },
+  "eslintConfig": {
+    "env": {
+        "browser": false,
+        "node": true
+    },
+    "rules": {
+      "no-unused-vars": ["error", { "argsIgnorePattern": "^_" }]
+    }
   }
 }
