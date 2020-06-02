@@ -61,8 +61,8 @@ class RecipeCard extends React.Component {
 
           actions={[
             <li className="recipe-button" onClick={this.showModal}><InfoCircleOutlined /></li>,
-            <li className="recipe-button" onClick={() => alert('hello2')}><StarOutlined /></li>,
-            <li className="recipe-button" onClick={() => alert('hello3')}><ExportOutlined /></li>,
+            <li className="recipe-button" /*onClick={}*/ ><StarOutlined /></li>,
+            <li className="recipe-button" onClick={openRecipe}><ExportOutlined /></li>,
           ]}
         >
           <Meta
