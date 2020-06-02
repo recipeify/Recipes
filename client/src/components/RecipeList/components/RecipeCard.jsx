@@ -56,6 +56,7 @@ class RecipeCard extends React.Component {
               className="recipe-image"
               src={imageURL}
               alt={title}
+              onClick={openRecipe}
             />
           )}
 
