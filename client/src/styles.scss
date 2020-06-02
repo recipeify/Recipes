@@ -81,8 +81,13 @@ div.authentication {
 
 .recipe-card {
   div.ant-card-body {
-    height: 100px;
+    height: 120px;
   }
+  ul.ant-card-actions > li > span > button {
+    height: 100%;
+    color: #000;
+  }
+
 }
 
 .recipe-card-meta {

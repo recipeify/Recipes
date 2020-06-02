@@ -35,7 +35,8 @@ class RecipeCard extends React.Component {
   render() {
     const { recipe } = this.props;
     const {
-      title, link, image: imageURL, totalTime, rating, numberOfRaters, tags, id,
+      title, link, image: imageURL, total_time: totalTime, rating, number_of_raters: numberOfRaters,
+      tags, id,
     } = recipe;
     const viewMoreText = `${tags.length - 5} more`;
     const { showModal, viewMore } = this.state;
@@ -44,15 +45,10 @@ class RecipeCard extends React.Component {
       window.open(link, 'noopener noreferrer');
     };
 
-    const findSite = () => {
-      for (const [siteRegex, siteName] of Object.entries(RecipeNames)) {
-        const site = new RegExp(siteRegex);
-        if (site instanceof RegExp && site.test(id)) {
-          return siteName;
-        }
-      }
-      return null;
-    };
+    const findSite = () => Object.entries(RecipeNames)
+      .find((pair) => new RegExp(pair[0]).test(id))[1];
+
+    const site = findSite();
 
     return (
       <>
@@ -65,19 +61,25 @@ class RecipeCard extends React.Component {
               className="recipe-image"
               src={imageURL}
               alt={title}
-              onClick={openRecipe}
             />
           )}
 
           actions={[
-            <li className="recipe-button" onClick={this.showModal}><InfoCircleOutlined /></li>,
-            <li className="recipe-button"><StarOutlined /></li>,
-            <li className="recipe-button" onClick={openRecipe}><ExportOutlined /></li>,
+            <Button className="recipe-button" block type="link" size="large" onClick={this.showModal}>
+              <InfoCircleOutlined />
+            </Button>,
+            <Button className="recipe-button" block type="link" size="large">
+              <StarOutlined />
+            </Button>,
+            <Button className="recipe-button" block type="link" size="large" onClick={openRecipe}>
+              <ExportOutlined />
+            </Button>,
           ]}
         >
           <Meta
             className="recipe-card-meta"
             title={title}
+            description={site}
           />
         </Card>
         <Modal
@@ -101,7 +103,7 @@ class RecipeCard extends React.Component {
 
           <Divider />
           <Descriptions title="Recipe Info" layout="vertical" colon={false}>
-            <Descriptions.Item label="Website">{ findSite(id) }</Descriptions.Item>
+            <Descriptions.Item label="Website">{ site }</Descriptions.Item>
             <Descriptions.Item label="Cooking Time">
               {totalTime ? `${totalTime} minutes` : (
                 <span>
@@ -183,9 +185,9 @@ RecipeCard.propTypes = {
     title: PropTypes.string,
     link: PropTypes.string,
     image: PropTypes.string,
-    totalTime: PropTypes.number,
+    total_time: PropTypes.number,
     rating: PropTypes.number,
-    numberOfRaters: PropTypes.number,
+    number_of_raters: PropTypes.number,
     tags: PropTypes.array,
     id: PropTypes.string,
   }).isRequired,
