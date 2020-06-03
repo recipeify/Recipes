@@ -14,22 +14,20 @@ class RecipeCard extends React.Component {
   constructor(props) {
     super(props);
     this.state = { showModal: false, viewMore: false };
-    this.showModal = this.showModal.bind(this);
-    this.hideModal = this.hideModal.bind(this);
   }
 
 
-  showModal() {
+  showModal = () => {
     this.setState({
       showModal: true,
     });
-  }
+  };
 
-  hideModal() {
+  hideModal = () => {
     this.setState({
       showModal: false,
     });
-  }
+  };
 
 
   render() {
@@ -213,7 +211,7 @@ RecipeCard.propTypes = {
     total_time: PropTypes.number,
     rating: PropTypes.number,
     number_of_raters: PropTypes.number,
-    tags: PropTypes.array,
+    tags: PropTypes.arrayOf(PropTypes.string),
     id: PropTypes.string,
   }).isRequired,
 };
