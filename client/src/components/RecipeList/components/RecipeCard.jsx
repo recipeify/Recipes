@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-  Card, Modal, Button, Tag, Descriptions, Divider,
+  Card, Modal, Button, Tag, Divider, Row, Col, Tooltip,
 } from 'antd';
 import {
   InfoCircleOutlined, StarOutlined, ExportOutlined, CloseCircleOutlined, StarFilled,
@@ -65,15 +65,21 @@ class RecipeCard extends React.Component {
           )}
 
           actions={[
-            <Button className="recipe-button" block type="link" size="large" onClick={this.showModal}>
-              <InfoCircleOutlined />
-            </Button>,
-            <Button className="recipe-button" block type="link" size="large">
-              <StarOutlined />
-            </Button>,
-            <Button className="recipe-button" block type="link" size="large" onClick={openRecipe}>
-              <ExportOutlined />
-            </Button>,
+            <Tooltip title="Show info">
+              <Button className="recipe-button" block type="link" size="large" onClick={this.showModal}>
+                <InfoCircleOutlined />
+              </Button>
+            </Tooltip>,
+            <Tooltip title="Add to My Cook Book">
+              <Button className="recipe-button" block type="link" size="large">
+                <StarOutlined />
+              </Button>
+            </Tooltip>,
+            <Tooltip title="Go to recipe">
+              <Button className="recipe-button" block type="link" size="large" onClick={openRecipe}>
+                <ExportOutlined />
+              </Button>
+            </Tooltip>,
           ]}
         >
           <Meta
@@ -87,12 +93,16 @@ class RecipeCard extends React.Component {
           visible={showModal}
           onCancel={this.hideModal}
           footer={[
-            <Button key="Save">
-              <StarOutlined />
-            </Button>,
-            <Button key="Go" onClick={openRecipe}>
-              <ExportOutlined />
-            </Button>,
+            <Tooltip title="Add to My Cook Book">
+              <Button key="Save">
+                <StarOutlined />
+              </Button>
+            </Tooltip>,
+            <Tooltip title="Go to recipe">
+              <Button key="Go" onClick={openRecipe}>
+                <ExportOutlined />
+              </Button>
+            </Tooltip>,
           ]}
         >
           <img
@@ -102,78 +112,93 @@ class RecipeCard extends React.Component {
           />
 
           <Divider />
-          <Descriptions title="Recipe Info" layout="vertical" colon={false}>
-            <Descriptions.Item label="Website">{ site }</Descriptions.Item>
-            <Descriptions.Item label="Cooking Time">
-              {totalTime ? `${totalTime} minutes` : (
-                <span>
-                  {' '}
-                  <CloseCircleOutlined />
-                  {' '}
-                  Unavailable
-                  {' '}
-                </span>
-              ) }
-            </Descriptions.Item>
-
-            <Descriptions.Item label="Rating">
-              { rating ? (
-                <span>
-                  {' '}
-                  {parseFloat((rating * 5).toFixed(2))}
-                  /5
-                  {' '}
-                  <StarFilled />
-                  {' '}
-                  from
-                  {' '}
-                  { numberOfRaters }
-                  {' '}
-                  {numberOfRaters > 1 ? 'raters' : 'rater'}
-                  {' '}
-                </span>
-              ) : (
-                <span>
-                  {' '}
-                  <CloseCircleOutlined />
-                  {' '}
-                  Unavailable
-                  {' '}
-                </span>
-              ) }
-            </Descriptions.Item>
-
-            <Descriptions.Item label="Tags" span={3}>
-              {
+          <Row gutter={[5, 3]}>
+            <Col span={8}>
+              <h3
+                className="modal-sitename-label"
+              >
+                Website
+              </h3>
+            </Col>
+            <Col span={8}>
+              <h3
+                className="modal-cookingtime-label"
+              >
+                Cooking Time
+              </h3>
+            </Col>
+            <Col span={8}>
+              <h3
+                className="modal-rating-label"
+              >
+                Rating
+              </h3>
+            </Col>
+          </Row>
+          <Row gutter={[5, 5]}>
+            <Col span={8}>
+              {site}
+            </Col>
+            <Col span={8}>
+              {totalTime ? `${totalTime} minutes`
+                : (
+                  <span>
+                    <CloseCircleOutlined />
+                    {' Unavailable'}
+                  </span>
+                )}
+            </Col>
+            <Col span={8}>
+              {rating
+                ? (
+                  <span>
+                    {` ${parseFloat((rating * 5).toFixed(2))}/5 `}
+                    <StarFilled />
+                    {` from ${numberOfRaters} ${numberOfRaters > 1 ? 'raters' : 'rater'}`}
+                  </span>
+                )
+                : (
+                  <span>
+                    <CloseCircleOutlined />
+                    {' Unavailable'}
+                  </span>
+                )}
+            </Col>
+          </Row>
+          <Row span={18}>
+            <h3
+              className="modal-tags-label"
+            >
+              Tags
+            </h3>
+          </Row>
+          <Row span={18}>
+            {
                     tags.map((tag, index) => (
                       <Tag
                         className="recipe-tag"
                         visible={index < 5 || viewMore}
                       >
-                        {' '}
                         <span>
-                          {' '}
                           {tag }
-                          {' '}
                         </span>
                       </Tag>
                     ))
                 }
-              {tags.length > 5 && (
-                <Button
-                  className="more-tags-button"
-                  onClick={() => {
-                    this.setState({ viewMore: !viewMore });
-                  }}
-                  size="small"
-                >
-                  <span>
-                    {!viewMore ? viewMoreText : 'Show less'}
-                  </span>
-                </Button>
-              )}
-            </Descriptions.Item>
-          </Descriptions>
+            {tags.length > 5 && (
+            <Button
+              className="more-tags-button"
+              onClick={() => {
+                this.setState({ viewMore: !viewMore });
+              }}
+              size="small"
+            >
+              <span>
+                {!viewMore ? viewMoreText : 'Show less'}
+              </span>
+            </Button>
+            )}
+          </Row>
         </Modal>
       </>
     );
