@@ -1,4 +1,4 @@
-{
+  {
   "name": "api",
   "version": "1.0.0",
   "description": "",
@@ -20,6 +20,7 @@
     "express-async-handler": "^1.1.4",
     "express-openid-connect": "^1.0.1",
     "helmet": "^3.22.0",
+    "lodash": "^4.17.15",
     "mongodb": "^3.5.7",
     "mongoose": "^5.9.14",
     "querystring": "^0.2.0",
@@ -30,5 +31,14 @@
     "eslint": "^6.8.0",
     "eslint-config-airbnb-base": "^14.1.0",
     "eslint-plugin-import": "^2.20.2"
+  },
+  "eslintConfig": {
+    "env": {
+        "browser": false,
+        "node": true
+    },
+    "rules": {
+      "no-unused-vars": ["error", { "argsIgnorePattern": "^_" }]
+    }
   }
 }

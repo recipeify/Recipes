@@ -21,6 +21,10 @@ div.authentication {
     &.login {
       background-color: #900c3f;
       border-color: #900c3f;
+      &:hover {
+        background-color: #bd4271;
+        border-color: #900c3f;
+      }
     } 
   }
   #logout:hover {
@@ -70,11 +74,24 @@ div.authentication {
   height: 300px;
 }
 
+.recipe-modal-image {
+  object-fit: cover;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 80%;
+}
+
 
 .recipe-card {
   div.ant-card-body {
     height: 120px;
   }
+  ul.ant-card-actions > li > span > button {
+    height: 100%;
+    color: #000;
+  }
+
 }
 
 .recipe-card-meta {
@@ -86,22 +103,23 @@ div.authentication {
 }
 
 #page-sidebar {
-  max-width: 350px;
-  width: 350px;
+  max-width: 500px;
+  // width: 350px;
   > div {
     padding: 20px;
   }
 }
 
-#search-by-ingredient {
-  background-color: white;
+button.preference-search-button {
+  background-color: #900c3f;
+  border-color: #900c3f;
+  &:hover, &:focus {
+    background-color: #bd4271;
+    border-color: #900c3f;
+  }
 }
 
-#ingredient-search-button {
-  background-color: white;
-}
-
-.ingredient-chip {
+.preference-chip {
   overflow: auto;
   text-align: center;
   > span {
@@ -111,16 +129,34 @@ div.authentication {
   }
 }
 
-.ingredient-tag-button {
+.preference-tag-button {
   padding: 5px;
   background: #f5b43c !important;
   position: -8px !important;
 }
 
 // ghost button style
-.ingredient-tag-button:hover, .logout:hover{
+.preference-tag-button:hover, .logout:hover{
   color: #000 !important;
   border-color: #000 !important;
+}
+
+#time-switch {
+  .ant-switch-inner {
+  margin: 0 6px 0 24px;
+  }
+  &.ant-switch-checked {
+    background-color: #900c3f;
+  }
+}
+
+.time-slider {
+  .ant-slider-handle {
+    border-color: #757073 !important;
+    &:hover {
+      border-color: #000 !important;
+    }
+  }
 }
 
 @import 'antd/dist/antd.css';
