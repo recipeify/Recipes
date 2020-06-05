@@ -7,11 +7,6 @@ services:
       - discovery.type=single-node
     ports:
       - 9200:9200
-# mongoDB
-  mongo:
-    image: mongo:3.6
-    ports:
-      - 27017-27019:27017-27019
 # Recipeify
   recipeify:
      image: 635062671985.dkr.ecr.eu-central-1.amazonaws.com/recipeify:0.4
@@ -22,7 +17,6 @@ services:
        - 3000:5000
      depends_on:
       - elasticsearch
-      - mongo
      env_file:
        - api/docker.env
      stdin_open: true
