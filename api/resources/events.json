@@ -1,0 +1,112 @@
+{
+  "tags": [
+    {
+      "key": "everyday meals",
+      "tags": ["weeknight", "everyday", "casual", "midweek"]
+    },
+    {
+      "key": "summer",
+      "tags": ["summer"]
+    },
+    {
+      "key": "party",
+      "tags": ["party", "parties"]
+    },
+    {
+      "key": "brunch",
+      "tags": ["brunch"]
+    },
+    {
+      "key": "Christmas",
+      "tags": ["christmas", "xmas"]
+    },
+    {
+      "key": "winter",
+      "tags": ["winter"]
+    },
+    {
+      "key": "weekend meals",
+      "tags": ["saturday", "weekend", "sunday"]
+    },
+    {
+      "key": "casual party",
+      "tags": ["casual_party"]
+    },
+    {
+      "key": "Thanksgiving",
+      "tags": ["thanksgiving"]
+    },
+    {
+      "key": "spring",
+      "doc_count": 1493
+    },
+    {
+      "key": "autumn",
+      "tags": ["autumn", "fall"]
+    },
+    {
+      "tags": "special occasion",
+      "key": ["special_occasion", "celebration", "parties", "formal"]
+    },
+    {
+      "key": "holiday",
+      "tags": ["holiday"]
+    },
+    {
+      "key": "potluck",
+      "tags": ["potluck"]
+    },
+    {
+      "key": "bonfire",
+      "tag": ["bonfire", "outdoor"]
+    },
+    {
+      "key": "buffet",
+      "tags": ["buffet"]
+    },
+    {
+      "key": "easter",
+      "tags": ["easter"]
+    },
+    {
+      "key": "picnic",
+      "tags": ["picnic"]
+    },
+    {
+      "key": "birthday",
+      "tags": ["birthday"]
+    },
+    {
+      "key": "barbeque",
+      "tags": ["barbecue", "barbeque"]
+    },
+    {
+      "key": "date_night",
+      "tags": ["date_night"]
+    },
+    {
+      "key": "halloween",
+      "tags": ["halloween"]
+    },
+    {
+      "key": "game day",
+      "tags": ["game_day"]
+    },
+    {
+      "key": "Valentine's Day",
+      "tags": ["valentine's", "valentine", "valentines_day", "romantic"]
+    },
+    {
+      "key": "Independence Day",
+      "tags": ["fourth_of_july", "independence"]
+    },
+    {
+      "key": "Hanukkah",
+      "tags": ["hanukkah"]
+    },
+    {
+      "key": "Passover",
+      "tags": ["passover"]
+    }
+  ]
+}

@@ -1,19 +1,47 @@
 import { connect } from 'react-redux';
 import Sidebar from './Sidebar';
-import { fetchRecipesByIngredients } from '../../actions/recipeActions';
-import { fetchIngredients } from '../../actions/ingredientsActions';
+import { fetchRecipesByFilters } from '../../actions/recipeActions';
+import { fetchResources } from '../../actions/resourceActions';
 
 const mapStateToProps = (state) => ({
+  freeText: state.filters.freeText,
   includeTerms: state.filters.include,
   excludeTerms: state.filters.exclude,
+  diet: state.filters.diet,
+  dishType: state.filters.dishType,
+  cuisine: state.filters.cuisine,
+  toCookTime: state.filters.toCookTime,
+  fromCookTime: state.filters.fromCookTime,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  getRecipesByIngredients: (includeTerms, excludeTerms, from = 0, size = 30) => dispatch(
-    fetchRecipesByIngredients(includeTerms || [], excludeTerms || [], from, size),
+  getRecipesByFilters: (
+    freeText,
+    include,
+    exclude,
+    diet,
+    dishType,
+    cuisine,
+    toCookTime,
+    fromCookTime,
+    from = 0,
+    size = 30,
+  ) => dispatch(
+    fetchRecipesByFilters(
+      freeText,
+      include,
+      exclude,
+      diet,
+      dishType,
+      cuisine,
+      toCookTime,
+      fromCookTime,
+      from,
+      size,
+    ),
   ),
-  getIngredientDataset: () => dispatch(
-    fetchIngredients(),
+  getResources: () => dispatch(
+    fetchResources(),
   ),
 });
 

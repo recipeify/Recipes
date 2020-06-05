@@ -2,24 +2,60 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Row, Col } from 'antd';
 // import { Stack, StackItem } from '@patternfly/react-core';
-import IngredientSearch from './IngredientSearch';
-
+import PreferenceSelect from './PreferenceSelect';
+import { sidebarSelects } from './PreferenceSelect/PreferenceSelect';
+import TimeSlider from './TimeSlider';
+import FreeTextSearch from './FreeTextSearch/index';
 
 class Sidebar extends React.Component {
   componentDidMount() {
     const {
-      getRecipesByIngredients,
+      getRecipesByFilters,
+      freeText,
       includeTerms,
       excludeTerms,
-      getIngredientDataset,
+      toCookTime,
+      fromCookTime,
+      diet,
+      dishType,
+      cuisine,
+      getResources,
     } = this.props;
-    getRecipesByIngredients(includeTerms, excludeTerms);
-    getIngredientDataset();
+    getRecipesByFilters(
+      freeText,
+      includeTerms,
+      excludeTerms,
+      diet,
+      dishType,
+      cuisine,
+      toCookTime,
+      fromCookTime,
+    );
+    getResources();
   }
 
   componentDidUpdate() {
-    const { getRecipesByIngredients, includeTerms, excludeTerms } = this.props;
-    getRecipesByIngredients(includeTerms, excludeTerms);
+    const {
+      getRecipesByFilters,
+      freeText,
+      includeTerms,
+      excludeTerms,
+      toCookTime,
+      fromCookTime,
+      diet,
+      cuisine,
+      dishType,
+    } = this.props;
+    getRecipesByFilters(
+      freeText,
+      includeTerms,
+      excludeTerms,
+      diet,
+      dishType,
+      cuisine,
+      toCookTime,
+      fromCookTime,
+    );
   }
 
   render() {
@@ -27,12 +63,37 @@ class Sidebar extends React.Component {
       <div className="sidebar">
         <Row gutter={[16, 30]}>
           <Col offset={1} span={21}>
-            <IngredientSearch include />
+            <FreeTextSearch />
           </Col>
         </Row>
         <Row gutter={[16, 30]}>
           <Col offset={1} span={21}>
-            <IngredientSearch include={false} />
+            <PreferenceSelect variant={sidebarSelects.INCLUDE_INGREDIENTS} />
+          </Col>
+        </Row>
+        <Row gutter={[16, 30]}>
+          <Col offset={1} span={21}>
+            <PreferenceSelect variant={sidebarSelects.EXCLUDE_INGREDIENTS} />
+          </Col>
+        </Row>
+        <Row gutter={[16, 30]}>
+          <Col offset={1} span={21}>
+            <PreferenceSelect variant={sidebarSelects.DIET} openDropdownOnClick />
+          </Col>
+        </Row>
+        <Row gutter={[16, 30]}>
+          <Col offset={1} span={21}>
+            <PreferenceSelect variant={sidebarSelects.DISH_TYPE} openDropdownOnClick />
+          </Col>
+        </Row>
+        <Row gutter={[16, 30]}>
+          <Col offset={1} span={21}>
+            <PreferenceSelect variant={sidebarSelects.CUISINE} openDropdownOnClick />
+          </Col>
+        </Row>
+        <Row gutter={[16, 30]}>
+          <Col offset={1} span={21}>
+            <TimeSlider />
           </Col>
         </Row>
       </div>
@@ -41,10 +102,25 @@ class Sidebar extends React.Component {
 }
 
 Sidebar.propTypes = {
-  getRecipesByIngredients: PropTypes.func.isRequired,
-  getIngredientDataset: PropTypes.func.isRequired,
-  includeTerms: PropTypes.arrayOf(PropTypes.string).isRequired,
-  excludeTerms: PropTypes.arrayOf(PropTypes.string).isRequired,
+  getRecipesByFilters: PropTypes.func.isRequired,
+  getResources: PropTypes.func.isRequired,
+  freeText: PropTypes.string,
+  includeTerms: PropTypes.arrayOf(PropTypes.object).isRequired,
+  excludeTerms: PropTypes.arrayOf(PropTypes.object).isRequired,
+  diet: PropTypes.arrayOf(PropTypes.object),
+  dishType: PropTypes.arrayOf(PropTypes.object),
+  cuisine: PropTypes.arrayOf(PropTypes.object),
+  toCookTime: PropTypes.number,
+  fromCookTime: PropTypes.number,
+};
+
+Sidebar.defaultProps = {
+  freeText: '',
+  diet: [],
+  dishType: [],
+  cuisine: [],
+  toCookTime: 600,
+  fromCookTime: 0,
 };
 
 export default Sidebar;

@@ -1,0 +1,132 @@
+{
+  "tags": [
+    {
+      "key": "mains",
+      "tags": ["main", "entree", "maindish"]
+    },
+    {
+      "key": "dinner",
+      "tags": ["dinner", "supper"]
+    },
+    {
+      "key": "desserts",
+      "tags": ["desserts", "sweets", "cookies", "cake"]
+    },
+    {
+      "key": "lunch",
+      "tags": ["lunch"]
+    },
+    {
+      "key": "side dishes",
+      "tags": ["side", "sidedish"]
+    },
+    {
+      "key": "breakfast",
+      "tags": ["breakfast", "hotbreakfast", "sweetbreakfast"]
+    },
+    {
+      "key": "brunch",
+      "tags": ["brunch"]
+    },
+    {
+      "key": "snacks",
+      "tags": ["snack", "treat"]
+    },
+    {
+      "key": "appetizers & starters",
+      "tags": ["appetizer", "starter"]
+    },
+    {
+      "key": "kid friendly",
+      "tags": ["kid_friendly", "kids"]
+    },
+    {
+      "key": "sauces & dips",
+      "tags": ["sauce", "condiments", "dip", "salsa", "dressing"]
+    },
+    {
+      "key": "comfort food",
+      "tags": ["comfort_food", "comfort"]
+    },
+    {
+      "key": "drinks",
+      "tags": ["drink", "beverage", "cocktail", "contains_alcohol", "alcoholic"]
+    },
+    {
+      "key": "casserole",
+      "tags": ["casserole"]
+    },
+    {
+      "key": "stew",
+      "tags": ["stew"]
+    },
+    {
+      "key": "juice",
+      "tags": ["juice"]
+    },
+    {
+      "key": "candy",
+      "tag": ["candy"]
+    },
+    {
+      "key": "sandwiches",
+      "tags": ["sandwich"]
+    },
+    {
+      "key": "grill",
+      "tags": ["grill"]
+    },
+    {
+      "key": "pizza",
+      "tags": ["pizza"]
+    },
+    {
+      "key": "pastry",
+      "tags": ["pastry"]
+    },
+    {
+      "key": "make ahead",
+      "tags": ["ahead"]
+    },
+    {
+      "key": "coffee",
+      "tags": ["coffee"]
+    },
+    {
+      "key": "baked goods",
+      "tags": ["bakery_goods", "bake", "bread"]
+    },
+    {
+      "key": "spreads",
+      "tags": ["spreads"]
+    },
+    {
+      "key": "soups",
+      "tags": ["soup"]
+    },
+    {
+      "key": "burgers",
+      "tags": ["burger"]
+    },
+    {
+      "key": "salad",
+      "tags": ["salad"]
+    },
+    {
+      "key": "smoothies & shakes",
+      "tags": ["smoothie"]
+    },
+    {
+      "key": "meal prep",
+      "tags": ["meal_prep", "mealprep"]
+    },
+    {
+      "key": "lunchbox",
+      "tags": ["lunchbox"]
+    },
+    {
+      "key": "jams",
+      "doc_count": 76
+    }
+  ]
+}
