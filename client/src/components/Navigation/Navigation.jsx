@@ -13,13 +13,13 @@ import logo from '../../assets/cake-pop.svg';
 
 const Navigation = (props) => {
   const {
-    isAuthenticated, loginWithRedirect, logout, loading, user,
+    isAuthenticated, loginWithRedirect, logout, loading, user, getTokenSilently,
   } = useAuth0();
 
   useEffect(() => {
     const { isLoggedIn, onLogout, onLogin } = props;
     if (!isLoggedIn && isAuthenticated && user) {
-      onLogin(user);
+      onLogin(user, getTokenSilently);
     }
     if (isLoggedIn && !isAuthenticated) {
       onLogout(user);

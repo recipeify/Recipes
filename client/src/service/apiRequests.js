@@ -35,6 +35,21 @@ export const getIngredientDataset = async () => {
   return response.json();
 };
 
+export const sendView = async (recipeID, token) => {
+  console.log(`attempting with token ${token}`);
+  const response = await fetch('/api/users/recipes_viewed',
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({ recipes: [recipeID] }),
+    });
+  handleErrors(response);
+  return response.json();
+};
+
 export const searchByIngredients = async (
   includeTerms,
   excludeTerms,
@@ -58,5 +73,5 @@ export const searchByIngredients = async (
   return response.json();
 };
 
-const apiRequests = { searchIngredient, searchByIngredients, getIngredientDataset };
+const apiRequests = { searchIngredient, searchByIngredients, getIngredientDataset, sendView };
 export default apiRequests;
