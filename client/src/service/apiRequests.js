@@ -18,7 +18,6 @@ export const getResources = async () => {
 };
 
 export const sendView = async (recipeID, token) => {
-  console.log(`attempting with token ${token}`);
   const response = await fetch('/api/users/recipes_viewed',
     {
       method: 'POST',
