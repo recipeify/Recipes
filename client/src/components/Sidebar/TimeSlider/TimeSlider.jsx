@@ -27,9 +27,16 @@ class TimeSlider extends React.Component {
   onChangeSwitch(checked) {
     this.setState({ disabled: !checked });
     if (!checked) {
-      this.setState({ timeRange: undefined });
       const { clearTimeRange } = this.props;
       clearTimeRange();
+    } else {
+      const { setTimeRange } = this.props;
+      const { timeRange } = this.state;
+      if (timeRange !== undefined) {
+        setTimeRange(timeRange);
+      } else {
+        setTimeRange([0, 10]);
+      }
     }
   }
 

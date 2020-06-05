@@ -24,8 +24,8 @@ router.post('/recipes', asyncHandler(async (request, response, _next) => {
     diet = [],
     cuisine = [],
     dishType = [],
-    fromCookTime = 0,
-    toCookTime = 600,
+    fromCookTime,
+    toCookTime,
     from = 0,
     size = 10,
   } = request.body;
@@ -55,31 +55,18 @@ router.post('/recipes', asyncHandler(async (request, response, _next) => {
     });
   }
 
-  body.query.bool.filter = [
-    {
-      bool: {
-        should: [
-          {
-            range: {
-              total_time: {
-                gte: fromCookTime,
-                lte: toCookTime,
-              },
-            },
+  if ((fromCookTime != null) && (toCookTime != null)) {
+    body.query.bool.filter = [
+      {
+        range: {
+          total_time: {
+            gte: fromCookTime,
+            lte: toCookTime,
           },
-          {
-            bool: {
-              must_not: {
-                exists: {
-                  field: 'total_time',
-                },
-              },
-            },
-          },
-        ],
+        },
       },
-    },
-  ];
+    ];
+  }
 
   if (excludeTerms.length > 0) {
     body.query.bool.must_not = excludeTerms.map((term) => ({ match: { ingredients: term } }));
