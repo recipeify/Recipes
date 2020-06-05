@@ -70,11 +70,24 @@ div.authentication {
   height: 300px;
 }
 
+.recipe-modal-image {
+  object-fit: cover;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 80%;
+}
+
 
 .recipe-card {
   div.ant-card-body {
     height: 120px;
   }
+  ul.ant-card-actions > li > span > button {
+    height: 100%;
+    color: #000;
+  }
+
 }
 
 .recipe-card-meta {
