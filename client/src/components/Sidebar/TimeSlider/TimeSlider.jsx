@@ -14,7 +14,7 @@ class TimeSlider extends React.Component {
     super(props);
     this.state = {
       disabled: true,
-      timeRange: undefined,
+      timeRange: [0, 10],
     };
   }
 
@@ -32,11 +32,7 @@ class TimeSlider extends React.Component {
     } else {
       const { setTimeRange } = this.props;
       const { timeRange } = this.state;
-      if (timeRange !== undefined) {
-        setTimeRange(timeRange);
-      } else {
-        setTimeRange([0, 10]);
-      }
+      setTimeRange(timeRange);
     }
   }
 
@@ -79,7 +75,7 @@ class TimeSlider extends React.Component {
                 range
                 marks={marks}
                 included={false}
-                defaultValue={[0, 10]}
+                defaultValue={timeRange}
                 disabled={disabled}
                 onChange={(val) => this.onChangeTime(val)}
                 step={10}
