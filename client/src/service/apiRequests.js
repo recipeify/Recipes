@@ -6,26 +6,8 @@ function handleErrors(response) {
   return response;
 }
 
-export const searchIngredient = async (term, from = 0, size = 10) => {
-  const response = await fetch('/api/search/ingredient',
-    {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        term,
-        from,
-        size,
-      }),
-    });
-
-  handleErrors(response);
-  return response.json();
-};
-
-export const getIngredientDataset = async () => {
-  const response = await fetch('/api/resources/ingredients', {
+export const getResources = async () => {
+  const response = await fetch('/api/resources/all', {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -50,9 +32,15 @@ export const sendView = async (recipeID, token) => {
   return response.json();
 };
 
-export const searchByIngredients = async (
+export const searchByFilters = async (
+  freeText,
   includeTerms,
   excludeTerms,
+  diet,
+  cuisine,
+  dishType,
+  toCookTime,
+  fromCookTime,
   from = 0,
   size = 10) => {
   const response = await fetch('/api/search/recipes',
@@ -62,8 +50,14 @@ export const searchByIngredients = async (
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
+        freeText,
         includeTerms,
         excludeTerms,
+        diet,
+        cuisine,
+        dishType,
+        toCookTime,
+        fromCookTime,
         from,
         size,
       }),
@@ -73,5 +67,5 @@ export const searchByIngredients = async (
   return response.json();
 };
 
-const apiRequests = { searchIngredient, searchByIngredients, getIngredientDataset, sendView };
+const apiRequests = { searchByFilters, getResources, sendView };
 export default apiRequests;

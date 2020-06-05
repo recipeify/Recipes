@@ -3,10 +3,8 @@
 // disabling this because we send requests to the _search endpoint of the ES client
 const express = require('express');
 const bodyParser = require('body-parser');
-const fs = require('fs');
 const path = require('path');
 const { auth } = require('express-openid-connect');
-const asyncHandler = require('express-async-handler');
 const compression = require('compression');
 // eslint-disable-next-line no-unused-vars
 const helmet = require('helmet');
@@ -31,8 +29,6 @@ app.use(auth({
 /* static routes */
 app.use(express.static(path.join(__dirname, 'build')));
 
-const rawData = fs.readFileSync('ingredients.json');
-const ingredients = JSON.parse(rawData);
 
 if (!process.env.ELASTIC_SEARCH_HOST) {
   console.error('missing ELASTIC_SEARCH_HOST');
@@ -48,13 +44,10 @@ app.use('/api/users', require('./users/users').router);
 /* search routes */
 app.use('/api/search', require('./search').router);
 
+/* resources routes */
+app.use('/api/resources', require('./resources').router);
+
 /* recommendation routes */
 app.use('/api/recommend', require('./recommend').router);
-
-app.get('/api/resources/ingredients', asyncHandler(async (_request, response, _next) => {
-  response.send({
-    items: ingredients.ingredients,
-  });
-}));
 
 app.listen(port, () => console.log(`Listening on port ${port}`));

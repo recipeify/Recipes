@@ -1,0 +1,132 @@
+{
+  "tags": [
+    {
+      "key": "American",
+      "tags": ["american"]
+    },
+    {
+      "key": "healthy",
+      "tags": ["healthy"]
+    },
+    {
+      "key": "healthyish",
+      "tags": ["healthyish"]
+    },
+    {
+      "key": "British",
+      "tags": ["british"]
+    },
+    {
+      "key": "Italian",
+      "tags": ["italian"]
+    },
+    {
+      "key": "Asian",
+      "tags": ["asian", "asia", "chinese", "japanese", "vietnamese", "korean"]
+    },
+    {
+      "key": "kid friendly",
+      "tags": ["kid_friendly", "kids"]
+    },
+    {
+      "key": "European",
+      "tags": ["european", "europe"]
+    },
+    {
+      "key": "Mexican",
+      "tags": ["mexican", "cinco", "mex"]
+    },
+    {
+      "key": "Indian",
+      "tags": ["indian"]
+    },
+    {
+      "key": "Chilean",
+      "tags": ["chile"]
+    },
+    {
+      "key": "Chinese",
+      "tags": ["chinese"]
+    },
+    {
+      "key": "fusion",
+      "tags": ["fusion"]
+    },
+    {
+      "key": "greek",
+      "tags": ["greek"]
+    },
+    {
+      "key": "Thai",
+      "tags": ["thai"]
+    },
+    {
+      "key": "Eastern",
+      "tags": ["eastern"]
+    },
+    {
+      "key": "Japanese",
+      "tags": ["japanese"]
+    },
+    {
+      "key": "tropical",
+      "tags": ["tropical"]
+    },
+    {
+      "key": "Latin",
+      "tags": ["latin", "mexican", "chile", "latin_american"]
+    },
+    {
+      "key": "Spanish",
+      "tags": ["spanish"]
+    },
+    {
+      "key": "African",
+      "tags": ["african"]
+    },
+    {
+      "key": "Mediterranean",
+      "tags": ["mediterranean", "greek", "spanish", "italian", "israel", "turkish"]
+    },
+    {
+      "key": "Caribbean",
+      "tags": ["caribbean"]
+    },
+    {
+      "key": "Cajun",
+      "tags": ["cajun"]
+    },
+    {
+      "key": "Canadian",
+      "tags": ["canadian"]
+    },
+    {
+      "key": "Turkish",
+      "tags": ["turkish"]
+    },
+    {
+      "key": "Vietnamese",
+      "tags": ["vietnamese"]
+    },
+    {
+      "key": "Korean",
+      "tags": ["korean"]
+    },
+    {
+      "key": "German",
+      "tags": ["german"]
+    },
+    {
+      "key": "Creole",
+      "tags": ["creole"]
+    },
+    {
+      "key": "Irish",
+      "tags": ["irish"]
+    },
+    {
+      "key": "Hawaiian",
+      "tags": ["hawaiian"]
+    }
+  ]
+}
