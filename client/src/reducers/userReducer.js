@@ -5,6 +5,7 @@ import { userActions } from '../actions/userActions';
 const initialState = {
   loggedIn: false,
   user: {},
+  token: '',
 };
 
 export default function recipeReducer(state = initialState, action) {
@@ -13,7 +14,8 @@ export default function recipeReducer(state = initialState, action) {
     switch (action.type) {
       case (userActions.USER_LOGIN):
         draft.loggedIn = true;
-        draft.user = action.payload;
+        draft.user = action.payload.user;
+        draft.token = action.payload.token;
         break;
       case (userActions.USER_LOGOUT):
         draft.loggedIn = false;

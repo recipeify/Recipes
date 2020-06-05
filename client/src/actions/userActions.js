@@ -3,9 +3,9 @@ export const userActions = {
   USER_LOGOUT: 'USER_LOGOUT',
 };
 
-const userLogin = (user) => ({
+const userLogin = (data) => ({
   type: userActions.USER_LOGIN,
-  payload: { ...user },
+  payload: { ...data },
 });
 
 const userLogout = () => ({
