@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Gallery, GalleryItem } from '@patternfly/react-core';
-import { getRandomID } from '../../common/helpers';
 import RecipeCard from './components/RecipeCard';
 
 class RecipeList extends React.Component {
@@ -31,7 +30,7 @@ class RecipeList extends React.Component {
       >
         {
           recipes.map((recipe) => (
-            <GalleryItem key={getRandomID()}>
+            <GalleryItem key={recipe.id}>
               <RecipeCard recipe={recipe} />
             </GalleryItem>
           ))

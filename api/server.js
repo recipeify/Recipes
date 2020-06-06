@@ -4,12 +4,15 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
-const { auth } = require('express-openid-connect');
 const compression = require('compression');
 // eslint-disable-next-line no-unused-vars
 const helmet = require('helmet');
+const asyncHandler = require('express-async-handler');
 
+// call this before importing modules that depend on env
 require('dotenv').config();
+
+const auth = require('./auth');
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -19,12 +22,6 @@ app.use(compression());
 
 /* vulnerability protection */
 // app.use(helmet());
-
-/* setup auth0 middleware with required authentication for all /api/users routes */
-app.use(auth({
-  required: (req) => req.originalUrl.startsWith('/api/users'),
-  redirectUriPath: '/',
-}));
 
 /* static routes */
 app.use(express.static(path.join(__dirname, 'build')));
@@ -38,8 +35,13 @@ if (!process.env.ELASTIC_SEARCH_HOST) {
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+
+app.get('/login', asyncHandler(async (_request, response, _next) => {
+  response.redirect(`${process.env.ISSUER_BASE_URL}/authorize`);
+}));
+
 /* users routes */
-app.use('/api/users', require('./users/users').router);
+app.use('/api/users', auth.enforceJwt, require('./users/users').router);
 
 /* search routes */
 app.use('/api/search', require('./search').router);
