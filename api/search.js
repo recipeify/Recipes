@@ -37,7 +37,7 @@ router.post('/recipes', asyncHandler(async (request, response, _next) => {
   }
 
   const bool = {
-    must: includeTerms.map((term) => ({ match: { ingredients: term } })),
+    must: includeTerms.map((term) => ({ match: { ingredients: { query: term, fuzziness: 'AUTO:0,4' } } })),
   };
 
   if (freeText) {
@@ -63,7 +63,7 @@ router.post('/recipes', asyncHandler(async (request, response, _next) => {
   }
 
   if (excludeTerms.length > 0) {
-    bool.must_not = excludeTerms.map((term) => ({ match: { ingredients: term } }));
+    bool.must_not = excludeTerms.map((term) => ({ match: { ingredients: { query: term, fuzziness: 'AUTO:0,4' } } }));
   }
 
   const dietQueryPart = {
