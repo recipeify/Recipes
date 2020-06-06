@@ -8,7 +8,11 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onLogin: (user) => dispatch(userLogin(user)),
+  onLogin: async (user, getTokenSilently) => {
+    const token = await getTokenSilently();
+    const data = { user, token };
+    dispatch(userLogin(data));
+  },
   onLogout: () => dispatch(userLogout()),
 });
 
