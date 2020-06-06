@@ -13,13 +13,13 @@ import logo from '../../assets/cake-pop.svg';
 
 const Navigation = (props) => {
   const {
-    isAuthenticated, loginWithRedirect, logout, loading, user,
+    isAuthenticated, loginWithRedirect, logout, loading, user, getTokenSilently,
   } = useAuth0();
 
   useEffect(() => {
     const { isLoggedIn, onLogout, onLogin } = props;
     if (!isLoggedIn && isAuthenticated && user) {
-      onLogin(user);
+      onLogin(user, getTokenSilently);
     }
     if (isLoggedIn && !isAuthenticated) {
       onLogout(user);
@@ -63,14 +63,14 @@ const Navigation = (props) => {
     const name = loggedInUser ? loggedInUser.name : null;
     return (
       <Col
-        push={21}
+        flex="auto"
         className="authentication"
       >
         <Row gutter={20} justify="end">
           <Col flex="40px">
             {avatar}
           </Col>
-          <Col flex="auto">
+          <Col>
             {name}
           </Col>
           <Col>

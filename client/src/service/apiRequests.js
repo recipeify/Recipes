@@ -17,6 +17,20 @@ export const getResources = async () => {
   return response.json();
 };
 
+export const sendView = async (recipeID, token) => {
+  const response = await fetch('/api/users/recipes_viewed',
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({ recipes: [recipeID] }),
+    });
+  handleErrors(response);
+  return response.json();
+};
+
 export const searchByFilters = async (
   freeText,
   includeTerms,
@@ -52,5 +66,5 @@ export const searchByFilters = async (
   return response.json();
 };
 
-const apiRequests = { searchByFilters, getResources };
+const apiRequests = { searchByFilters, getResources, sendView };
 export default apiRequests;
