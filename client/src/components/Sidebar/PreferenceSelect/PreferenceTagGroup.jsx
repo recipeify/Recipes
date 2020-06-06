@@ -25,7 +25,7 @@ class PreferenceTagGroup extends React.Component {
       <div>
         {appliedPreferenceList.map((preference, index) => (
           <PreferenceTag
-            key={`${variant}{getRandomID()}`}
+            key={`${variant}${getRandomID()}`}
             onClose={onClose}
             preferenceObj={preference}
             index={index}

@@ -6,32 +6,78 @@ function handleErrors(response) {
   return response;
 }
 
+const globalHeaders = {
+  pragma: 'no-cache',
+  'cache-control': 'no-cache',
+  'Content-Type': 'application/json',
+};
+
 export const getResources = async () => {
   const response = await fetch('/api/resources/all', {
     method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-    },
+    headers: globalHeaders,
   });
   handleErrors(response);
   return response.json();
 };
 
-export const sendView = async (recipeID, token) => {
+export const sendView = async (token, recipeID) => {
   const response = await fetch('/api/users/recipes_viewed',
     {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
+        ...globalHeaders,
         Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({ recipes: [recipeID] }),
+    });
+  handleErrors(response);
+  return response;
+};
+
+export const addRecipes = async (token, recipes) => {
+  const response = await fetch('/api/users/add_recipes',
+    {
+      method: 'POST',
+      headers: {
+        ...globalHeaders,
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({ recipes }),
+    });
+  handleErrors(response);
+  return response;
+};
+
+export const removeRecipes = async (token, recipes) => {
+  const response = await fetch('/api/users/remove_recipes',
+    {
+      method: 'POST',
+      headers: {
+        ...globalHeaders,
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({ recipes }),
+    });
+  handleErrors(response);
+  return response;
+};
+
+export const getUserRecipes = async (token) => {
+  const response = await fetch('/api/users/get_recipes',
+    {
+      method: 'GET',
+      headers: {
+        ...globalHeaders,
+        Authorization: `Bearer ${token}`,
+      },
     });
   handleErrors(response);
   return response.json();
 };
 
 export const searchByFilters = async (
+  token,
   freeText,
   includeTerms,
   excludeTerms,
@@ -41,13 +87,16 @@ export const searchByFilters = async (
   toCookTime,
   fromCookTime,
   from = 0,
-  size = 10) => {
+  size = 30) => {
+  const headers = token ? {
+    ...globalHeaders,
+    Authorization: `Bearer ${token}`,
+  } : globalHeaders;
+
   const response = await fetch('/api/search/recipes',
     {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers,
       body: JSON.stringify({
         freeText,
         includeTerms,
@@ -66,5 +115,10 @@ export const searchByFilters = async (
   return response.json();
 };
 
-const apiRequests = { searchByFilters, getResources, sendView };
+const apiRequests = {
+  searchByFilters,
+  getResources,
+  sendView,
+  getUserRecipes,
+};
 export default apiRequests;

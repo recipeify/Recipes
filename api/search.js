@@ -3,6 +3,9 @@ const elasticsearch = require('elasticsearch');
 const asyncHandler = require('express-async-handler');
 const get = require('lodash/get');
 
+const auth = require('./auth');
+const User = require('./users/userModel');
+
 const router = express.Router();
 
 const esClient = new elasticsearch.Client({
@@ -183,10 +186,24 @@ router.post('/recipes', asyncHandler(async (request, response, _next) => {
     body,
   });
 
+  // eslint-disable-next-line no-underscore-dangle
+  let items = query.hits.hits.map((e) => e._source);
+
+  try {
+    const user = await auth.checkJwt(request);
+    if (user) {
+      // TODO: only query relevant items to make this a bit more effcient
+      const result = await User.findById(user.sub, 'recipes');
+      const savedIds = new Set(result.recipes);
+      items = items.map((i) => ({ ...i, isSaved: savedIds.has(i.id) }));
+    }
+  } catch (e) {
+    console.error('failed to check jwt', e);
+  }
+
   response.send({
     total: query.hits.total,
-    // eslint-disable-next-line no-underscore-dangle
-    items: query.hits.hits.map((e) => e._source),
+    items,
   });
 }));
 

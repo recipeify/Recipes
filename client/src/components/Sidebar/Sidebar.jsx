@@ -20,8 +20,10 @@ class Sidebar extends React.Component {
       dishType,
       cuisine,
       getResources,
+      token,
     } = this.props;
     getRecipesByFilters(
+      token,
       freeText,
       includeTerms,
       excludeTerms,
@@ -45,8 +47,10 @@ class Sidebar extends React.Component {
       diet,
       cuisine,
       dishType,
+      token,
     } = this.props;
     getRecipesByFilters(
+      token,
       freeText,
       includeTerms,
       excludeTerms,
@@ -112,6 +116,7 @@ Sidebar.propTypes = {
   cuisine: PropTypes.arrayOf(PropTypes.object),
   toCookTime: PropTypes.number,
   fromCookTime: PropTypes.number,
+  token: PropTypes.string,
 };
 
 Sidebar.defaultProps = {
@@ -121,6 +126,7 @@ Sidebar.defaultProps = {
   cuisine: [],
   toCookTime: 600,
   fromCookTime: 0,
+  token: undefined,
 };
 
 export default Sidebar;
