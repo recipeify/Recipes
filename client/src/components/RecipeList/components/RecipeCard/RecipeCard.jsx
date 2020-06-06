@@ -4,7 +4,7 @@ import {
   Card, Modal, Button, Tag, Divider, Row, Col, Tooltip,
 } from 'antd';
 import {
-  InfoCircleOutlined, StarOutlined, ExportOutlined, CloseCircleOutlined, StarFilled,
+  InfoCircleOutlined, StarOutlined, ExportOutlined, CloseCircleOutlined, StarFilled, LoadingOutlined
 } from '@ant-design/icons';
 import RecipeNames from './RecipeConsts';
 import { getRandomID } from '../../../../common/helpers';
@@ -14,7 +14,17 @@ const { Meta } = Card;
 class RecipeCard extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { showModal: false, viewMoreTags: false };
+    this.state = { showModal: false, viewMoreTags: false, loadRecipeBookChange: false };
+  }
+
+
+  componentDidUpdate(prevProps) {
+    const { recipe } = this.props;
+    const { isSaved } = recipe;
+    if (isSaved !== prevProps.recipe.isSaved) {
+      // eslint-disable-next-line react/no-did-update-set-state
+      this.setState({ loadRecipeBookChange: false });
+    }
   }
 
   showModal = () => {
@@ -38,7 +48,7 @@ class RecipeCard extends React.Component {
       tags, id, isSaved = undefined,
     } = recipe;
     const viewMoreText = `${tags.length - 5} more`;
-    const { showModal, viewMoreTags } = this.state;
+    const { showModal, viewMoreTags, loadRecipeBookChange } = this.state;
 
     const openRecipe = () => {
       window.open(link, 'noopener noreferrer');
@@ -49,12 +59,14 @@ class RecipeCard extends React.Component {
 
     const saveRecipe = () => {
       if (isLoggedIn) {
+        this.setState({ loadRecipeBookChange: true });
         addRecipe(token, id);
       }
     };
 
     const unsaveRecipe = () => {
       if (isLoggedIn) {
+        this.setState({ loadRecipeBookChange: true });
         removeRecipe(token, id);
       }
     };
@@ -86,15 +98,19 @@ class RecipeCard extends React.Component {
             (isSaved)
               ? (
                 <Tooltip title="Remove from My Cook Book">
-                  <Button className="recipe-button" block type="link" size="large" onClick={unsaveRecipe}>
-                    <StarFilled />
-                  </Button>
+                  <Tooltip title={<LoadingOutlined />} placement="bottom" visible={loadRecipeBookChange && !showModal}>
+                    <Button className="recipe-button" block type="link" size="large" onClick={unsaveRecipe}>
+                      <StarFilled />
+                    </Button>
+                  </Tooltip>
                 </Tooltip>
               ) : (
                 <Tooltip title="Add to My Cook Book">
-                  <Button className="recipe-button" block type="link" size="large" onClick={saveRecipe}>
-                    <StarOutlined />
-                  </Button>
+                  <Tooltip title={<LoadingOutlined />} placement="bottom" visible={loadRecipeBookChange && !showModal}>
+                    <Button className="recipe-button" block type="link" size="large" onClick={saveRecipe}>
+                      <StarOutlined />
+                    </Button>
+                  </Tooltip>
                 </Tooltip>
               ),
             <Tooltip title="Go to recipe">
@@ -117,15 +133,19 @@ class RecipeCard extends React.Component {
           footer={[
             isSaved ? (
               <Tooltip key="Save" title="Remove from My Cook Book">
-                <Button className="recipe-button" block type="link" size="large" onClick={unsaveRecipe}>
-                  <StarFilled />
-                </Button>
+                <Tooltip title={<LoadingOutlined />} placement="bottom" visible={loadRecipeBookChange}>
+                  <Button className="recipe-button" block type="link" size="large" onClick={unsaveRecipe}>
+                    <StarFilled />
+                  </Button>
+                </Tooltip>
               </Tooltip>
             ) : (
               <Tooltip key="Save" title="Add to My Cook Book">
-                <Button className="recipe-button" block type="link" size="large" onClick={saveRecipe}>
-                  <StarOutlined />
-                </Button>
+                <Tooltip title={<LoadingOutlined />} placement="bottom" visible={loadRecipeBookChange}>
+                  <Button className="recipe-button" block type="link" size="large" onClick={saveRecipe}>
+                    <StarOutlined />
+                  </Button>
+                </Tooltip>
               </Tooltip>
             ),
             <Tooltip key="Go" title="Go to recipe">
