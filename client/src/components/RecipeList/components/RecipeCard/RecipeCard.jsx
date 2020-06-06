@@ -31,19 +31,31 @@ class RecipeCard extends React.Component {
 
   render() {
     const {
-      recipe, isLoggedIn, viewRecipe, token,
+      recipe, isLoggedIn, viewRecipe, addRecipe, token, removeRecipe,
     } = this.props;
     const {
       title, link, image: imageURL, total_time: totalTime, rating, number_of_raters: numberOfRaters,
-      tags, id,
+      tags, id, isSaved = undefined,
     } = recipe;
     const viewMoreText = `${tags.length - 5} more`;
     const { showModal, viewMoreTags } = this.state;
 
-    const openRecipe = async () => {
+    const openRecipe = () => {
       window.open(link, 'noopener noreferrer');
       if (isLoggedIn) {
-        viewRecipe(id, token);
+        viewRecipe(token, id);
+      }
+    };
+
+    const saveRecipe = () => {
+      if (isLoggedIn) {
+        addRecipe(token, id);
+      }
+    };
+
+    const unsaveRecipe = () => {
+      if (isLoggedIn) {
+        removeRecipe(token, id);
       }
     };
 
@@ -71,11 +83,20 @@ class RecipeCard extends React.Component {
                 <InfoCircleOutlined />
               </Button>
             </Tooltip>,
-            <Tooltip title="Add to My Cook Book">
-              <Button className="recipe-button" block type="link" size="large">
-                <StarOutlined />
-              </Button>
-            </Tooltip>,
+            (isSaved)
+              ? (
+                <Tooltip title="Remove from My Cook Book">
+                  <Button className="recipe-button" block type="link" size="large" onClick={unsaveRecipe}>
+                    <StarFilled />
+                  </Button>
+                </Tooltip>
+              ) : (
+                <Tooltip title="Add to My Cook Book">
+                  <Button className="recipe-button" block type="link" size="large" onClick={saveRecipe}>
+                    <StarOutlined />
+                  </Button>
+                </Tooltip>
+              ),
             <Tooltip title="Go to recipe">
               <Button className="recipe-button" block type="link" size="large" onClick={openRecipe}>
                 <ExportOutlined />
@@ -94,13 +115,21 @@ class RecipeCard extends React.Component {
           visible={showModal}
           onCancel={this.hideModal}
           footer={[
-            <Tooltip title="Add to My Cook Book">
-              <Button key="Save">
-                <StarOutlined />
-              </Button>
-            </Tooltip>,
-            <Tooltip title="Go to recipe">
-              <Button key="Go" onClick={openRecipe}>
+            isSaved ? (
+              <Tooltip key="Save" title="Remove from My Cook Book">
+                <Button className="recipe-button" block type="link" size="large" onClick={unsaveRecipe}>
+                  <StarFilled />
+                </Button>
+              </Tooltip>
+            ) : (
+              <Tooltip key="Save" title="Add to My Cook Book">
+                <Button className="recipe-button" block type="link" size="large" onClick={saveRecipe}>
+                  <StarOutlined />
+                </Button>
+              </Tooltip>
+            ),
+            <Tooltip key="Go" title="Go to recipe">
+              <Button onClick={openRecipe}>
                 <ExportOutlined />
               </Button>
             </Tooltip>,
@@ -217,9 +246,12 @@ RecipeCard.propTypes = {
     number_of_raters: PropTypes.number,
     tags: PropTypes.arrayOf(PropTypes.string),
     id: PropTypes.string,
+    isSaved: PropTypes.bool,
   }).isRequired,
   isLoggedIn: PropTypes.bool.isRequired,
   viewRecipe: PropTypes.func.isRequired,
+  addRecipe: PropTypes.func.isRequired,
+  removeRecipe: PropTypes.func.isRequired,
   token: PropTypes.string.isRequired,
 };
 
