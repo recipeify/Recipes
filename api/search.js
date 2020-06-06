@@ -44,7 +44,7 @@ router.post('/recipes', asyncHandler(async (request, response, _next) => {
     bool.must.push({
       simple_query_string: {
         query: freeText,
-        fields: ['title', 'ingredients', 'tags', 'diet'],
+        fields: ['title', 'ingredients', 'tags'],
       },
     });
   }
