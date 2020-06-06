@@ -63,14 +63,14 @@ const Navigation = (props) => {
     const name = loggedInUser ? loggedInUser.name : null;
     return (
       <Col
-        push={21}
+        flex="auto"
         className="authentication"
       >
         <Row gutter={20} justify="end">
           <Col flex="40px">
             {avatar}
           </Col>
-          <Col flex="auto">
+          <Col>
             {name}
           </Col>
           <Col>
