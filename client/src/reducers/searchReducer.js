@@ -28,7 +28,7 @@ const initialState = {
   toCookTime: 600,
 };
 
-export default function recipeReducer(state = initialState, action) {
+export default function searchReducer(state = initialState, action) {
   // eslint-disable-next-line consistent-return
   return produce(state, (draft) => {
     switch (action.type) {

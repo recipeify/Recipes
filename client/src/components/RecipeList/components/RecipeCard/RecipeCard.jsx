@@ -7,15 +7,15 @@ import {
   InfoCircleOutlined, StarOutlined, ExportOutlined, CloseCircleOutlined, StarFilled,
 } from '@ant-design/icons';
 import RecipeNames from './RecipeConsts';
+import { getRandomID } from '../../../../common/helpers';
 
 const { Meta } = Card;
 
 class RecipeCard extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { showModal: false, viewMore: false };
+    this.state = { showModal: false, viewMoreTags: false };
   }
-
 
   showModal = () => {
     this.setState({
@@ -29,30 +29,33 @@ class RecipeCard extends React.Component {
     });
   };
 
-
   render() {
-    const { recipe } = this.props;
+    const {
+      recipe, isLoggedIn, viewRecipe, token,
+    } = this.props;
     const {
       title, link, image: imageURL, total_time: totalTime, rating, number_of_raters: numberOfRaters,
       tags, id,
     } = recipe;
     const viewMoreText = `${tags.length - 5} more`;
-    const { showModal, viewMore } = this.state;
+    const { showModal, viewMoreTags } = this.state;
 
-    const openRecipe = () => {
+    const openRecipe = async () => {
       window.open(link, 'noopener noreferrer');
+      if (isLoggedIn) {
+        viewRecipe(id, token);
+      }
     };
 
     const findSite = () => Object.entries(RecipeNames)
       .find((pair) => new RegExp(pair[0]).test(id))[1];
 
     const site = findSite();
-
     return (
-      <>
+      <div>
         <Card
           className="recipe-card"
-          // onClick={() => openRecipe(link)}
+            // onClick={() => openRecipe(link)}
           hoverable
           cover={(
             <img
@@ -60,7 +63,7 @@ class RecipeCard extends React.Component {
               src={imageURL}
               alt={title}
             />
-          )}
+            )}
 
           actions={[
             <Tooltip title="Show info">
@@ -172,33 +175,34 @@ class RecipeCard extends React.Component {
           </Row>
           <Row span={18}>
             {
-                    tags.map((tag, index) => (
-                      <Tag
-                        className="recipe-tag"
-                        visible={index < 5 || viewMore}
-                      >
-                        <span>
-                          {tag }
-                        </span>
-                      </Tag>
-                    ))
-                }
+              tags.map((tag, index) => (
+                <Tag
+                  className="recipe-tag"
+                  visible={index < 5 || viewMoreTags}
+                  key={`recipe-tag ${getRandomID()}`}
+                >
+                  <span>
+                    {tag}
+                  </span>
+                </Tag>
+              ))
+            }
             {tags.length > 5 && (
             <Button
               className="more-tags-button"
               onClick={() => {
-                this.setState({ viewMore: !viewMore });
+                this.setState({ viewMoreTags: !viewMoreTags });
               }}
               size="small"
             >
               <span>
-                {!viewMore ? viewMoreText : 'Show less'}
+                {!viewMoreTags ? viewMoreText : 'Show less'}
               </span>
             </Button>
             )}
           </Row>
         </Modal>
-      </>
+      </div>
     );
   }
 }
@@ -214,6 +218,9 @@ RecipeCard.propTypes = {
     tags: PropTypes.arrayOf(PropTypes.string),
     id: PropTypes.string,
   }).isRequired,
+  isLoggedIn: PropTypes.bool.isRequired,
+  viewRecipe: PropTypes.func.isRequired,
+  token: PropTypes.string.isRequired,
 };
 
 export default RecipeCard;
