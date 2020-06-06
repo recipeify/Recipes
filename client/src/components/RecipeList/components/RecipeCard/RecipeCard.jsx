@@ -14,7 +14,7 @@ const { Meta } = Card;
 class RecipeCard extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { showModal: false, viewMoreTags: false };
+    this.state = { showModal: false, viewMoreTags: false, loading: true };
   }
 
   showModal = () => {
@@ -29,6 +29,13 @@ class RecipeCard extends React.Component {
     });
   };
 
+  onLoad = () => {
+    this.setState({
+      loading: false,
+    });
+  };
+
+
   render() {
     const {
       recipe, isLoggedIn, viewRecipe, token,
@@ -38,7 +45,7 @@ class RecipeCard extends React.Component {
       tags, id,
     } = recipe;
     const viewMoreText = `${tags.length - 5} more`;
-    const { showModal, viewMoreTags } = this.state;
+    const { showModal, viewMoreTags, loading } = this.state;
 
     const openRecipe = async () => {
       window.open(link, 'noopener noreferrer');
@@ -55,13 +62,15 @@ class RecipeCard extends React.Component {
       <div>
         <Card
           className="recipe-card"
-            // onClick={() => openRecipe(link)}
+          onClick={this.showModal}
+          loading={loading}
           hoverable
           cover={(
             <img
               className="recipe-image"
               src={imageURL}
               alt={title}
+              onLoad={this.onLoad}
             />
             )}
 
