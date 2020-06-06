@@ -36,18 +36,12 @@ router.post('/recipes', asyncHandler(async (request, response, _next) => {
     return;
   }
 
-  const body = {
-    query: {
-      bool: {
-        must: includeTerms.map((term) => ({ match: { ingredients: term } })),
-      },
-    },
-    from,
-    size,
+  const bool = {
+    must: includeTerms.map((term) => ({ match: { ingredients: term } })),
   };
 
   if (freeText) {
-    body.query.bool.must.push({
+    bool.must.push({
       simple_query_string: {
         query: freeText,
         fields: ['title', 'ingredients', 'tags', 'diet'],
@@ -56,7 +50,7 @@ router.post('/recipes', asyncHandler(async (request, response, _next) => {
   }
 
   if ((fromCookTime != null) && (toCookTime != null)) {
-    body.query.bool.filter = [
+    bool.filter = [
       {
         range: {
           total_time: {
@@ -69,7 +63,7 @@ router.post('/recipes', asyncHandler(async (request, response, _next) => {
   }
 
   if (excludeTerms.length > 0) {
-    body.query.bool.must_not = excludeTerms.map((term) => ({ match: { ingredients: term } }));
+    bool.must_not = excludeTerms.map((term) => ({ match: { ingredients: term } }));
   }
 
   const dietQueryPart = {
@@ -100,7 +94,7 @@ router.post('/recipes', asyncHandler(async (request, response, _next) => {
     }
   });
   if (diet.length > 0) {
-    body.query.bool.must.push(dietQueryPart);
+    bool.must.push(dietQueryPart);
   }
 
   const dishTypeQueryPart = {
@@ -131,7 +125,7 @@ router.post('/recipes', asyncHandler(async (request, response, _next) => {
     }
   });
   if (dishType.length > 0) {
-    body.query.bool.must.push(dishTypeQueryPart);
+    bool.must.push(dishTypeQueryPart);
   }
 
   const cuisineQueryPart = {
@@ -162,8 +156,24 @@ router.post('/recipes', asyncHandler(async (request, response, _next) => {
     }
   });
   if (cuisine.length > 0) {
-    body.query.bool.must.push(cuisineQueryPart);
+    bool.must.push(cuisineQueryPart);
   }
+
+  const body = {
+    query: {
+      boosting: {
+        positive: { bool },
+        negative: {
+          term: {
+            image_placeholder_flag: true,
+          },
+        },
+        negative_boost: 0.5,
+      },
+    },
+    from,
+    size,
+  };
 
   const query = await esClient.search({
     index: process.env.ELASTIC_SEARCH_INDEX,
