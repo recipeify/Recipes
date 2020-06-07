@@ -4,7 +4,8 @@ import {
   Card, Modal, Button, Tag, Divider, Row, Col, Tooltip,
 } from 'antd';
 import {
-  InfoCircleOutlined, StarOutlined, ExportOutlined, CloseCircleOutlined, StarFilled, LoadingOutlined
+  InfoCircleOutlined, StarOutlined, ExportOutlined,
+  CloseCircleOutlined, StarFilled, LoadingOutlined,
 } from '@ant-design/icons';
 import RecipeNames from './RecipeConsts';
 import { getRandomID } from '../../../../common/helpers';
