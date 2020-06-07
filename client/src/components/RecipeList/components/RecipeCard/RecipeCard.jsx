@@ -4,7 +4,8 @@ import {
   Card, Modal, Button, Tag, Divider, Row, Col, Tooltip,
 } from 'antd';
 import {
-  InfoCircleOutlined, StarOutlined, ExportOutlined, CloseCircleOutlined, StarFilled, LoadingOutlined
+  InfoCircleOutlined, StarOutlined, ExportOutlined,
+  CloseCircleOutlined, StarFilled, LoadingOutlined,
 } from '@ant-design/icons';
 import RecipeNames from './RecipeConsts';
 import { getRandomID } from '../../../../common/helpers';
@@ -98,19 +99,15 @@ class RecipeCard extends React.Component {
             (isSaved)
               ? (
                 <Tooltip title="Remove from My Cook Book">
-                  <Tooltip title={<LoadingOutlined />} placement="bottom" visible={loadRecipeBookChange && !showModal}>
-                    <Button className="recipe-button" block type="link" size="large" onClick={unsaveRecipe}>
-                      <StarFilled />
-                    </Button>
-                  </Tooltip>
+                  <Button className="recipe-button" block type="link" size="large" onClick={unsaveRecipe}>
+                    {loadRecipeBookChange && !showModal ? <LoadingOutlined /> : <StarFilled /> }
+                  </Button>
                 </Tooltip>
               ) : (
                 <Tooltip title="Add to My Cook Book">
-                  <Tooltip title={<LoadingOutlined />} placement="bottom" visible={loadRecipeBookChange && !showModal}>
-                    <Button className="recipe-button" block type="link" size="large" onClick={saveRecipe}>
-                      <StarOutlined />
-                    </Button>
-                  </Tooltip>
+                  <Button className="recipe-button" block type="link" size="large" onClick={saveRecipe}>
+                    {loadRecipeBookChange && !showModal ? <LoadingOutlined /> : <StarOutlined /> }
+                  </Button>
                 </Tooltip>
               ),
             <Tooltip title="Go to recipe">
@@ -133,19 +130,15 @@ class RecipeCard extends React.Component {
           footer={[
             isSaved ? (
               <Tooltip key="Save" title="Remove from My Cook Book">
-                <Tooltip title={<LoadingOutlined />} placement="bottom" visible={loadRecipeBookChange}>
-                  <Button className="recipe-button" block type="link" size="large" onClick={unsaveRecipe}>
-                    <StarFilled />
-                  </Button>
-                </Tooltip>
+                <Button className="recipe-button" block type="link" size="large" onClick={unsaveRecipe}>
+                  {loadRecipeBookChange ? <LoadingOutlined /> : <StarFilled /> }
+                </Button>
               </Tooltip>
             ) : (
               <Tooltip key="Save" title="Add to My Cook Book">
-                <Tooltip title={<LoadingOutlined />} placement="bottom" visible={loadRecipeBookChange}>
-                  <Button className="recipe-button" block type="link" size="large" onClick={saveRecipe}>
-                    <StarOutlined />
-                  </Button>
-                </Tooltip>
+                <Button className="recipe-button" block type="link" size="large" onClick={saveRecipe}>
+                  {loadRecipeBookChange ? <LoadingOutlined /> : <StarOutlined /> }
+                </Button>
               </Tooltip>
             ),
             <Tooltip key="Go" title="Go to recipe">
