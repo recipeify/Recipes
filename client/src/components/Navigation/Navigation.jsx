@@ -9,7 +9,7 @@ import {
 } from 'antd';
 import { LogoutOutlined } from '@ant-design/icons';
 import { useAuth0 } from '../../react-auth0-spa';
-import logo from '../../assets/cake-pop.svg';
+import logo from '../../assets/logo.svg';
 
 const Navigation = (props) => {
   const {
