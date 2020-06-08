@@ -7,6 +7,7 @@ const path = require('path');
 const compression = require('compression');
 // eslint-disable-next-line no-unused-vars
 const helmet = require('helmet');
+const asyncHandler = require('express-async-handler');
 
 // call this before importing modules that depend on env
 require('dotenv').config();
@@ -33,6 +34,11 @@ if (!process.env.ELASTIC_SEARCH_HOST) {
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+
+app.get('/login', asyncHandler(async (_request, response, _next) => {
+  response.redirect(`${process.env.ISSUER_BASE_URL}/authorize`);
+}));
 
 /* users routes */
 app.use('/api/users', auth.enforceJwt, require('./users/users').router);

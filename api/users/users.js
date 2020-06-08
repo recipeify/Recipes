@@ -157,6 +157,7 @@ router.post('/recipes_viewed', asyncHandler(async (request, response, next) => {
     response.sendStatus(400);
     return;
   }
+  response.sendStatus(200);
 
   /* can perform after response, send events to recommendation engine */
   const userHash = crypto.createHash('sha256').update(request.user.sub).digest('hex');
