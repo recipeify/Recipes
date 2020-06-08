@@ -77,35 +77,36 @@ class RecipeCard extends React.Component {
 
     const site = findSite();
 
-    const starButton = (save = false) => {
+    const starButton = (save = false, inModal) => {
       if (save) {
         return (
           <Button className="recipe-button" block type="link" size="large" onClick={saveRecipe}>
-            {loadRecipeBookChange && !showModal ? <LoadingOutlined /> : <StarOutlined /> }
+            {/* eslint-disable-next-line max-len */}
+            {loadRecipeBookChange && (!showModal || inModal) ? <LoadingOutlined /> : <StarOutlined /> }
           </Button>
         );
       }
       return (
         <Button className="recipe-button" block type="link" size="large" onClick={unsaveRecipe}>
-          {loadRecipeBookChange && !showModal ? <LoadingOutlined /> : <StarFilled /> }
+          {loadRecipeBookChange && (!showModal || inModal) ? <LoadingOutlined /> : <StarFilled /> }
         </Button>
       );
     };
 
-    const getStarButton = () => {
-      if (loadRecipeBookChange && !showModal) {
-        return starButton();
+    const getStarButton = (inModal) => {
+      if (loadRecipeBookChange) {
+        return starButton(!isSaved, inModal);
       }
       if (isSaved) {
         return (
           <Tooltip title="Remove from My Cook Book">
-            {starButton()}
+            {starButton(false, inModal)}
           </Tooltip>
         );
       }
       return (
         <Tooltip title="Add to My Cook Book">
-          {starButton(true)}
+          {starButton(true, inModal)}
         </Tooltip>
       );
     };
@@ -130,7 +131,7 @@ class RecipeCard extends React.Component {
                 <InfoCircleOutlined />
               </Button>
             </Tooltip>,
-            getStarButton(),
+            getStarButton(false),
             <Tooltip title="Go to recipe">
               <Button className="recipe-button" block type="link" size="large" onClick={openRecipe}>
                 <ExportOutlined />
@@ -149,7 +150,12 @@ class RecipeCard extends React.Component {
           visible={showModal}
           onCancel={this.hideModal}
           footer={[
-            getStarButton(),
+            getStarButton(true),
+            <Tooltip key="Go" title="Go to recipe">
+              <Button onClick={openRecipe}>
+                <ExportOutlined />
+              </Button>
+            </Tooltip>,
           ]}
         >
           <img
