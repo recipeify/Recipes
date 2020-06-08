@@ -48,10 +48,14 @@ const Navigation = (props) => {
 
   const notLoggedInRow = (
     <Col
-      push={22}
+      flex="auto"
       className="authentication"
     >
-      {loading ? loadingButton : loginButton}
+      <Row gutter={20} justify="end">
+        <Col flex="40px">
+          {loading ? loadingButton : loginButton}
+        </Col>
+      </Row>
     </Col>
   );
 

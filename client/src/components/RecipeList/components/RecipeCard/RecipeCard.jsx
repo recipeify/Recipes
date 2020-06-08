@@ -101,12 +101,14 @@ class RecipeCard extends React.Component {
                 <Tooltip title="Remove from My Cook Book">
                   <Button className="recipe-button" block type="link" size="large" onClick={unsaveRecipe}>
                     {loadRecipeBookChange && !showModal ? <LoadingOutlined /> : <StarFilled /> }
+                    <StarFilled />
                   </Button>
                 </Tooltip>
               ) : (
                 <Tooltip title="Add to My Cook Book">
                   <Button className="recipe-button" block type="link" size="large" onClick={saveRecipe}>
                     {loadRecipeBookChange && !showModal ? <LoadingOutlined /> : <StarOutlined /> }
+                    <StarOutlined />
                   </Button>
                 </Tooltip>
               ),
@@ -132,12 +134,14 @@ class RecipeCard extends React.Component {
               <Tooltip key="Save" title="Remove from My Cook Book">
                 <Button className="recipe-button" block type="link" size="large" onClick={unsaveRecipe}>
                   {loadRecipeBookChange ? <LoadingOutlined /> : <StarFilled /> }
+                  <StarFilled />
                 </Button>
               </Tooltip>
             ) : (
               <Tooltip key="Save" title="Add to My Cook Book">
                 <Button className="recipe-button" block type="link" size="large" onClick={saveRecipe}>
                   {loadRecipeBookChange ? <LoadingOutlined /> : <StarOutlined /> }
+                  <StarOutlined />
                 </Button>
               </Tooltip>
             ),
