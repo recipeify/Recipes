@@ -76,6 +76,40 @@ class RecipeCard extends React.Component {
       .find((pair) => new RegExp(pair[0]).test(id))[1];
 
     const site = findSite();
+
+    const starButton = (save = false) => {
+      if (save) {
+        return (
+          <Button className="recipe-button" block type="link" size="large" onClick={saveRecipe}>
+            {loadRecipeBookChange && !showModal ? <LoadingOutlined /> : <StarOutlined /> }
+          </Button>
+        );
+      }
+      return (
+        <Button className="recipe-button" block type="link" size="large" onClick={unsaveRecipe}>
+          {loadRecipeBookChange && !showModal ? <LoadingOutlined /> : <StarFilled /> }
+        </Button>
+      );
+    };
+
+    const getStarButton = () => {
+      if (loadRecipeBookChange && !showModal) {
+        return starButton();
+      }
+      if (isSaved) {
+        return (
+          <Tooltip title="Remove from My Cook Book">
+            {starButton()}
+          </Tooltip>
+        );
+      }
+      return (
+        <Tooltip title="Add to My Cook Book">
+          {starButton(true)}
+        </Tooltip>
+      );
+    };
+
     return (
       <div>
         <Card
@@ -96,20 +130,7 @@ class RecipeCard extends React.Component {
                 <InfoCircleOutlined />
               </Button>
             </Tooltip>,
-            (isSaved)
-              ? (
-                <Tooltip title="Remove from My Cook Book">
-                  <Button className="recipe-button" block type="link" size="large" onClick={unsaveRecipe}>
-                    {loadRecipeBookChange && !showModal ? <LoadingOutlined /> : <StarFilled /> }
-                  </Button>
-                </Tooltip>
-              ) : (
-                <Tooltip title="Add to My Cook Book">
-                  <Button className="recipe-button" block type="link" size="large" onClick={saveRecipe}>
-                    {loadRecipeBookChange && !showModal ? <LoadingOutlined /> : <StarOutlined /> }
-                  </Button>
-                </Tooltip>
-              ),
+            getStarButton(),
             <Tooltip title="Go to recipe">
               <Button className="recipe-button" block type="link" size="large" onClick={openRecipe}>
                 <ExportOutlined />
@@ -128,24 +149,7 @@ class RecipeCard extends React.Component {
           visible={showModal}
           onCancel={this.hideModal}
           footer={[
-            isSaved ? (
-              <Tooltip key="Save" title="Remove from My Cook Book">
-                <Button className="recipe-button" block type="link" size="large" onClick={unsaveRecipe}>
-                  {loadRecipeBookChange ? <LoadingOutlined /> : <StarFilled /> }
-                </Button>
-              </Tooltip>
-            ) : (
-              <Tooltip key="Save" title="Add to My Cook Book">
-                <Button className="recipe-button" block type="link" size="large" onClick={saveRecipe}>
-                  {loadRecipeBookChange ? <LoadingOutlined /> : <StarOutlined /> }
-                </Button>
-              </Tooltip>
-            ),
-            <Tooltip key="Go" title="Go to recipe">
-              <Button onClick={openRecipe}>
-                <ExportOutlined />
-              </Button>
-            </Tooltip>,
+            getStarButton(),
           ]}
         >
           <img
