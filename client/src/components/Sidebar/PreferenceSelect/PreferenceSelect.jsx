@@ -74,7 +74,6 @@ class PreferenceSelect extends React.Component {
   handleClick() {
     const { dataset, openDropdownOnClick } = this.props;
     if (openDropdownOnClick) {
-      console.log('hi');
       this.setState({ data: dataset });
     }
   }
