@@ -197,7 +197,6 @@ router.post('/recipes_viewed', asyncHandler(async (request, response, next) => {
   await recombeeClient.send(new rqs.Batch(views)).catch((err) => {
     if (err) next(err);
   });
-  response.sendStatus(200);
 }));
 
 router.post('/recently_viewed', asyncHandler(async (request, response, next) => {
