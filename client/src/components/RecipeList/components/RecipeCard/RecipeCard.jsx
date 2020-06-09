@@ -15,7 +15,9 @@ const { Meta } = Card;
 class RecipeCard extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { showModal: false, viewMoreTags: false, loadRecipeBookChange: false, loading: true };
+    this.state = {
+      showModal: false, viewMoreTags: false, loadRecipeBookChange: false, loading: true,
+    };
   }
 
 
@@ -56,23 +58,28 @@ class RecipeCard extends React.Component {
       tags, id, isSaved = undefined,
     } = recipe;
     const viewMoreText = `${tags.length - 5} more`;
-    const { showModal, viewMoreTags, loadRecipeBookChange, loading } = this.state;
+    const {
+      showModal, viewMoreTags, loadRecipeBookChange, loading,
+    } = this.state;
 
-    const openRecipe = () => {
+    const openRecipe = (e) => {
+      e.stopPropagation();
       window.open(link, 'noopener noreferrer');
       if (isLoggedIn) {
         viewRecipe(token, id);
       }
     };
 
-    const saveRecipe = () => {
+    const saveRecipe = (e) => {
+      e.stopPropagation();
       if (isLoggedIn) {
         this.setState({ loadRecipeBookChange: true });
         addRecipe(token, id);
       }
     };
 
-    const unsaveRecipe = () => {
+    const unsaveRecipe = (e) => {
+      e.stopPropagation();
       if (isLoggedIn) {
         this.setState({ loadRecipeBookChange: true });
         removeRecipe(token, id);
