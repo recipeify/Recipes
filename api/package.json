@@ -1,4 +1,4 @@
-  {
+{
   "name": "api",
   "version": "1.0.0",
   "description": "",
@@ -19,8 +19,10 @@
     "express": "^4.17.1",
     "express-async-handler": "^1.1.4",
     "express-openid-connect": "^1.0.1",
+    "hebcal": "^2.3.2",
     "helmet": "^3.22.0",
     "lodash": "^4.17.15",
+    "moment-holiday": "^1.5.1",
     "mongodb": "^3.5.7",
     "mongoose": "^5.9.14",
     "querystring": "^0.2.0",
@@ -34,11 +36,16 @@
   },
   "eslintConfig": {
     "env": {
-        "browser": false,
-        "node": true
+      "browser": false,
+      "node": true
     },
     "rules": {
-      "no-unused-vars": ["error", { "argsIgnorePattern": "^_" }]
+      "no-unused-vars": [
+        "error",
+        {
+          "argsIgnorePattern": "^_"
+        }
+      ]
     }
   }
 }
