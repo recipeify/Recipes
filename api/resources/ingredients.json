@@ -307,9 +307,6 @@
       "key": "minced garlic"
     },
     {
-      "key": "almonds"
-    },
-    {
       "key": "sea salt"
     },
     {
@@ -326,9 +323,6 @@
     },
     {
       "key": "jalapeno"
-    },
-    {
-      "key": "pecans"
     },
     {
       "key": "shrimp"
@@ -1153,7 +1147,7 @@
       "key": "applesauce"
     },
     {
-      "key": "slivered almonds"
+      "key": "slivered almond"
     },
     {
       "key": "sprouts"
@@ -1624,9 +1618,6 @@
       "key": "unsweetened chocolate"
     },
     {
-      "key": "sunflower seeds"
-    },
-    {
       "key": "baking potato"
     },
     {
@@ -1826,9 +1817,6 @@
     },
     {
       "key": "curry paste"
-    },
-    {
-      "key": "extra-virgin olive oil"
     },
     {
       "key": "lasagna noodles"
@@ -2314,7 +2302,7 @@
       "key": "crumbles"
     },
     {
-      "key": "dinner rolls"
+      "key": "dinner roll"
     },
     {
       "key": "cremini"
@@ -2374,7 +2362,7 @@
       "key": "gorgonzola"
     },
     {
-      "key": "blanched almonds"
+      "key": "blanched almond"
     },
     {
       "key": "pistachio"
@@ -3001,7 +2989,7 @@
       "key": "apricot jam"
     },
     {
-      "key": "crescent dinner rolls"
+      "key": "crescent dinner roll"
     },
     {
       "key": "basil leaf"
@@ -4039,13 +4027,13 @@
       "key": "sandwich bread"
     },
     {
-      "key": "toasted almonds"
+      "key": "toasted almond"
     },
     {
       "key": "gravy mix"
     },
     {
-      "key": "round steaks"
+      "key": "round steak"
     },
     {
       "key": "rum extract"
@@ -4291,7 +4279,7 @@
       "key": "asian fish sauce"
     },
     {
-      "key": "kaiser rolls"
+      "key": "kaiser roll"
     },
     {
       "key": "almond meal"
@@ -4393,7 +4381,7 @@
       "key": "biscuit mix"
     },
     {
-      "key": "tuna steaks"
+      "key": "tuna steak"
     },
     {
       "key": "corn meal"
@@ -4606,13 +4594,13 @@
       "key": "catalina dressing"
     },
     {
-      "key": "hoagie rolls"
+      "key": "hoagie roll"
     },
     {
       "key": "burgundy"
     },
     {
-      "key": "tenderloin steaks"
+      "key": "tenderloin steak"
     },
     {
       "key": "toffee bits"
@@ -4709,9 +4697,6 @@
     },
     {
       "key": "country bread"
-    },
-    {
-      "key": "soya"
     },
     {
       "key": "roquefort cheese"
@@ -4888,7 +4873,7 @@
       "key": "sherbet"
     },
     {
-      "key": "salmon steaks"
+      "key": "salmon steak"
     },
     {
       "key": "apple jelly"
@@ -5203,7 +5188,7 @@
       "key": "bacon grease"
     },
     {
-      "key": "beef tenderloin steaks"
+      "key": "beef tenderloin steak"
     },
     {
       "key": "raspberry vinegar"
@@ -5578,7 +5563,7 @@
       "key": "frozen banana"
     },
     {
-      "key": "sliced shallots"
+      "key": "sliced shallot"
     },
     {
       "key": "urad dal"
@@ -5591,9 +5576,6 @@
     },
     {
       "key": "white truffle"
-    },
-    {
-      "key": "long-grain rice"
     },
     {
       "key": "brown gravy mix"
@@ -5617,7 +5599,7 @@
       "key": "cod fish"
     },
     {
-      "key": "frankfurters"
+      "key": "frankfurter"
     },
     {
       "key": "pickled jalapeno pepper"
@@ -5644,7 +5626,7 @@
       "key": "vegan margarine"
     },
     {
-      "key": "sandwich rolls"
+      "key": "sandwich roll"
     },
     {
       "key": "tomato salsa"
@@ -5770,7 +5752,7 @@
       "key": "smoked pork"
     },
     {
-      "key": "strip steaks"
+      "key": "strip steak"
     },
     {
       "key": "chocolate sandwich cookies"
@@ -5797,10 +5779,10 @@
       "key": "chicken breast fillet"
     },
     {
-      "key": "eye steaks"
+      "key": "eye steak"
     },
     {
-      "key": "rib eye steaks"
+      "key": "rib eye steak"
     },
     {
       "key": "dark raisin"
@@ -5839,7 +5821,7 @@
       "key": "malt vinegar"
     },
     {
-      "key": "spring roll wrappers"
+      "key": "spring roll wrapper"
     },
     {
       "key": "frozen vegetables"
@@ -5914,7 +5896,7 @@
       "key": "pasta water"
     },
     {
-      "key": "raw almonds"
+      "key": "raw almond"
     },
     {
       "key": "dried chili pepper"
@@ -6091,7 +6073,7 @@
       "key": "fresh coriander"
     },
     {
-      "key": "french rolls"
+      "key": "french roll"
     },
     {
       "key": "meatloaf"
@@ -6157,7 +6139,7 @@
       "key": "manchego cheese"
     },
     {
-      "key": "ciabatta rolls"
+      "key": "ciabatta roll"
     },
     {
       "key": "fiber one"
@@ -6499,7 +6481,7 @@
       "key": "sponge cake"
     },
     {
-      "key": "refrigerated crescent rolls"
+      "key": "refrigerated crescent roll"
     },
     {
       "key": "finely chopped onion"
@@ -6601,7 +6583,7 @@
       "key": "angel food cake mix"
     },
     {
-      "key": "lavender flowers"
+      "key": "lavender flower"
     },
     {
       "key": "crimini mushrooms"
@@ -6706,7 +6688,7 @@
       "key": "pea shoots"
     },
     {
-      "key": "marcona almonds"
+      "key": "marcona almond"
     },
     {
       "key": "raw cane sugar"
@@ -7018,7 +7000,7 @@
       "key": "minced beef"
     },
     {
-      "key": "new york strip steaks"
+      "key": "new york strip steak"
     },
     {
       "key": "sweet rice flour"
@@ -7204,7 +7186,7 @@
       "key": "vanilla wafer crumbs"
     },
     {
-      "key": "crusty rolls"
+      "key": "crusty roll"
     },
     {
       "key": "red grapefruit"
@@ -7309,7 +7291,7 @@
       "key": "green tea powder"
     },
     {
-      "key": "egg roll wrappers"
+      "key": "egg roll wrapper"
     },
     {
       "key": "vanilla frozen yogurt"
@@ -7408,7 +7390,7 @@
       "key": "shredded carrots"
     },
     {
-      "key": "roasted almonds"
+      "key": "roasted almond"
     },
     {
       "key": "shredded sharp cheddar cheese"
@@ -7459,10 +7441,10 @@
       "key": "bread crumb fresh"
     },
     {
-      "key": "five-spice powder"
+      "key": "five spice powder"
     },
     {
-      "key": "chinese five-spice powder"
+      "key": "chinese five spice powder"
     },
     {
       "key": "fresh chives"
@@ -7525,7 +7507,7 @@
       "key": "malted milk powder"
     },
     {
-      "key": "swordfish steaks"
+      "key": "swordfish steak"
     },
     {
       "key": "croissants"
@@ -7645,7 +7627,7 @@
       "key": "haddock fillet"
     },
     {
-      "key": "bread rolls"
+      "key": "bread roll"
     },
     {
       "key": "aged balsamic vinegar"
@@ -7792,7 +7774,7 @@
       "key": "wild salmon"
     },
     {
-      "key": "part-skim mozzarella"
+      "key": "part skim mozzarella"
     },
     {
       "key": "mature cheddar"
@@ -7837,7 +7819,7 @@
       "key": "breadstick"
     },
     {
-      "key": "toasted slivered almonds"
+      "key": "toasted slivered almond"
     },
     {
       "key": "vegan butter"
@@ -8032,7 +8014,7 @@
       "key": "white tequila"
     },
     {
-      "key": "ground blanched almonds"
+      "key": "ground blanched almond"
     },
     {
       "key": "grated parmesan romano"
@@ -8182,7 +8164,7 @@
       "key": "sliced pineapple"
     },
     {
-      "key": "unsalted almonds"
+      "key": "unsalted almond"
     },
     {
       "key": "arbol chile"
@@ -8818,7 +8800,7 @@
       "key": "dried fig"
     },
     {
-      "key": "sugar cubes"
+      "key": "sugar cube"
     },
     {
       "key": "pimento stuffed olives"
@@ -8884,7 +8866,7 @@
       "key": "sour mix"
     },
     {
-      "key": "fish steaks"
+      "key": "fish steak"
     },
     {
       "key": "chocolate drink"
@@ -8971,7 +8953,7 @@
       "key": "greek style plain yogurt"
     },
     {
-      "key": "cinnamon rolls"
+      "key": "cinnamon roll"
     },
     {
       "key": "vanilla bean seeds"
@@ -9100,7 +9082,7 @@
       "key": "garbanzo bean flour"
     },
     {
-      "key": "porterhouse steaks"
+      "key": "porterhouse steak"
     },
     {
       "key": "hot chili paste"
@@ -9190,7 +9172,7 @@
       "key": "baking spray"
     },
     {
-      "key": "sub rolls"
+      "key": "sub roll"
     },
     {
       "key": "unsweetened vanilla almond milk"
@@ -9226,7 +9208,7 @@
       "key": "nondairy creamer"
     },
     {
-      "key": "italian rolls"
+      "key": "italian roll"
     },
     {
       "key": "pear juice"
