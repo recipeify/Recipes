@@ -60,7 +60,7 @@ jobs:
           docker tag $IMAGE_NAME $IMAGE_ID:$VERSION
           docker push $IMAGE_ID:$VERSION
 
-          VERSION=$(echo "${{ github.sha }}" | cut -c 1-7
+          VERSION=$(echo "${{ github.sha }}" | cut -c 1-7)
 
           echo IMAGE_ID=$IMAGE_ID
           echo VERSION=$VERSION
