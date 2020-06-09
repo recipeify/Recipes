@@ -136,11 +136,10 @@ class RecipeCard extends React.Component {
             <img
               className="recipe-image"
               src={imageURL}
-              alt={title}
+              alt=""
               onLoad={this.onLoad}
             />
-            )}
-
+          )}
           actions={[
             <Tooltip title="Show info">
               <Button className="recipe-button" block type="link" size="large" onClick={this.showModal}>
