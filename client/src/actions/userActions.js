@@ -15,9 +15,17 @@ export const userActions = {
   REMOVE_RECIPE_PENDING: 'REMOVE_RECIPE_PENDING',
   REMOVE_RECIPE_SUCCESS: 'REMOVE_RECIPE_SUCCESS',
   REMOVE_RECIPE_FAILURE: 'REMOVE_RECIPE_FAILURE',
+  REMOVE_RECIPE_USERPAGE: 'REMOVE_RECIPE_USERPAGE',
   FETCH_USER_RECIPES_PENDING: 'FETCH_USER_RECIPES_PENDING',
   FETCH_USER_RECIPES_SUCCESS: 'FETCH_USER_RECIPES_SUCCESS',
   FETCH_USER_RECIPES_FAILURE: 'FETCH_USER_RECIPES_FAILURE',
+  EDIT_USER_PREFERENCES_PENDING: 'EDIT_USER_PREFERENCES_PENDING',
+  EDIT_USER_PREFERENCES_SUCCESS: 'EDIT_USER_PREFERENCES_SUCCESS',
+  EDIT_USER_PREFERENCES_FAILURE: 'EDIT_USER_PREFERENCES_FAILURE',
+  ADD_USER_BLACKLIST: 'ADD_USER_BLACKLIST',
+  REMOVE_USER_BLACKLIST: 'REMOVE_USER_BLACKLIST',
+  ADD_USER_DIET: 'ADD_USER_DIET',
+  REMOVE_USER_DIET: 'REMOVE_USER_DIET',
 };
 
 const userLogin = (data) => ({
@@ -94,6 +102,10 @@ const removeRecipeFailure = (error) => ({
   payload: { error },
 });
 
+const removeRecipeUserPage = (id) => ({
+  type: userActions.REMOVE_RECIPE_USERPAGE,
+  payload: id,
+});
 
 function removeRecipe(token, recipeID) {
   return async (dispatch) => {
@@ -101,6 +113,7 @@ function removeRecipe(token, recipeID) {
       dispatch(removeRecipePending());
       await removeRecipes(token, [recipeID]);
       dispatch(updateRecipeSaved(recipeID, false));
+      dispatch(removeRecipeUserPage(recipeID));
       return dispatch(removeRecipeSuccess());
     } catch (error) {
       return dispatch(removeRecipeFailure(error));
@@ -128,13 +141,59 @@ const fetchUserRecipes = (token) => {
     try {
       dispatch(fetchUserRecipesPending());
       const response = await getUserRecipes(token);
-      dispatch(fetchUserRecipesSuccess(response.recipes));
+      dispatch(fetchUserRecipesSuccess(response.items));
       return response.recipes;
     } catch (error) {
       return dispatch(fetchUserRecipesFailure(error));
     }
   };
 };
+
+const addUserDiet = (diet) => ({
+  type: userActions.ADD_USER_DIET,
+  payload: diet,
+});
+
+const removeUserDiet = (diet) => ({
+  type: userActions.REMOVE_USER_DIET,
+  payload: diet,
+});
+
+const addUserBlacklistItem = (ingredient) => ({
+  type: userActions.ADD_USER_BLACKLIST,
+  payload: ingredient,
+});
+
+const removeUserBlacklistItem = (ingredient) => ({
+  type: userActions.REMOVE_USER_BLACKLIST,
+  payload: ingredient,
+});
+
+// const editUserPreferencesPending = () => ({
+//   type: userActions.EDIT_USER_PREFERENCES_PENDING,
+// });
+
+// const editUserPreferencesSuceess = () => ({
+//   type: userActions.EDIT_USER_PREFERENCES_SUCCESS,
+// });
+
+// const editUserPreferencesFailure = (error) => ({
+//   type: userActions.EDIT_USER_PREFERENCES_FAILURE,
+//   payload: { error },
+// });
+
+
+// function editUserPreferences(token, preferences) {
+//   return async (dispatch) => {
+//     try {
+//       dispatch(editUserPreferencesPending());
+//       // await setUserPreferences(token, preferences);
+//       return dispatch(editUserPreferencesSuceess());
+//     } catch (error) {
+//       return dispatch(editUserPreferencesFailure(error));
+//     }
+//   };
+// }
 
 export {
   userLogin,
@@ -143,4 +202,9 @@ export {
   addRecipe,
   removeRecipe,
   fetchUserRecipes,
+  addUserDiet,
+  removeUserDiet,
+  addUserBlacklistItem,
+  removeUserBlacklistItem,
+  // editUserPreferences,
 };

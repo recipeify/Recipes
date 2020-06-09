@@ -29,15 +29,19 @@ export default function userReducer(state = initialState, action) {
         draft.recipes.pending = true;
         break;
       case (userActions.FETCH_USER_RECIPES_SUCCESS):
-        return {
-          ...initialState,
+        draft.recipes = {
+          ...initialState.recipes,
           items: action.payload.recipes,
         };
+        break;
       case (userActions.FETCH_USER_RECIPES_FAILURE):
         return {
           ...initialState,
           error: action.payload.error,
         };
+      case (userActions.REMOVE_RECIPE_USERPAGE):
+        draft.recipes.items = draft.recipes.items.filter((recipe) => recipe.id !== action.payload);
+        break;
       default:
         return draft;
     }

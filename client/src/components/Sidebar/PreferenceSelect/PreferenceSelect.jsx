@@ -8,34 +8,44 @@ import PreferenceTagGroup from './PreferenceTagGroup';
 
 const { Option } = Select;
 
-export const sidebarSelects = {
+export const selectVariants = {
   INCLUDE_INGREDIENTS: 'INCLUDE_INGREDIENTS',
   EXCLUDE_INGREDIENTS: 'EXCLUDE_INGREDIENTS',
   DIET: 'DIET',
   CUISINE: 'CUISINE',
   DISH_TYPE: 'DISH_TYPE',
+  PERSONAL_EXCLUDES: 'PERSONAL_EXCLUDES',
+  PERSONAL_DIET: 'PERSONAL_DIET',
 };
 
 const selectConfig = {
-  [sidebarSelects.INCLUDE_INGREDIENTS]: {
+  [selectVariants.INCLUDE_INGREDIENTS]: {
     title: 'Add ingredient to include',
     color: 'green',
   },
-  [sidebarSelects.EXCLUDE_INGREDIENTS]: {
+  [selectVariants.EXCLUDE_INGREDIENTS]: {
     title: 'Add ingredient to exclude',
     color: 'volcano',
   },
-  [sidebarSelects.DIET]: {
+  [selectVariants.DIET]: {
     title: 'Dietary preferences',
     color: 'purple',
   },
-  [sidebarSelects.CUISINE]: {
+  [selectVariants.CUISINE]: {
     title: 'Search recipes by cuisine',
     color: 'geekblue',
   },
-  [sidebarSelects.DISH_TYPE]: {
+  [selectVariants.DISH_TYPE]: {
     title: 'Search recipes by dish type',
     color: 'magenta',
+  },
+  [selectVariants.PERSONAL_EXCLUDES]: {
+    title: 'Ingerdient blacklist',
+    color: 'volcano',
+  },
+  [selectVariants.PERSONAL_DIET]: {
+    title: 'Dietary preferences',
+    color: 'purple',
   },
 };
 
