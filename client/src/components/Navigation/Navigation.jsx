@@ -11,7 +11,7 @@ import {
 import { FaBookmark } from 'react-icons/fa';
 import Icon, { LogoutOutlined, HomeFilled } from '@ant-design/icons';
 import { useAuth0 } from '../../react-auth0-spa';
-import logo from '../../assets/cake-pop.svg';
+import logo from '../../assets/logo.svg';
 
 const Navigation = (props) => {
   const {
