@@ -83,8 +83,6 @@ router.get('/get_recipes', asyncHandler(async (request, response, next) => {
         ids: user.recipes,
       };
 
-      console.log(user.recipes);
-
       return esClient.mget({
         index: process.env.ELASTIC_SEARCH_INDEX,
         body,
