@@ -30,7 +30,7 @@ jobs:
         run: cd api && yarn
 
       - name: Create static client npm Packages
-        run: cd ../client && yarn && cd ..
+        run: cd client && yarn
 
       - name: Build image
         run: docker build . --file Dockerfile --tag $IMAGE_NAME
