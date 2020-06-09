@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Gallery, GalleryItem } from '@patternfly/react-core';
 import RecipeCard from './components/RecipeCard';
+import spinner from '../../assets/Spin-1s-300px-transparent.gif';
 
 class RecipeList extends React.Component {
   componentDidMount() {
@@ -21,7 +22,11 @@ class RecipeList extends React.Component {
     }
 
     if (loading) {
-      return <div>Loading...</div>;
+      return (
+        <div className="recipe-list-placeholders">
+          <img src={spinner} alt="" />
+        </div>
+      );
     }
 
     return (
