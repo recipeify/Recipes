@@ -3,6 +3,7 @@ import { searchByFilters } from '../service/apiRequests';
 export const FETCH_RECIPES_PENDING = 'FETCH_RECIPES_PENDING';
 export const FETCH_RECIPES_SUCCESS = 'FETCH_RECIPES_SUCCESS';
 export const FETCH_RECIPES_FAILURE = 'FETCH_RECIPES_FAILURE';
+export const UPDATE_RECIPE_SAVED = 'UPDATE_RECIPE_SAVED';
 
 export const fetchRecipesPending = () => ({
   type: FETCH_RECIPES_PENDING,
@@ -18,7 +19,13 @@ export const fetchRecipesFailure = (error) => ({
   payload: { error },
 });
 
+export const updateRecipeSaved = (id, isSaved) => ({
+  type: UPDATE_RECIPE_SAVED,
+  payload: { id, value: isSaved },
+});
+
 export function fetchRecipesByFilters(
+  token,
   freeText,
   include,
   exclude,
@@ -27,8 +34,8 @@ export function fetchRecipesByFilters(
   cuisine,
   toCookTime,
   fromCookTime,
-  from = 0,
-  size = 10,
+  from,
+  size,
 ) {
   const includeTerms = include.map((item) => item.key);
   const excludeTerms = exclude.map((item) => item.key);
@@ -36,6 +43,7 @@ export function fetchRecipesByFilters(
     try {
       dispatch(fetchRecipesPending());
       const response = await searchByFilters(
+        token,
         freeText,
         includeTerms,
         excludeTerms,

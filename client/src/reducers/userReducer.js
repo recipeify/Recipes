@@ -6,6 +6,11 @@ const initialState = {
   loggedIn: false,
   user: {},
   token: '',
+  recipes: {
+    pending: false,
+    error: null,
+    items: [],
+  },
 };
 
 export default function userReducer(state = initialState, action) {
@@ -20,6 +25,19 @@ export default function userReducer(state = initialState, action) {
       case (userActions.USER_LOGOUT):
         draft.loggedIn = false;
         return initialState;
+      case (userActions.FETCH_USER_RECIPES_PENDING):
+        draft.recipes.pending = true;
+        break;
+      case (userActions.FETCH_USER_RECIPES_SUCCESS):
+        return {
+          ...initialState,
+          items: action.payload.recipes,
+        };
+      case (userActions.FETCH_USER_RECIPES_FAILURE):
+        return {
+          ...initialState,
+          error: action.payload.error,
+        };
       default:
         return draft;
     }
