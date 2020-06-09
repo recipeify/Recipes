@@ -1,9 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Row, Col } from 'antd';
-// import { Stack, StackItem } from '@patternfly/react-core';
+import { Row, Col, Avatar } from 'antd';
 import PreferenceSelect from './PreferenceSelect';
-import { sidebarSelects } from './PreferenceSelect/PreferenceSelect';
+import { selectVariants } from './PreferenceSelect/PreferenceSelect';
 import TimeSlider from './TimeSlider';
 import FreeTextSearch from './FreeTextSearch/index';
 
@@ -36,6 +35,7 @@ class Sidebar extends React.Component {
     getResources();
   }
 
+
   componentDidUpdate() {
     const {
       getRecipesByFilters,
@@ -63,7 +63,8 @@ class Sidebar extends React.Component {
   }
 
   render() {
-    return (
+    const { siteMode, user } = this.props;
+    const exploreSidebar = (
       <div className="sidebar">
         <Row gutter={[16, 30]}>
           <Col offset={1} span={21}>
@@ -72,27 +73,27 @@ class Sidebar extends React.Component {
         </Row>
         <Row gutter={[16, 30]}>
           <Col offset={1} span={21}>
-            <PreferenceSelect variant={sidebarSelects.INCLUDE_INGREDIENTS} />
+            <PreferenceSelect variant={selectVariants.INCLUDE_INGREDIENTS} />
           </Col>
         </Row>
         <Row gutter={[16, 30]}>
           <Col offset={1} span={21}>
-            <PreferenceSelect variant={sidebarSelects.EXCLUDE_INGREDIENTS} />
+            <PreferenceSelect variant={selectVariants.EXCLUDE_INGREDIENTS} />
           </Col>
         </Row>
         <Row gutter={[16, 30]}>
           <Col offset={1} span={21}>
-            <PreferenceSelect variant={sidebarSelects.DIET} openDropdownOnClick />
+            <PreferenceSelect variant={selectVariants.DIET} openDropdownOnClick />
           </Col>
         </Row>
         <Row gutter={[16, 30]}>
           <Col offset={1} span={21}>
-            <PreferenceSelect variant={sidebarSelects.DISH_TYPE} openDropdownOnClick />
+            <PreferenceSelect variant={selectVariants.DISH_TYPE} openDropdownOnClick />
           </Col>
         </Row>
         <Row gutter={[16, 30]}>
           <Col offset={1} span={21}>
-            <PreferenceSelect variant={sidebarSelects.CUISINE} openDropdownOnClick />
+            <PreferenceSelect variant={selectVariants.CUISINE} openDropdownOnClick />
           </Col>
         </Row>
         <Row gutter={[16, 30]}>
@@ -102,6 +103,24 @@ class Sidebar extends React.Component {
         </Row>
       </div>
     );
+
+    const userPageSiderbar = (
+      <div className="sidebar">
+        <Row gutter={[16, 30]}>
+          <Col offset={1} span={21} style={{ textAlign: 'center' }}>
+            <Avatar src={user.picture} className="avatar" />
+          </Col>
+        </Row>
+        <Row gutter={[16, 30]}>
+          <Col offset={1} span={21} style={{ textAlign: 'center' }}>
+            <h1>{user.name}</h1>
+          </Col>
+        </Row>
+
+      </div>
+    );
+
+    return siteMode === 'explore' ? exploreSidebar : userPageSiderbar;
   }
 }
 
@@ -117,6 +136,11 @@ Sidebar.propTypes = {
   toCookTime: PropTypes.number,
   fromCookTime: PropTypes.number,
   token: PropTypes.string,
+  siteMode: PropTypes.string.isRequired,
+  user: PropTypes.shape({
+    picture: PropTypes.string,
+    name: PropTypes.string,
+  }),
 };
 
 Sidebar.defaultProps = {
@@ -127,6 +151,7 @@ Sidebar.defaultProps = {
   toCookTime: 600,
   fromCookTime: 0,
   token: undefined,
+  user: {},
 };
 
 export default Sidebar;
