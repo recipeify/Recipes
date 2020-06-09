@@ -91,7 +91,7 @@ router.get('/get_recipes', asyncHandler(async (request, response, next) => {
     .then((query) => {
       response.send({
         // eslint-disable-next-line no-underscore-dangle
-        items: query.docs.map((e) => e._source),
+        items: query.docs.map((e) => ({ ...e._source, isSaved: true })),
       });
     });
 }));
@@ -185,7 +185,6 @@ router.post('/recipes_viewed', asyncHandler(async (request, response, next) => {
     response.sendStatus(400);
     return;
   }
-
   response.sendStatus(200);
 
   /* can perform after response, send events to recommendation engine */

@@ -4,6 +4,7 @@ export const FETCH_RECIPES_PENDING = 'FETCH_RECIPES_PENDING';
 export const FETCH_RECIPES_SUCCESS = 'FETCH_RECIPES_SUCCESS';
 export const FETCH_RECIPES_FAILURE = 'FETCH_RECIPES_FAILURE';
 export const UPDATE_RECIPE_SAVED = 'UPDATE_RECIPE_SAVED';
+export const REMOVE_RECIPE_USERPAGE = 'REMOVE_RECIPE_USERPAGE';
 
 export const fetchRecipesPending = () => ({
   type: FETCH_RECIPES_PENDING,
@@ -23,6 +24,7 @@ export const updateRecipeSaved = (id, isSaved) => ({
   type: UPDATE_RECIPE_SAVED,
   payload: { id, value: isSaved },
 });
+
 
 export function fetchRecipesByFilters(
   token,

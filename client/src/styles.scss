@@ -27,7 +27,7 @@ div.authentication {
       }
     } 
   }
-  #logout:hover {
+  .logout:hover {
     color: #000 !important;
     border-color: #000 !important;
   }
@@ -42,7 +42,7 @@ div.authentication {
 }
 
 #sidebar {
-  height: 100%;
+  height: 100vh;
   background-color: #f5b43c;
   width: 400px;
 }
@@ -51,6 +51,17 @@ div.authentication {
   height: 100%;
   margin-top: 20px;
   width: 400px;
+  .avatar {
+    height: 200px;
+    width: 200px;
+    border-radius: 50%;
+    margin: 0 auto;
+  }
+  h1 {
+    font-family: 'Manrope', sans-serif;
+    font-size: 24px;
+    color: #900c3f;
+  }
 }
 
 #content {
@@ -71,6 +82,10 @@ div.authentication {
   height: auto;
   width: auto;
   max-width: 64px;
+}
+
+.avatar {
+  margin-top: 5px;
 }
 
 #recipe-list-grid {
@@ -130,7 +145,7 @@ button.preference-search-button {
 }
 
 .preference-chip {
-  overflow: auto;
+  margin-top: 4px !important;
   text-align: center;
   > span {
     font-size: 16px;
@@ -146,9 +161,15 @@ button.preference-search-button {
 }
 
 // ghost button style
-.preference-tag-button:hover, .logout:hover{
-  color: #000 !important;
-  border-color: #000 !important;
+.preference-tag-button, .preference-tag-button, .logout, .logout{
+  &:hover {
+    color: #000 !important;
+    border-color: #000 !important;
+  }
+  &:focus {
+    color: #000 !important;
+    border-color: rgb(217, 217, 217) !important;
+  }
 }
 
 #time-switch {
