@@ -137,7 +137,7 @@ button.preference-search-button {
 }
 
 .preference-chip {
-  overflow: auto;
+  margin-top: 4px !important;
   text-align: center;
   > span {
     font-size: 16px;
