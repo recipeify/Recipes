@@ -36,7 +36,7 @@ class Sidebar extends React.Component {
   }
 
 
-  componentDidUpdate() {
+  componentDidUpdate(prevProps) {
     const {
       getRecipesByFilters,
       freeText,
@@ -49,6 +49,9 @@ class Sidebar extends React.Component {
       dishType,
       token,
     } = this.props;
+    if (prevProps.token !== token) {
+      return;
+    }
     getRecipesByFilters(
       token,
       freeText,
