@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unused-prop-types */
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import {
@@ -7,19 +8,20 @@ import {
   Avatar,
   Tooltip,
 } from 'antd';
-import { LogoutOutlined } from '@ant-design/icons';
+import { FaBookmark } from 'react-icons/fa';
+import Icon, { LogoutOutlined, HomeFilled } from '@ant-design/icons';
 import { useAuth0 } from '../../react-auth0-spa';
-import logo from '../../assets/cake-pop.svg';
+import logo from '../../assets/cropped-logo.svg';
 
 const Navigation = (props) => {
   const {
-    isAuthenticated, loginWithRedirect, logout, loading, user,
+    isAuthenticated, loginWithRedirect, logout, loading, user, getTokenSilently,
   } = useAuth0();
 
   useEffect(() => {
     const { isLoggedIn, onLogout, onLogin } = props;
     if (!isLoggedIn && isAuthenticated && user) {
-      onLogin(user);
+      onLogin(user, getTokenSilently);
     }
     if (isLoggedIn && !isAuthenticated) {
       onLogout(user);
@@ -48,35 +50,87 @@ const Navigation = (props) => {
 
   const notLoggedInRow = (
     <Col
-      push={22}
+      flex="auto"
       className="authentication"
     >
-      {loading ? loadingButton : loginButton}
+      <Row gutter={20} justify="end">
+        <Col flex="40px">
+          {loading ? loadingButton : loginButton}
+        </Col>
+      </Row>
     </Col>
   );
+
+
+  const modeSwitchButton = () => {
+    const {
+      siteMode,
+      isLoggedIn,
+      goToMyRecipes,
+      goToExplore,
+      token,
+    } = props;
+    let button;
+    if (isLoggedIn && siteMode === 'explore') {
+      button = (
+        <Button
+          className="logout"
+          onClick={() => goToMyRecipes(token)}
+          icon={<Icon component={FaBookmark} />}
+          type="ghost"
+        >
+          My Recipes
+        </Button>
+      );
+    }
+    if (siteMode === 'myRecipes') {
+      button = (
+        <Button
+          className="logout"
+          onClick={() => goToExplore()}
+          icon={<HomeFilled />}
+          type="ghost"
+        >
+          Explore
+        </Button>
+      );
+    }
+    if (!modeSwitchButton) {
+      return null;
+    }
+    return (
+      <Col>
+        {button}
+      </Col>
+    );
+  };
+
 
   const loggedInRow = () => {
     const { loggedInUser } = props;
     const avatar = loggedInUser ? (
-      <Avatar size="large" src={loggedInUser.picture} />
+      <Avatar size="large" src={loggedInUser.picture} style={{ 'margin-top': '3px' }} />
     ) : null;
     const name = loggedInUser ? loggedInUser.name : null;
     return (
       <Col
-        push={21}
+        flex="auto"
         className="authentication"
       >
         <Row gutter={20} justify="end">
+          <Col>
+            {modeSwitchButton()}
+          </Col>
           <Col flex="40px">
             {avatar}
           </Col>
-          <Col flex="auto">
+          <Col style={{ 'margin-top': '4px' }}>
             {name}
           </Col>
           <Col>
             <Tooltip title="Log out">
               <Button
-                id="logout"
+                className="logout"
                 shape="circle"
                 icon={<LogoutOutlined />}
                 type="ghost"
@@ -109,4 +163,12 @@ Navigation.propTypes = {
   isLoggedIn: PropTypes.bool.isRequired,
   onLogin: PropTypes.func.isRequired,
   onLogout: PropTypes.func.isRequired,
+  siteMode: PropTypes.string.isRequired,
+  goToMyRecipes: PropTypes.func.isRequired,
+  goToExplore: PropTypes.func.isRequired,
+  token: PropTypes.string,
+};
+
+Navigation.defaultProps = {
+  token: '',
 };

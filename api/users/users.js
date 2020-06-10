@@ -3,6 +3,7 @@
 const express = require('express');
 const asyncHandler = require('express-async-handler');
 const mongoose = require('mongoose');
+const elasticsearch = require('elasticsearch');
 const recombee = require('recombee-api-client');
 const crypto = require('crypto');
 const User = require('./userModel');
@@ -13,6 +14,12 @@ const recombeeClient = new recombee.ApiClient(process.env.RECOMBEE_DATABASE_ID,
 
 
 const router = express.Router();
+
+const esClient = new elasticsearch.Client({
+  host: process.env.ELASTIC_SEARCH_HOST,
+  log: 'trace',
+  apiVersion: '7.2', // use the same version of your Elasticsearch instance
+});
 
 mongoose.connect(process.env.MONGODB_HOST,
   {
@@ -30,7 +37,7 @@ db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 
 router.get('/preferences', asyncHandler(async (request, response, next) => {
-  await User.findById(request.openid.user.sub, 'excludeTerms diet', (err, user) => {
+  await User.findById(request.user.sub, 'excludeTerms diet', (err, user) => {
     if (err) next(err);
     if (!user) { response.sendStatus(404); } else { response.send(user); }
   });
@@ -47,7 +54,7 @@ router.post('/preferences', asyncHandler(async (request, response, next) => {
     return;
   }
 
-  await User.findByIdAndUpdate(request.openid.user.sub,
+  await User.findByIdAndUpdate(request.user.sub,
     { excludeTerms, diet },
     { upsert: true },
     (err, user) => {
@@ -57,7 +64,7 @@ router.post('/preferences', asyncHandler(async (request, response, next) => {
     });
 
   /* can perform after response, send user prefs to recommendation engine */
-  const userHash = crypto.createHash('sha256').update(request.openid.user.sub).digest('hex');
+  const userHash = crypto.createHash('sha256').update(request.user.sub).digest('hex');
   const userPreferences = [new rqs.SetUserValues(
     userHash,
     { excludeTerms, diet },
@@ -69,7 +76,28 @@ router.post('/preferences', asyncHandler(async (request, response, next) => {
 }));
 
 router.get('/get_recipes', asyncHandler(async (request, response, next) => {
-  await User.findById(request.openid.user.sub, 'recipes', (err, recipes) => {
+  await User.findById(request.user.sub, 'recipes').exec()
+    .catch((err) => next(err))
+    .then((user) => {
+      const body = {
+        ids: user.recipes,
+      };
+
+      return esClient.mget({
+        index: process.env.ELASTIC_SEARCH_INDEX,
+        body,
+      });
+    })
+    .then((query) => {
+      response.send({
+        // eslint-disable-next-line no-underscore-dangle
+        items: query.docs.map((e) => ({ ...e._source, isSaved: true })),
+      });
+    });
+}));
+
+router.get('/get_recipes_ids', asyncHandler(async (request, response, next) => {
+  await User.findById(request.user.sub, 'recipes', (err, recipes) => {
     if (err) next(err);
     response.send({ recipes: recipes || [] });
   });
@@ -85,15 +113,15 @@ router.post('/add_recipes', asyncHandler(async (request, response, next) => {
     return;
   }
 
-  let user = await User.findById(request.openid.user.sub, (err, _) => {
+  let user = await User.findById(request.user.sub, (err, _) => {
     if (err) next(err);
   });
   if (user) {
     /* remove duplicates */
-    user.recipes = Array.from(new Set(user.recipes.push(recipes)));
+    user.recipes = Array.from(new Set(user.recipes.concat(recipes)));
   } else {
     user = await User.create({
-      _id: request.openid.user.sub, excludeTerms: [], diet: [], recipes,
+      _id: request.user.sub, excludeTerms: [], diet: [], recipes,
     });
   }
 
@@ -101,7 +129,7 @@ router.post('/add_recipes', asyncHandler(async (request, response, next) => {
   response.sendStatus(200);
 
   /* can perform after response, send events to recommendation engine */
-  const userHash = crypto.createHash('sha256').update(request.openid.user.sub).digest('hex');
+  const userHash = crypto.createHash('sha256').update(request.user.sub).digest('hex');
   const additions = [];
   recipes.forEach((recipeId) => {
     additions.push(new rqs.AddPurchase(userHash, recipeId, { cascadeCreate: true }));
@@ -122,7 +150,7 @@ router.post('/remove_recipes', asyncHandler(async (request, response, next) => {
     return;
   }
 
-  let user = await User.findById(request.openid.user.sub, (err, doc) => {
+  let user = await User.findById(request.user.sub, (err, doc) => {
     if (err) next(err);
 
     if (!doc) {
@@ -131,13 +159,13 @@ router.post('/remove_recipes', asyncHandler(async (request, response, next) => {
   });
 
   /* remove recipes from list */
-  user.recipes = user.recipes.filter((e) => recipes.includes(e));
+  user.recipes = user.recipes.filter((e) => !recipes.includes(e));
 
   user = await user.save();
   response.sendStatus(200);
 
   /* can perform after response, send events to recommendation engine */
-  const userHash = crypto.createHash('sha256').update(request.openid.user.sub).digest('hex');
+  const userHash = crypto.createHash('sha256').update(request.user.sub).digest('hex');
   const removals = [];
   recipes.forEach((recipeId) => {
     removals.push(new rqs.DeletePurchase(userHash, recipeId));
@@ -153,15 +181,14 @@ router.post('/recipes_viewed', asyncHandler(async (request, response, next) => {
     recipes,
   } = request.body;
 
-  if (!Array.isArray(recipes)) {
+  if (!Array.isArray(recipes) || recipes.length === 0) {
     response.sendStatus(400);
     return;
   }
-
   response.sendStatus(200);
 
   /* can perform after response, send events to recommendation engine */
-  const userHash = crypto.createHash('sha256').update(request.openid.user.sub).digest('hex');
+  const userHash = crypto.createHash('sha256').update(request.user.sub).digest('hex');
   const views = [];
   recipes.forEach((recipeId) => {
     views.push(new rqs.AddDetailView(userHash, recipeId, { cascadeCreate: true }));
@@ -177,7 +204,7 @@ router.post('/recently_viewed', asyncHandler(async (request, response, next) => 
     count = 10,
   } = request.body;
 
-  const userHash = crypto.createHash('sha256').update(request.openid.user.sub).digest('hex');
+  const userHash = crypto.createHash('sha256').update(request.user.sub).digest('hex');
   await recombeeClient.send(
     new rqs.RecommendItemsToUser(userHash, count, { scenario: 'recently_viewed' }),
   )

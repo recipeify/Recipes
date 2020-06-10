@@ -20,7 +20,7 @@ class MainPage extends React.Component {
             <Navigation />
           </Header>
           <Layout>
-            <Sider theme="light" id="sidebar" width="15%">
+            <Sider theme="light" id="sidebar" width={380}>
               <Sidebar />
             </Sider>
             <Layout id="content" style={{ padding: '0 24px 24px' }}>

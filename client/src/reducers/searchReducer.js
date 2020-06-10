@@ -24,11 +24,11 @@ const initialState = {
   diet: [],
   dishType: [],
   cuisine: [],
-  fromCookTime: 0,
-  toCookTime: 600,
+  fromCookTime: null,
+  toCookTime: null,
 };
 
-export default function recipeReducer(state = initialState, action) {
+export default function searchReducer(state = initialState, action) {
   // eslint-disable-next-line consistent-return
   return produce(state, (draft) => {
     switch (action.type) {
@@ -96,6 +96,7 @@ export default function recipeReducer(state = initialState, action) {
         draft.toCookTime = action.payload[1];
         break;
       case (searchActions.REMOVE_TIME_LIMIT):
+        draft.fromCookTime = initialState.fromCookTime;
         draft.toCookTime = initialState.toCookTime;
         break;
       // Free text

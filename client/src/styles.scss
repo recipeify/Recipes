@@ -16,7 +16,7 @@
 }
 
 div.authentication {
-  > button {
+  button {
     margin-top: 20px;
     &.login {
       background-color: #900c3f;
@@ -27,20 +27,41 @@ div.authentication {
       }
     } 
   }
-  #logout:hover {
+  .logout:hover {
     color: #000 !important;
     border-color: #000 !important;
   }
 }
 
+.recipe-list-placeholders{
+  height: 100vh;
+  display: flex;
+  > img {
+    margin: auto;
+  }
+}
+
 #sidebar {
-  height: 100%;
+  height: 100vh;
   background-color: #f5b43c;
+  width: 400px;
 }
 
 .sidebar {
   height: 100%;
   margin-top: 20px;
+  width: 400px;
+  .avatar {
+    height: 200px;
+    width: 200px;
+    border-radius: 50%;
+    margin: 0 auto;
+  }
+  h1 {
+    font-family: 'Manrope', sans-serif;
+    font-size: 24px;
+    color: #900c3f;
+  }
 }
 
 #content {
@@ -58,9 +79,12 @@ div.authentication {
 }
 
 #logo {
-  height: auto;
-  width: auto;
-  max-width: 64px;
+  height: 55px;
+  margin: 10px 5px;
+}
+
+.avatar {
+  margin-top: 5px;
 }
 
 #recipe-list-grid {
@@ -72,6 +96,8 @@ div.authentication {
   object-fit: cover;
   width: 300px;
   height: 300px;
+  background-image: url('./Spin-1s-300px.gif');
+  background-position: center;
 }
 
 .recipe-modal-image {
@@ -84,9 +110,9 @@ div.authentication {
 
 
 .recipe-card {
-  div.ant-card-body {
-    height: 120px;
-  }
+  // div.ant-card-body {
+  //   height: 120px;
+  // }
   ul.ant-card-actions > li > span > button {
     height: 100%;
     color: #000;
@@ -95,10 +121,8 @@ div.authentication {
 }
 
 .recipe-card-meta {
-  height: 60px;
   div.ant-card-meta-detail > div.ant-card-meta-title {
-    white-space: pre-wrap;
-    overflow: auto;
+    word-wrap: auto;
   }
 }
 
@@ -120,7 +144,7 @@ button.preference-search-button {
 }
 
 .preference-chip {
-  overflow: auto;
+  margin-top: 4px !important;
   text-align: center;
   > span {
     font-size: 16px;
@@ -136,9 +160,15 @@ button.preference-search-button {
 }
 
 // ghost button style
-.preference-tag-button:hover, .logout:hover{
-  color: #000 !important;
-  border-color: #000 !important;
+.preference-tag-button, .preference-tag-button, .logout, .logout{
+  &:hover {
+    color: #000 !important;
+    border-color: #000 !important;
+  }
+  &:focus {
+    color: #000 !important;
+    border-color: rgb(217, 217, 217) !important;
+  }
 }
 
 #time-switch {

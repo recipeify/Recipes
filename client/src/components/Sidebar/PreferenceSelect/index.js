@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import get from 'lodash/get';
-import PreferenceSelect, { sidebarSelects } from './PreferenceSelect';
+import PreferenceSelect, { selectVariants } from './PreferenceSelect';
 import {
   addIngredientToInclude,
   removeIngredientToInclude,
@@ -15,23 +15,23 @@ import {
 } from '../../../actions/searchActions';
 
 const actions = {
-  [sidebarSelects.INCLUDE_INGREDIENTS]: {
+  [selectVariants.INCLUDE_INGREDIENTS]: {
     add: addIngredientToInclude,
     remove: removeIngredientToInclude,
   },
-  [sidebarSelects.EXCLUDE_INGREDIENTS]: {
+  [selectVariants.EXCLUDE_INGREDIENTS]: {
     add: addIngredientToExclude,
     remove: removeIngredientToExclude,
   },
-  [sidebarSelects.DIET]: {
+  [selectVariants.DIET]: {
     add: addDietaryPreference,
     remove: removeDietaryPreference,
   },
-  [sidebarSelects.DISH_TYPE]: {
+  [selectVariants.DISH_TYPE]: {
     add: addDishType,
     remove: removeDishType,
   },
-  [sidebarSelects.CUISINE]: {
+  [selectVariants.CUISINE]: {
     add: addCuisine,
     remove: removeCuisine,
   },
@@ -43,38 +43,38 @@ const mapStateToProps = (state, ownProps) => {
   let appliedPreferenceList;
   // eslint-disable-next-line default-case
   switch (variant) {
-    case (sidebarSelects.INCLUDE_INGREDIENTS):
+    case (selectVariants.INCLUDE_INGREDIENTS):
       appliedPreferenceList = state.filters.include;
       break;
-    case (sidebarSelects.EXCLUDE_INGREDIENTS):
+    case (selectVariants.EXCLUDE_INGREDIENTS):
       appliedPreferenceList = state.filters.exclude;
       break;
-    case (sidebarSelects.DIET):
+    case (selectVariants.DIET):
       appliedPreferenceList = state.filters.diet;
       break;
-    case (sidebarSelects.DISH_TYPE):
+    case (selectVariants.DISH_TYPE):
       appliedPreferenceList = state.filters.dishType;
       break;
-    case (sidebarSelects.CUISINE):
+    case (selectVariants.CUISINE):
       appliedPreferenceList = state.filters.cuisine;
       break;
   }
   let dataset;
   // eslint-disable-next-line default-case
   switch (variant) {
-    case (sidebarSelects.INCLUDE_INGREDIENTS):
+    case (selectVariants.INCLUDE_INGREDIENTS):
       dataset = resources.ingredients;
       break;
-    case (sidebarSelects.EXCLUDE_INGREDIENTS):
+    case (selectVariants.EXCLUDE_INGREDIENTS):
       dataset = resources.ingredients;
       break;
-    case (sidebarSelects.DIET):
+    case (selectVariants.DIET):
       dataset = resources.diets;
       break;
-    case (sidebarSelects.DISH_TYPE):
+    case (selectVariants.DISH_TYPE):
       dataset = resources.mealTypes;
       break;
-    case (sidebarSelects.CUISINE):
+    case (selectVariants.CUISINE):
       dataset = resources.cuisine;
       break;
   }

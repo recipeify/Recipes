@@ -12,6 +12,9 @@ const mapStateToProps = (state) => ({
   cuisine: state.filters.cuisine,
   toCookTime: state.filters.toCookTime,
   fromCookTime: state.filters.fromCookTime,
+  token: state.user.token,
+  siteMode: state.mode.mode,
+  user: state.user.user,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -24,8 +27,9 @@ const mapDispatchToProps = (dispatch) => ({
     cuisine,
     toCookTime,
     fromCookTime,
-    from = 0,
-    size = 30,
+    from,
+    size,
+    token,
   ) => dispatch(
     fetchRecipesByFilters(
       freeText,
@@ -38,6 +42,7 @@ const mapDispatchToProps = (dispatch) => ({
       fromCookTime,
       from,
       size,
+      token,
     ),
   ),
   getResources: () => dispatch(
