@@ -19,6 +19,7 @@ Create a .env file located at /api/.env and add there:
 - `BASE_URL=`(address sent personally)
 - `APP_SESSION_SECRET=`(info sent personally)
 - `CLIENT_ID=`(info sent personally)
+- `AUTH0_API_AUDIENCE=https://recipeify.com/users`
 - `RECOMBEE_DATABASE_ID=`(info sent personally)
 - `RECOMBEE_PRIVATE_TOKEN=`(info sent personally)
 - `MONGODB_HOST=mongodb://mongo:27017`
@@ -27,6 +28,8 @@ Create .env.local file located at /client/.env.local and add there:
 
 - `REACT_APP_AUTH0_DOMAIN=`(info sent personally)
 - `REACT_APP_AUTH0_CLIENT_ID=`(info sent personally)
+- `REACT_APP_AUTH0_AUDIENCE=https://recipeify.com/users`
+
 
 ## To install all the dependencies
 

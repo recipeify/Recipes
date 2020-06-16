@@ -10,6 +10,7 @@ import * as serviceWorker from './serviceWorker';
 const config = {
   domain: process.env.REACT_APP_AUTH0_DOMAIN,
   clientId: process.env.REACT_APP_AUTH0_CLIENT_ID,
+  audience: process.env.REACT_APP_AUTH0_AUDIENCE,
 };
 
 // A function that routes the user to the right place
@@ -27,6 +28,7 @@ ReactDOM.render(
   <Auth0Provider
     domain={config.domain}
     client_id={config.clientId}
+    audience={config.audience}
     redirect_uri={window.location.origin}
     onRedirectCallback={onRedirectCallback}
   >

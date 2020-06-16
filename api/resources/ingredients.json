@@ -31,7 +31,7 @@
       "key": "olive"
     },
     {
-      "key": "eggs"
+      "key": "egg"
     },
     {
       "key": "black pepper"
@@ -53,12 +53,6 @@
     },
     {
       "key": "sauce"
-    },
-    {
-      "key": "tomatoes"
-    },
-    {
-      "key": "onions"
     },
     {
       "key": "vinegar"
@@ -97,9 +91,6 @@
       "key": "vanilla extract"
     },
     {
-      "key": "unsalted butter"
-    },
-    {
       "key": "ginger"
     },
     {
@@ -116,9 +107,6 @@
     },
     {
       "key": "celery"
-    },
-    {
-      "key": "potatoes"
     },
     {
       "key": "kosher salt"
@@ -163,16 +151,10 @@
       "key": "red pepper"
     },
     {
-      "key": "carrots"
-    },
-    {
       "key": "clove"
     },
     {
       "key": "chicken broth"
-    },
-    {
-      "key": "mushrooms"
     },
     {
       "key": "honey"
@@ -214,9 +196,6 @@
       "key": "nutmeg"
     },
     {
-      "key": "cloves"
-    },
-    {
       "key": "garlic minced"
     },
     {
@@ -224,9 +203,6 @@
     },
     {
       "key": "bacon"
-    },
-    {
-      "key": "peppers"
     },
     {
       "key": "ground cinnamon"
@@ -248,12 +224,6 @@
     },
     {
       "key": "extra virgin olive oil"
-    },
-    {
-      "key": "green onions"
-    },
-    {
-      "key": "chicken breasts"
     },
     {
       "key": "sesame"
@@ -325,9 +295,6 @@
       "key": "red wine"
     },
     {
-      "key": "walnuts"
-    },
-    {
       "key": "chocolate chips"
     },
     {
@@ -338,9 +305,6 @@
     },
     {
       "key": "minced garlic"
-    },
-    {
-      "key": "almonds"
     },
     {
       "key": "sea salt"
@@ -359,9 +323,6 @@
     },
     {
       "key": "jalapeno"
-    },
-    {
-      "key": "pecans"
     },
     {
       "key": "shrimp"
@@ -398,9 +359,6 @@
     },
     {
       "key": "mozzarella cheese"
-    },
-    {
-      "key": "raisins"
     },
     {
       "key": "powdered sugar"
@@ -457,9 +415,6 @@
       "key": "freshly ground pepper"
     },
     {
-      "key": "egg yolks"
-    },
-    {
       "key": "pork"
     },
     {
@@ -472,16 +427,13 @@
       "key": "noodles"
     },
     {
-      "key": "egg whites"
-    },
-    {
       "key": "chili"
     },
     {
       "key": "tomato sauce"
     },
     {
-      "key": "tortillas"
+      "key": "tortilla"
     },
     {
       "key": "beef"
@@ -502,13 +454,10 @@
       "key": "peas"
     },
     {
-      "key": "fillets"
+      "key": "fillet"
     },
     {
       "key": "lemon zest"
-    },
-    {
-      "key": "olives"
     },
     {
       "key": "broccoli"
@@ -523,16 +472,7 @@
       "key": "seeds"
     },
     {
-      "key": "shallots"
-    },
-    {
-      "key": "apples"
-    },
-    {
       "key": "balsamic vinegar"
-    },
-    {
-      "key": "breadcrumbs"
     },
     {
       "key": "turkey"
@@ -577,7 +517,7 @@
       "key": "red wine vinegar"
     },
     {
-      "key": "skinless chicken breasts"
+      "key": "skinless chicken breast"
     },
     {
       "key": "ketchup"
@@ -610,7 +550,7 @@
       "key": "allspice"
     },
     {
-      "key": "boneless skinless chicken breasts"
+      "key": "boneless skinless chicken breast"
     },
     {
       "key": "sesame seeds"
@@ -620,9 +560,6 @@
     },
     {
       "key": "sweetened"
-    },
-    {
-      "key": "bell peppers"
     },
     {
       "key": "basil leaves"
@@ -640,9 +577,6 @@
       "key": "broth"
     },
     {
-      "key": "bananas"
-    },
-    {
       "key": "white pepper"
     },
     {
@@ -653,9 +587,6 @@
     },
     {
       "key": "yellow onion"
-    },
-    {
-      "key": "chilies"
     },
     {
       "key": "turmeric"
@@ -742,9 +673,6 @@
       "key": "feta cheese"
     },
     {
-      "key": "peppercorns"
-    },
-    {
       "key": "boneless chicken"
     },
     {
@@ -823,9 +751,6 @@
       "key": "black olives"
     },
     {
-      "key": "lemons"
-    },
-    {
       "key": "gelatin"
     },
     {
@@ -868,9 +793,6 @@
       "key": "steak"
     },
     {
-      "key": "peanuts"
-    },
-    {
       "key": "cool whip"
     },
     {
@@ -883,7 +805,7 @@
       "key": "yolk"
     },
     {
-      "key": "green chilies"
+      "key": "green chili"
     },
     {
       "key": "pudding"
@@ -919,9 +841,6 @@
       "key": "hot water"
     },
     {
-      "key": "flour tortillas"
-    },
-    {
       "key": "peanut oil"
     },
     {
@@ -934,16 +853,10 @@
       "key": "kidney beans"
     },
     {
-      "key": "plum tomatoes"
+      "key": "plum tomato"
     },
     {
       "key": "capers"
-    },
-    {
-      "key": "chiles"
-    },
-    {
-      "key": "sweet potatoes"
     },
     {
       "key": "cherries"
@@ -1033,9 +946,6 @@
       "key": "active dry yeast"
     },
     {
-      "key": "oranges"
-    },
-    {
       "key": "beer"
     },
     {
@@ -1067,9 +977,6 @@
     },
     {
       "key": "tofu"
-    },
-    {
-      "key": "chickpeas"
     },
     {
       "key": "marshmallows"
@@ -1105,9 +1012,6 @@
       "key": "taco seasoning"
     },
     {
-      "key": "vegetables"
-    },
-    {
       "key": "flavored"
     },
     {
@@ -1118,9 +1022,6 @@
     },
     {
       "key": "light corn syrup"
-    },
-    {
-      "key": "red peppers"
     },
     {
       "key": "peaches"
@@ -1162,13 +1063,10 @@
       "key": "vodka"
     },
     {
-      "key": "black peppercorns"
+      "key": "black peppercorn"
     },
     {
       "key": "barbecue sauce"
-    },
-    {
-      "key": "limes"
     },
     {
       "key": "chili sauce"
@@ -1180,25 +1078,19 @@
       "key": "dried parsley"
     },
     {
-      "key": "cookies"
-    },
-    {
       "key": "grated lemon zest"
     },
     {
       "key": "chicken bouillon"
     },
     {
-      "key": "corn tortillas"
+      "key": "corn tortilla"
     },
     {
       "key": "pineapple juice"
     },
     {
       "key": "frozen spinach"
-    },
-    {
-      "key": "red bell peppers"
     },
     {
       "key": "greek yogurt"
@@ -1255,7 +1147,7 @@
       "key": "applesauce"
     },
     {
-      "key": "slivered almonds"
+      "key": "slivered almond"
     },
     {
       "key": "sprouts"
@@ -1297,7 +1189,7 @@
       "key": "minced ginger"
     },
     {
-      "key": "pork chops"
+      "key": "pork chop"
     },
     {
       "key": "hot pepper sauce"
@@ -1324,9 +1216,6 @@
       "key": "medium tomatoes"
     },
     {
-      "key": "cucumbers"
-    },
-    {
       "key": "dry sherry"
     },
     {
@@ -1346,9 +1235,6 @@
     },
     {
       "key": "seasoning mix"
-    },
-    {
-      "key": "avocados"
     },
     {
       "key": "preserves"
@@ -1417,9 +1303,6 @@
       "key": "chunky"
     },
     {
-      "key": "leeks"
-    },
-    {
       "key": "all-purpose flour"
     },
     {
@@ -1456,9 +1339,6 @@
       "key": "seasoning salt"
     },
     {
-      "key": "jalapeno peppers"
-    },
-    {
       "key": "boneless pork"
     },
     {
@@ -1475,12 +1355,6 @@
     },
     {
       "key": "chili pepper"
-    },
-    {
-      "key": "pears"
-    },
-    {
-      "key": "green bell peppers"
     },
     {
       "key": "lettuce leaves"
@@ -1528,9 +1402,6 @@
       "key": "light cream"
     },
     {
-      "key": "chestnuts"
-    },
-    {
       "key": "philadelphia cream cheese"
     },
     {
@@ -1549,16 +1420,10 @@
       "key": "anise"
     },
     {
-      "key": "crabmeat"
-    },
-    {
       "key": "squash"
     },
     {
       "key": "instant coffee"
-    },
-    {
-      "key": "apricots"
     },
     {
       "key": "low sodium chicken"
@@ -1570,7 +1435,7 @@
       "key": "caraway"
     },
     {
-      "key": "salmon fillets"
+      "key": "salmon fillet"
     },
     {
       "key": "gingerroot"
@@ -1585,7 +1450,7 @@
       "key": "candy"
     },
     {
-      "key": "medium potatoes"
+      "key": "medium potato"
     },
     {
       "key": "oyster"
@@ -1600,7 +1465,7 @@
       "key": "leek"
     },
     {
-      "key": "russet potatoes"
+      "key": "russet potato"
     },
     {
       "key": "maraschino"
@@ -1651,13 +1516,7 @@
       "key": "bourbon"
     },
     {
-      "key": "chili peppers"
-    },
-    {
       "key": "espresso"
-    },
-    {
-      "key": "sundried tomatoes"
     },
     {
       "key": "low sodium chicken broth"
@@ -1681,7 +1540,7 @@
       "key": "elbow macaroni"
     },
     {
-      "key": "yukon gold potatoes"
+      "key": "yukon gold potato"
     },
     {
       "key": "hamburger buns"
@@ -1696,9 +1555,6 @@
       "key": "pumpkin pie spice"
     },
     {
-      "key": "yellow onions"
-    },
-    {
       "key": "sugar substitute"
     },
     {
@@ -1708,16 +1564,10 @@
       "key": "oregano leaves"
     },
     {
-      "key": "herbs"
-    },
-    {
       "key": "button mushrooms"
     },
     {
       "key": "canned tomatoes"
-    },
-    {
-      "key": "cashews"
     },
     {
       "key": "stewed tomatoes"
@@ -1747,12 +1597,6 @@
       "key": "fish"
     },
     {
-      "key": "hazelnuts"
-    },
-    {
-      "key": "scallops"
-    },
-    {
       "key": "ginger root"
     },
     {
@@ -1762,16 +1606,10 @@
       "key": "pasta sauce"
     },
     {
-      "key": "green peppers"
-    },
-    {
       "key": "garbanzo beans"
     },
     {
       "key": "barley"
-    },
-    {
-      "key": "eggplants"
     },
     {
       "key": "ground white pepper"
@@ -1780,10 +1618,7 @@
       "key": "unsweetened chocolate"
     },
     {
-      "key": "sunflower seeds"
-    },
-    {
-      "key": "baking potatoes"
+      "key": "baking potato"
     },
     {
       "key": "pork sausage"
@@ -1804,9 +1639,6 @@
       "key": "kale"
     },
     {
-      "key": "unsweetened coconut"
-    },
-    {
       "key": "blackberries"
     },
     {
@@ -1819,7 +1651,7 @@
       "key": "egg substitute"
     },
     {
-      "key": "golden raisins"
+      "key": "golden raisin"
     },
     {
       "key": "penne pasta"
@@ -1861,13 +1693,13 @@
       "key": "tomato juice"
     },
     {
-      "key": "radishes"
+      "key": "radishe"
     },
     {
       "key": "berries"
     },
     {
-      "key": "granny smith apples"
+      "key": "granny smith apple"
     },
     {
       "key": "vanilla pudding"
@@ -1877,9 +1709,6 @@
     },
     {
       "key": "pork tenderloin"
-    },
-    {
-      "key": "salted butter"
     },
     {
       "key": "butterscotch"
@@ -1990,9 +1819,6 @@
       "key": "curry paste"
     },
     {
-      "key": "extra-virgin olive oil"
-    },
-    {
       "key": "lasagna noodles"
     },
     {
@@ -2017,7 +1843,7 @@
       "key": "marmalade"
     },
     {
-      "key": "spring onions"
+      "key": "spring onion"
     },
     {
       "key": "purple onion"
@@ -2062,7 +1888,7 @@
       "key": "raisin"
     },
     {
-      "key": "roasted red peppers"
+      "key": "roasted red pepper"
     },
     {
       "key": "clams"
@@ -2137,9 +1963,6 @@
       "key": "rhubarb"
     },
     {
-      "key": "lemongrass"
-    },
-    {
       "key": "marshmallow"
     },
     {
@@ -2179,7 +2002,7 @@
       "key": "stew meat"
     },
     {
-      "key": "pickles"
+      "key": "pickle"
     },
     {
       "key": "toasted sesame seeds"
@@ -2188,7 +2011,7 @@
       "key": "frozen broccoli"
     },
     {
-      "key": "sliced green onions"
+      "key": "sliced green onion"
     },
     {
       "key": "mashed potatoes"
@@ -2197,7 +2020,7 @@
       "key": "cranberry juice"
     },
     {
-      "key": "anchovy fillets"
+      "key": "anchovy fillet"
     },
     {
       "key": "sage leaves"
@@ -2209,7 +2032,7 @@
       "key": "white chocolate chips"
     },
     {
-      "key": "parsnips"
+      "key": "parsnip"
     },
     {
       "key": "enchilada sauce"
@@ -2284,13 +2107,10 @@
       "key": "sherry vinegar"
     },
     {
-      "key": "jalapeno chilies"
+      "key": "jalapeno chili"
     },
     {
       "key": "vermouth"
-    },
-    {
-      "key": "soymilk"
     },
     {
       "key": "cherry pie filling"
@@ -2335,7 +2155,7 @@
       "key": "lowfat yogurt"
     },
     {
-      "key": "mandarin oranges"
+      "key": "mandarin orange"
     },
     {
       "key": "grapeseed oil"
@@ -2359,7 +2179,7 @@
       "key": "biscuits"
     },
     {
-      "key": "panko breadcrumbs"
+      "key": "panko bread crumbs"
     },
     {
       "key": "mustard powder"
@@ -2482,7 +2302,7 @@
       "key": "crumbles"
     },
     {
-      "key": "dinner rolls"
+      "key": "dinner roll"
     },
     {
       "key": "cremini"
@@ -2509,7 +2329,7 @@
       "key": "okra"
     },
     {
-      "key": "fish fillets"
+      "key": "fish fillet"
     },
     {
       "key": "almond milk"
@@ -2519,9 +2339,6 @@
     },
     {
       "key": "red food coloring"
-    },
-    {
-      "key": "plums"
     },
     {
       "key": "corn flakes"
@@ -2545,7 +2362,7 @@
       "key": "gorgonzola"
     },
     {
-      "key": "blanched almonds"
+      "key": "blanched almond"
     },
     {
       "key": "pistachio"
@@ -2567,9 +2384,6 @@
     },
     {
       "key": "brisket"
-    },
-    {
-      "key": "chile peppers"
     },
     {
       "key": "mini marshmallows"
@@ -2605,7 +2419,7 @@
       "key": "smoked salmon"
     },
     {
-      "key": "asparagus spears"
+      "key": "asparagus spear"
     },
     {
       "key": "kraft grated parmesan cheese"
@@ -2845,13 +2659,7 @@
       "key": "guacamole"
     },
     {
-      "key": "sweet pickle"
-    },
-    {
       "key": "radicchio"
-    },
-    {
-      "key": "figs"
     },
     {
       "key": "cashew"
@@ -2950,16 +2758,10 @@
       "key": "chicken legs"
     },
     {
-      "key": "mangoes"
-    },
-    {
       "key": "smoked turkey"
     },
     {
       "key": "crushed red pepper"
-    },
-    {
-      "key": "white onions"
     },
     {
       "key": "dark soy sauce"
@@ -2974,10 +2776,7 @@
       "key": "unbleached flour"
     },
     {
-      "key": "red chili peppers"
-    },
-    {
-      "key": "cooked chicken breasts"
+      "key": "cooked chicken breast"
     },
     {
       "key": "cracked pepper"
@@ -3022,7 +2821,7 @@
       "key": "blueberry"
     },
     {
-      "key": "sea scallops"
+      "key": "sea scallop"
     },
     {
       "key": "xanthan gum"
@@ -3046,9 +2845,6 @@
       "key": "goat"
     },
     {
-      "key": "prawns"
-    },
-    {
       "key": "lemon wedge"
     },
     {
@@ -3067,7 +2863,7 @@
       "key": "fresh"
     },
     {
-      "key": "bacon slices"
+      "key": "bacon slice"
     },
     {
       "key": "toasted pine nuts"
@@ -3119,9 +2915,6 @@
     },
     {
       "key": "semolina"
-    },
-    {
-      "key": "flax seeds"
     },
     {
       "key": "herbes de provence"
@@ -3190,16 +2983,13 @@
       "key": "sausage links"
     },
     {
-      "key": "self raising flour"
-    },
-    {
       "key": "chutney"
     },
     {
       "key": "apricot jam"
     },
     {
-      "key": "crescent dinner rolls"
+      "key": "crescent dinner roll"
     },
     {
       "key": "basil leaf"
@@ -3226,7 +3016,7 @@
       "key": "mexican cheese"
     },
     {
-      "key": "tart apples"
+      "key": "tart apple"
     },
     {
       "key": "hot dogs"
@@ -3427,10 +3217,7 @@
       "key": "protein powder"
     },
     {
-      "key": "tilapia fillets"
-    },
-    {
-      "key": "pimentos"
+      "key": "tilapia fillet"
     },
     {
       "key": "jicama"
@@ -3446,9 +3233,6 @@
     },
     {
       "key": "endive"
-    },
-    {
-      "key": "panko bread crumbs"
     },
     {
       "key": "edamame"
@@ -3523,9 +3307,6 @@
       "key": "walnut halves"
     },
     {
-      "key": "sweetened coconut"
-    },
-    {
       "key": "tea"
     },
     {
@@ -3592,9 +3373,6 @@
       "key": "porcini mushrooms"
     },
     {
-      "key": "dill pickles"
-    },
-    {
       "key": "sliced onion"
     },
     {
@@ -3640,7 +3418,7 @@
       "key": "allspice berries"
     },
     {
-      "key": "green chile peppers"
+      "key": "green chile pepper"
     },
     {
       "key": "extra firm tofu"
@@ -3650,9 +3428,6 @@
     },
     {
       "key": "orange bell pepper"
-    },
-    {
-      "key": "vanilla beans"
     },
     {
       "key": "chocolate cake mix"
@@ -3725,9 +3500,6 @@
     },
     {
       "key": "caramel sauce"
-    },
-    {
-      "key": "muffins"
     },
     {
       "key": "safflower"
@@ -3901,9 +3673,6 @@
       "key": "pistachio nuts"
     },
     {
-      "key": "yellow bell peppers"
-    },
-    {
       "key": "sausage casings"
     },
     {
@@ -3937,7 +3706,7 @@
       "key": "shell pasta"
     },
     {
-      "key": "lemon slices"
+      "key": "lemon slice"
     },
     {
       "key": "ground thyme"
@@ -3973,7 +3742,7 @@
       "key": "kiwi"
     },
     {
-      "key": "boiling potatoes"
+      "key": "boiling potato"
     },
     {
       "key": "wholewheat flour"
@@ -3988,13 +3757,10 @@
       "key": "key lime"
     },
     {
-      "key": "bread slices"
+      "key": "bread slice"
     },
     {
       "key": "bbq sauce"
-    },
-    {
-      "key": "chipotle peppers"
     },
     {
       "key": "pecorino cheese"
@@ -4033,7 +3799,7 @@
       "key": "bisquick baking mix"
     },
     {
-      "key": "green chili peppers"
+      "key": "green chili pepper"
     },
     {
       "key": "tangerine"
@@ -4061,9 +3827,6 @@
     },
     {
       "key": "savoy cabbage"
-    },
-    {
-      "key": "yellow peppers"
     },
     {
       "key": "palm sugar"
@@ -4102,9 +3865,6 @@
       "key": "rubbed sage"
     },
     {
-      "key": "sesame seed"
-    },
-    {
       "key": "shredded cheddar cheese"
     },
     {
@@ -4114,7 +3874,7 @@
       "key": "sultanas"
     },
     {
-      "key": "halibut fillets"
+      "key": "halibut fillet"
     },
     {
       "key": "pork and beans"
@@ -4174,7 +3934,7 @@
       "key": "harissa"
     },
     {
-      "key": "pork loin chops"
+      "key": "pork loin chop"
     },
     {
       "key": "chipotle pepper"
@@ -4219,7 +3979,7 @@
       "key": "green apple"
     },
     {
-      "key": "pickled jalapenos"
+      "key": "pickled jalapeno"
     },
     {
       "key": "orzo"
@@ -4261,19 +4021,19 @@
       "key": "processed cheese"
     },
     {
-      "key": "catfish fillets"
+      "key": "catfish fillet"
     },
     {
       "key": "sandwich bread"
     },
     {
-      "key": "toasted almonds"
+      "key": "toasted almond"
     },
     {
       "key": "gravy mix"
     },
     {
-      "key": "round steaks"
+      "key": "round steak"
     },
     {
       "key": "rum extract"
@@ -4321,7 +4081,7 @@
       "key": "escarole"
     },
     {
-      "key": "plain breadcrumbs"
+      "key": "plain bread crumbs"
     },
     {
       "key": "grape juice"
@@ -4333,7 +4093,7 @@
       "key": "porcini"
     },
     {
-      "key": "poblano peppers"
+      "key": "poblano pepper"
     },
     {
       "key": "roasting chickens"
@@ -4408,9 +4168,6 @@
       "key": "wafer"
     },
     {
-      "key": "chilis"
-    },
-    {
       "key": "large garlic cloves"
     },
     {
@@ -4435,7 +4192,7 @@
       "key": "nam pla"
     },
     {
-      "key": "italian plum tomatoes"
+      "key": "italian plum tomato"
     },
     {
       "key": "pitted prunes"
@@ -4459,7 +4216,7 @@
       "key": "pepitas"
     },
     {
-      "key": "navel oranges"
+      "key": "navel orange"
     },
     {
       "key": "mung bean"
@@ -4492,7 +4249,7 @@
       "key": "thai basil"
     },
     {
-      "key": "italian seasoned breadcrumbs"
+      "key": "italian seasoned bread crumbs"
     },
     {
       "key": "wafer cookies"
@@ -4513,10 +4270,7 @@
       "key": "yellow mustard seeds"
     },
     {
-      "key": "cooking apples"
-    },
-    {
-      "key": "soybeans"
+      "key": "cooking apple"
     },
     {
       "key": "sliced ham"
@@ -4525,7 +4279,7 @@
       "key": "asian fish sauce"
     },
     {
-      "key": "kaiser rolls"
+      "key": "kaiser roll"
     },
     {
       "key": "almond meal"
@@ -4567,7 +4321,7 @@
       "key": "pickle juice"
     },
     {
-      "key": "bass fillets"
+      "key": "bass fillet"
     },
     {
       "key": "cheddar cheese soup"
@@ -4621,16 +4375,13 @@
       "key": "bone in"
     },
     {
-      "key": "dried herbs"
-    },
-    {
-      "key": "serrano peppers"
+      "key": "dried herb"
     },
     {
       "key": "biscuit mix"
     },
     {
-      "key": "tuna steaks"
+      "key": "tuna steak"
     },
     {
       "key": "corn meal"
@@ -4643,9 +4394,6 @@
     },
     {
       "key": "vanilla sugar"
-    },
-    {
-      "key": "green apples"
     },
     {
       "key": "chanterelle"
@@ -4702,7 +4450,7 @@
       "key": "custard"
     },
     {
-      "key": "idaho potatoes"
+      "key": "idaho potato"
     },
     {
       "key": "japanese eggplants"
@@ -4727,9 +4475,6 @@
     },
     {
       "key": "semolina flour"
-    },
-    {
-      "key": "ground flax seeds"
     },
     {
       "key": "lime peel"
@@ -4775,9 +4520,6 @@
     },
     {
       "key": "pulp"
-    },
-    {
-      "key": "mangos"
     },
     {
       "key": "green cardamom pods"
@@ -4852,22 +4594,19 @@
       "key": "catalina dressing"
     },
     {
-      "key": "hoagie rolls"
+      "key": "hoagie roll"
     },
     {
       "key": "burgundy"
     },
     {
-      "key": "tenderloin steaks"
+      "key": "tenderloin steak"
     },
     {
       "key": "toffee bits"
     },
     {
       "key": "yellow split peas"
-    },
-    {
-      "key": "hot peppers"
     },
     {
       "key": "shredded mozzarella cheese"
@@ -4894,7 +4633,7 @@
       "key": "thai fish sauce"
     },
     {
-      "key": "snapper fillets"
+      "key": "snapper fillet"
     },
     {
       "key": "iceberg"
@@ -4930,7 +4669,7 @@
       "key": "passion fruit"
     },
     {
-      "key": "golden delicious apples"
+      "key": "golden delicious apple"
     },
     {
       "key": "bacon fat"
@@ -4960,9 +4699,6 @@
       "key": "country bread"
     },
     {
-      "key": "soya"
-    },
-    {
       "key": "roquefort cheese"
     },
     {
@@ -4975,7 +4711,7 @@
       "key": "uncle bens"
     },
     {
-      "key": "french fried onions"
+      "key": "french fried onion"
     },
     {
       "key": "apple butter"
@@ -5044,7 +4780,7 @@
       "key": "mustard seed"
     },
     {
-      "key": "cod fillets"
+      "key": "cod fillet"
     },
     {
       "key": "lamb shanks"
@@ -5092,7 +4828,7 @@
       "key": "sultana"
     },
     {
-      "key": "bosc pears"
+      "key": "bosc pear"
     },
     {
       "key": "lime slices"
@@ -5137,7 +4873,7 @@
       "key": "sherbet"
     },
     {
-      "key": "salmon steaks"
+      "key": "salmon steak"
     },
     {
       "key": "apple jelly"
@@ -5236,9 +4972,6 @@
       "key": "mung bean sprouts"
     },
     {
-      "key": "cornflour"
-    },
-    {
       "key": "toasted coconut"
     },
     {
@@ -5290,7 +5023,7 @@
       "key": "nonhydrogenated margarine"
     },
     {
-      "key": "fingerling potatoes"
+      "key": "fingerling potato"
     },
     {
       "key": "thai red curry paste"
@@ -5317,13 +5050,10 @@
       "key": "sandwich buns"
     },
     {
-      "key": "bay scallops"
+      "key": "bay scallop"
     },
     {
       "key": "sucanat"
-    },
-    {
-      "key": "green chilis"
     },
     {
       "key": "black tea"
@@ -5362,10 +5092,7 @@
       "key": "shortbread"
     },
     {
-      "key": "sweet peppers"
-    },
-    {
-      "key": "orange segments"
+      "key": "orange segment"
     },
     {
       "key": "chicken livers"
@@ -5401,7 +5128,7 @@
       "key": "lemon pudding"
     },
     {
-      "key": "sliced apples"
+      "key": "sliced apple"
     },
     {
       "key": "adobo seasoning"
@@ -5461,7 +5188,7 @@
       "key": "bacon grease"
     },
     {
-      "key": "beef tenderloin steaks"
+      "key": "beef tenderloin steak"
     },
     {
       "key": "raspberry vinegar"
@@ -5494,16 +5221,10 @@
       "key": "sirloin tip"
     },
     {
-      "key": "unsalted cashews"
-    },
-    {
       "key": "hearts of palm"
     },
     {
       "key": "onion rings"
-    },
-    {
-      "key": "pinenuts"
     },
     {
       "key": "chillies"
@@ -5530,7 +5251,7 @@
       "key": "frozen artichoke hearts"
     },
     {
-      "key": "red chile peppers"
+      "key": "red chile pepper"
     },
     {
       "key": "heirloom tomatoes"
@@ -5551,9 +5272,6 @@
       "key": "dried shiitake mushrooms"
     },
     {
-      "key": "unsalted pistachios"
-    },
-    {
       "key": "lemon pepper seasoning"
     },
     {
@@ -5566,7 +5284,7 @@
       "key": "ricotta salata"
     },
     {
-      "key": "white peppercorns"
+      "key": "white peppercorn"
     },
     {
       "key": "phyllo pastry"
@@ -5587,16 +5305,13 @@
       "key": "dried yeast"
     },
     {
-      "key": "seedless raisins"
+      "key": "seedless raisin"
     },
     {
       "key": "soft margarine"
     },
     {
       "key": "kraft sharp cheddar cheese"
-    },
-    {
-      "key": "cheeses"
     },
     {
       "key": "wasabi powder"
@@ -5611,7 +5326,7 @@
       "key": "tangerine juice"
     },
     {
-      "key": "orange slices"
+      "key": "orange slice"
     },
     {
       "key": "boneless lamb"
@@ -5656,10 +5371,7 @@
       "key": "dried figs"
     },
     {
-      "key": "gala apples"
-    },
-    {
-      "key": "sugar brown sugar"
+      "key": "gala apple"
     },
     {
       "key": "cabernet"
@@ -5833,9 +5545,6 @@
       "key": "madeira wine"
     },
     {
-      "key": "flaxseed"
-    },
-    {
       "key": "potato flakes"
     },
     {
@@ -5854,7 +5563,7 @@
       "key": "frozen banana"
     },
     {
-      "key": "sliced shallots"
+      "key": "sliced shallot"
     },
     {
       "key": "urad dal"
@@ -5867,9 +5576,6 @@
     },
     {
       "key": "white truffle"
-    },
-    {
-      "key": "long-grain rice"
     },
     {
       "key": "brown gravy mix"
@@ -5893,10 +5599,10 @@
       "key": "cod fish"
     },
     {
-      "key": "frankfurters"
+      "key": "frankfurter"
     },
     {
-      "key": "pickled jalapeno peppers"
+      "key": "pickled jalapeno pepper"
     },
     {
       "key": "french dressing"
@@ -5920,7 +5626,7 @@
       "key": "vegan margarine"
     },
     {
-      "key": "sandwich rolls"
+      "key": "sandwich roll"
     },
     {
       "key": "tomato salsa"
@@ -5941,7 +5647,7 @@
       "key": "refrigerated buttermilk biscuits"
     },
     {
-      "key": "duck breasts"
+      "key": "duck breast"
     },
     {
       "key": "sanding sugar"
@@ -6046,7 +5752,7 @@
       "key": "smoked pork"
     },
     {
-      "key": "strip steaks"
+      "key": "strip steak"
     },
     {
       "key": "chocolate sandwich cookies"
@@ -6067,25 +5773,25 @@
       "key": "smoked mozzarella"
     },
     {
-      "key": "flounder fillets"
+      "key": "flounder fillet"
     },
     {
-      "key": "chicken breast fillets"
+      "key": "chicken breast fillet"
     },
     {
-      "key": "eye steaks"
+      "key": "eye steak"
     },
     {
-      "key": "rib eye steaks"
+      "key": "rib eye steak"
     },
     {
-      "key": "dark raisins"
+      "key": "dark raisin"
     },
     {
       "key": "guajillo"
     },
     {
-      "key": "cherry peppers"
+      "key": "cherry pepper"
     },
     {
       "key": "madras curry powder"
@@ -6115,7 +5821,7 @@
       "key": "malt vinegar"
     },
     {
-      "key": "spring roll wrappers"
+      "key": "spring roll wrapper"
     },
     {
       "key": "frozen vegetables"
@@ -6131,9 +5837,6 @@
     },
     {
       "key": "buckwheat flour"
-    },
-    {
-      "key": "brownies"
     },
     {
       "key": "liquid egg substitute"
@@ -6193,7 +5896,7 @@
       "key": "pasta water"
     },
     {
-      "key": "raw almonds"
+      "key": "raw almond"
     },
     {
       "key": "dried chili pepper"
@@ -6211,7 +5914,7 @@
       "key": "skirt steak"
     },
     {
-      "key": "italian herbs"
+      "key": "italian herb"
     },
     {
       "key": "ground coffee"
@@ -6235,7 +5938,7 @@
       "key": "banana liqueur"
     },
     {
-      "key": "dried red chile peppers"
+      "key": "dried red chile pepper"
     },
     {
       "key": "frozen mixed berries"
@@ -6268,7 +5971,7 @@
       "key": "raspberry liqueur"
     },
     {
-      "key": "cubed potatoes"
+      "key": "cubed potato"
     },
     {
       "key": "arrow root"
@@ -6304,7 +6007,7 @@
       "key": "sugar cookie dough"
     },
     {
-      "key": "cooked potatoes"
+      "key": "cooked potato"
     },
     {
       "key": "melon liqueur"
@@ -6370,7 +6073,7 @@
       "key": "fresh coriander"
     },
     {
-      "key": "french rolls"
+      "key": "french roll"
     },
     {
       "key": "meatloaf"
@@ -6436,7 +6139,7 @@
       "key": "manchego cheese"
     },
     {
-      "key": "ciabatta rolls"
+      "key": "ciabatta roll"
     },
     {
       "key": "fiber one"
@@ -6460,7 +6163,7 @@
       "key": "flavored syrup"
     },
     {
-      "key": "serrano chilies"
+      "key": "serrano chili"
     },
     {
       "key": "jack daniels"
@@ -6469,7 +6172,7 @@
       "key": "beef liver"
     },
     {
-      "key": "pink peppercorns"
+      "key": "pink peppercorn"
     },
     {
       "key": "galliano"
@@ -6508,7 +6211,7 @@
       "key": "meyer lemon"
     },
     {
-      "key": "green peppercorns"
+      "key": "green peppercorn"
     },
     {
       "key": "mexicorn"
@@ -6519,12 +6222,11 @@
     {
       "key": "chocolate wafer cookies"
     },
-    
     {
       "key": "cornish game hens"
     },
     {
-      "key": "red apples"
+      "key": "red apple"
     },
     {
       "key": "herb seasoned stuffing mix"
@@ -6551,19 +6253,19 @@
       "key": "frangelico"
     },
     {
-      "key": "beefsteak tomatoes"
+      "key": "beefsteak tomato"
     },
     {
       "key": "evaporated skim milk"
     },
     {
-      "key": "bartlett pears"
+      "key": "bartlett pear"
     },
     {
       "key": "liquid pectin"
     },
     {
-      "key": "sea bass fillets"
+      "key": "sea bass fillet"
     },
     {
       "key": "fresh basil leaves"
@@ -6695,7 +6397,7 @@
       "key": "chile de arbol"
     },
     {
-      "key": "baking apples"
+      "key": "baking apple"
     },
     {
       "key": "tomatillo"
@@ -6749,9 +6451,6 @@
       "key": "chocolate curls"
     },
     {
-      "key": "habanero peppers"
-    },
-    {
       "key": "malted milk"
     },
     {
@@ -6776,13 +6475,13 @@
       "key": "half & half"
     },
     {
-      "key": "diced onions"
+      "key": "diced onion"
     },
     {
       "key": "sponge cake"
     },
     {
-      "key": "refrigerated crescent rolls"
+      "key": "refrigerated crescent roll"
     },
     {
       "key": "finely chopped onion"
@@ -6800,7 +6499,7 @@
       "key": "monkfish"
     },
     {
-      "key": "sweet pickles"
+      "key": "sweet pickle"
     },
     {
       "key": "greek seasoning"
@@ -6839,16 +6538,16 @@
       "key": "kale leaves"
     },
     {
-      "key": "piquillo peppers"
+      "key": "piquillo pepper"
     },
     {
       "key": "mixed dried fruit"
     },
     {
-      "key": "banana peppers"
+      "key": "banana pepper"
     },
     {
-      "key": "mandarin orange segments"
+      "key": "mandarin orange segment"
     },
     {
       "key": "chicken fat"
@@ -6884,7 +6583,7 @@
       "key": "angel food cake mix"
     },
     {
-      "key": "lavender flowers"
+      "key": "lavender flower"
     },
     {
       "key": "crimini mushrooms"
@@ -6989,7 +6688,7 @@
       "key": "pea shoots"
     },
     {
-      "key": "marcona almonds"
+      "key": "marcona almond"
     },
     {
       "key": "raw cane sugar"
@@ -7016,7 +6715,7 @@
       "key": "pumpkin pie filling"
     },
     {
-      "key": "pear tomatoes"
+      "key": "pear tomato"
     },
     {
       "key": "lager beer"
@@ -7172,7 +6871,7 @@
       "key": "roasted red bell pepper"
     },
     {
-      "key": "red beets"
+      "key": "red beet"
     },
     {
       "key": "chicken flavor stuffing mix"
@@ -7199,7 +6898,7 @@
       "key": "blueberry pie filling"
     },
     {
-      "key": "red delicious apples"
+      "key": "red delicious apple"
     },
     {
       "key": "boysenberries"
@@ -7209,9 +6908,6 @@
     },
     {
       "key": "meat tenderizer"
-    },
-    {
-      "key": "sweetened coconut flakes"
     },
     {
       "key": "oxtails"
@@ -7271,7 +6967,7 @@
       "key": "garlic and herb seasoning"
     },
     {
-      "key": "waxy potatoes"
+      "key": "waxy potato"
     },
     {
       "key": "tuna fish"
@@ -7286,7 +6982,7 @@
       "key": "black mushrooms"
     },
     {
-      "key": "truffles"
+      "key": "truffle"
     },
     {
       "key": "chai tea"
@@ -7304,7 +7000,7 @@
       "key": "minced beef"
     },
     {
-      "key": "new york strip steaks"
+      "key": "new york strip steak"
     },
     {
       "key": "sweet rice flour"
@@ -7490,7 +7186,7 @@
       "key": "vanilla wafer crumbs"
     },
     {
-      "key": "crusty rolls"
+      "key": "crusty roll"
     },
     {
       "key": "red grapefruit"
@@ -7595,7 +7291,7 @@
       "key": "green tea powder"
     },
     {
-      "key": "egg roll wrappers"
+      "key": "egg roll wrapper"
     },
     {
       "key": "vanilla frozen yogurt"
@@ -7676,9 +7372,6 @@
       "key": "bread mix"
     },
     {
-      "key": "oreos"
-    },
-    {
       "key": "blueberry jam"
     },
     {
@@ -7697,10 +7390,7 @@
       "key": "shredded carrots"
     },
     {
-      "key": "unsweetened coconut flakes"
-    },
-    {
-      "key": "roasted almonds"
+      "key": "roasted almond"
     },
     {
       "key": "shredded sharp cheddar cheese"
@@ -7751,10 +7441,10 @@
       "key": "bread crumb fresh"
     },
     {
-      "key": "five-spice powder"
+      "key": "five spice powder"
     },
     {
-      "key": "chinese five-spice powder"
+      "key": "chinese five spice powder"
     },
     {
       "key": "fresh chives"
@@ -7773,9 +7463,6 @@
     },
     {
       "key": "european cucumber"
-    },
-    {
-      "key": "salted cashews"
     },
     {
       "key": "instant chicken bouillon granules"
@@ -7820,13 +7507,10 @@
       "key": "malted milk powder"
     },
     {
-      "key": "swordfish steaks"
+      "key": "swordfish steak"
     },
     {
       "key": "croissants"
-    },
-    {
-      "key": "sun-dried tomatoes"
     },
     {
       "key": "hard salami"
@@ -7856,7 +7540,7 @@
       "key": "low sodium vegetable broth"
     },
     {
-      "key": "red radishes"
+      "key": "red radishe"
     },
     {
       "key": "rump steak"
@@ -7940,10 +7624,10 @@
       "key": "fuji apple"
     },
     {
-      "key": "haddock fillets"
+      "key": "haddock fillet"
     },
     {
-      "key": "bread rolls"
+      "key": "bread roll"
     },
     {
       "key": "aged balsamic vinegar"
@@ -7964,10 +7648,10 @@
       "key": "dried mushrooms"
     },
     {
-      "key": "bread and butter pickles"
+      "key": "bread and butter pickle"
     },
     {
-      "key": "anjou pears"
+      "key": "anjou pear"
     },
     {
       "key": "mineral water"
@@ -7982,7 +7666,7 @@
       "key": "duck fat"
     },
     {
-      "key": "japanese breadcrumbs"
+      "key": "japanese bread crumbs"
     },
     {
       "key": "ham steak"
@@ -8051,9 +7735,6 @@
       "key": "peach pie filling"
     },
     {
-      "key": "pork sausages"
-    },
-    {
       "key": "alfalfa"
     },
     {
@@ -8093,7 +7774,7 @@
       "key": "wild salmon"
     },
     {
-      "key": "part-skim mozzarella"
+      "key": "part skim mozzarella"
     },
     {
       "key": "mature cheddar"
@@ -8138,7 +7819,7 @@
       "key": "breadstick"
     },
     {
-      "key": "toasted slivered almonds"
+      "key": "toasted slivered almond"
     },
     {
       "key": "vegan butter"
@@ -8166,9 +7847,6 @@
     },
     {
       "key": "rock shrimp"
-    },
-    {
-      "key": "roasted red bell peppers"
     },
     {
       "key": "tomatillo salsa"
@@ -8246,7 +7924,7 @@
       "key": "garlic chili sauce"
     },
     {
-      "key": "mcintosh apples"
+      "key": "mcintosh apple"
     },
     {
       "key": "lamb neck"
@@ -8336,7 +8014,7 @@
       "key": "white tequila"
     },
     {
-      "key": "ground blanched almonds"
+      "key": "ground blanched almond"
     },
     {
       "key": "grated parmesan romano"
@@ -8411,9 +8089,6 @@
       "key": "fat free greek yogurt"
     },
     {
-      "key": "fuji apples"
-    },
-    {
       "key": "power"
     },
     {
@@ -8459,7 +8134,7 @@
       "key": "cheddar cheese blend"
     },
     {
-      "key": "quail eggs"
+      "key": "quail egg"
     },
     {
       "key": "pineapple preserves"
@@ -8489,7 +8164,7 @@
       "key": "sliced pineapple"
     },
     {
-      "key": "unsalted almonds"
+      "key": "unsalted almond"
     },
     {
       "key": "arbol chile"
@@ -8573,9 +8248,6 @@
       "key": "butter cooking spray"
     },
     {
-      "key": "ground flaxseed"
-    },
-    {
       "key": "kirby cucumbers"
     },
     {
@@ -8616,9 +8288,6 @@
     },
     {
       "key": "ground hazelnuts"
-    },
-    {
-      "key": "dried apples"
     },
     {
       "key": "earl grey tea bags"
@@ -8687,9 +8356,6 @@
       "key": "spicy sausage"
     },
     {
-      "key": "salted pistachios"
-    },
-    {
       "key": "mochiko"
     },
     {
@@ -8735,7 +8401,7 @@
       "key": "hungarian sweet paprika"
     },
     {
-      "key": "lady apples"
+      "key": "lady apple"
     },
     {
       "key": "natural yogurt"
@@ -8756,7 +8422,7 @@
       "key": "organic sugar"
     },
     {
-      "key": "root vegetables"
+      "key": "root vegetable"
     },
     {
       "key": "raspberry puree"
@@ -8828,7 +8494,7 @@
       "key": "bolillo"
     },
     {
-      "key": "peeled plum tomatoes"
+      "key": "peeled plum tomato"
     },
     {
       "key": "shoepeg corn"
@@ -8867,7 +8533,7 @@
       "key": "asian pear"
     },
     {
-      "key": "frozen potatoes"
+      "key": "frozen potato"
     },
     {
       "key": "fresh sage"
@@ -8894,7 +8560,7 @@
       "key": "curry leaf"
     },
     {
-      "key": "pork steaks"
+      "key": "pork steak"
     },
     {
       "key": "meringue powder"
@@ -9038,7 +8704,7 @@
       "key": "black truffle oil"
     },
     {
-      "key": "szechwan peppercorns"
+      "key": "szechwan peppercorn"
     },
     {
       "key": "anisette"
@@ -9053,7 +8719,7 @@
       "key": "grated cotija"
     },
     {
-      "key": "mahi mahi fillets"
+      "key": "mahi mahi fillet"
     },
     {
       "key": "muesli"
@@ -9122,7 +8788,7 @@
       "key": "biscuit baking mix"
     },
     {
-      "key": "king prawns"
+      "key": "king prawn"
     },
     {
       "key": "condensed golden mushroom soup"
@@ -9134,7 +8800,7 @@
       "key": "dried fig"
     },
     {
-      "key": "sugar cubes"
+      "key": "sugar cube"
     },
     {
       "key": "pimento stuffed olives"
@@ -9150,9 +8816,6 @@
     },
     {
       "key": "coconut water"
-    },
-    {
-      "key": "pineapples"
     },
     {
       "key": "white bread slices"
@@ -9203,7 +8866,7 @@
       "key": "sour mix"
     },
     {
-      "key": "fish steaks"
+      "key": "fish steak"
     },
     {
       "key": "chocolate drink"
@@ -9213,9 +8876,6 @@
     },
     {
       "key": "red bean paste"
-    },
-    {
-      "key": "chocolates"
     },
     {
       "key": "chilegarlic sauce"
@@ -9293,7 +8953,7 @@
       "key": "greek style plain yogurt"
     },
     {
-      "key": "cinnamon rolls"
+      "key": "cinnamon roll"
     },
     {
       "key": "vanilla bean seeds"
@@ -9347,7 +9007,7 @@
       "key": "dried minced garlic"
     },
     {
-      "key": "dried pears"
+      "key": "dried pear"
     },
     {
       "key": "ditalini pasta"
@@ -9380,7 +9040,7 @@
       "key": "fat free yogurt"
     },
     {
-      "key": "roasted peppers"
+      "key": "roasted pepper"
     },
     {
       "key": "cardamom seed"
@@ -9422,7 +9082,7 @@
       "key": "garbanzo bean flour"
     },
     {
-      "key": "porterhouse steaks"
+      "key": "porterhouse steak"
     },
     {
       "key": "hot chili paste"
@@ -9512,7 +9172,7 @@
       "key": "baking spray"
     },
     {
-      "key": "sub rolls"
+      "key": "sub roll"
     },
     {
       "key": "unsweetened vanilla almond milk"
@@ -9548,7 +9208,7 @@
       "key": "nondairy creamer"
     },
     {
-      "key": "italian rolls"
+      "key": "italian roll"
     },
     {
       "key": "pear juice"
@@ -9611,7 +9271,7 @@
       "key": "linguica"
     },
     {
-      "key": "poblano chilies"
+      "key": "poblano chili"
     },
     {
       "key": "crystal hot sauce"

@@ -4,18 +4,31 @@ import {
   Card, Modal, Button, Tag, Divider, Row, Col, Tooltip,
 } from 'antd';
 import {
-  InfoCircleOutlined, StarOutlined, ExportOutlined, CloseCircleOutlined, StarFilled,
+  InfoCircleOutlined, StarOutlined, ExportOutlined,
+  CloseCircleOutlined, StarFilled, LoadingOutlined,
 } from '@ant-design/icons';
 import RecipeNames from './RecipeConsts';
+import { getRandomID } from '../../../../common/helpers';
 
 const { Meta } = Card;
 
 class RecipeCard extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { showModal: false, viewMore: false };
+    this.state = {
+      showModal: false, viewMoreTags: false, loadRecipeBookChange: false, loading: true,
+    };
   }
 
+
+  componentDidUpdate(prevProps) {
+    const { recipe } = this.props;
+    const { isSaved } = recipe;
+    if (isSaved !== prevProps.recipe.isSaved) {
+      // eslint-disable-next-line react/no-did-update-set-state
+      this.setState({ loadRecipeBookChange: false });
+    }
+  }
 
   showModal = () => {
     this.setState({
@@ -29,18 +42,48 @@ class RecipeCard extends React.Component {
     });
   };
 
+  onLoad = () => {
+    this.setState({
+      loading: false,
+    });
+  };
+
 
   render() {
-    const { recipe } = this.props;
+    const {
+      recipe, isLoggedIn, viewRecipe, addRecipe, token, removeRecipe,
+    } = this.props;
     const {
       title, link, image: imageURL, total_time: totalTime, rating, number_of_raters: numberOfRaters,
-      tags, id,
+      tags, id, isSaved = undefined,
     } = recipe;
     const viewMoreText = `${tags.length - 5} more`;
-    const { showModal, viewMore } = this.state;
+    const {
+      showModal, viewMoreTags, loadRecipeBookChange, loading,
+    } = this.state;
 
-    const openRecipe = () => {
+    const openRecipe = (e) => {
+      e.stopPropagation();
       window.open(link, 'noopener noreferrer');
+      if (isLoggedIn) {
+        viewRecipe(token, id);
+      }
+    };
+
+    const saveRecipe = (e) => {
+      e.stopPropagation();
+      if (isLoggedIn) {
+        this.setState({ loadRecipeBookChange: true });
+        addRecipe(token, id);
+      }
+    };
+
+    const unsaveRecipe = (e) => {
+      e.stopPropagation();
+      if (isLoggedIn) {
+        this.setState({ loadRecipeBookChange: true });
+        removeRecipe(token, id);
+      }
     };
 
     const findSite = () => Object.entries(RecipeNames)
@@ -48,31 +91,62 @@ class RecipeCard extends React.Component {
 
     const site = findSite();
 
+    const starButton = (save = false, inModal) => {
+      if (save) {
+        return (
+          <Button className="recipe-button" block type="link" size="large" onClick={saveRecipe}>
+            {/* eslint-disable-next-line max-len */}
+            {loadRecipeBookChange && (!showModal || inModal) ? <LoadingOutlined /> : <StarOutlined /> }
+          </Button>
+        );
+      }
+      return (
+        <Button className="recipe-button" block type="link" size="large" onClick={unsaveRecipe}>
+          {loadRecipeBookChange && (!showModal || inModal) ? <LoadingOutlined /> : <StarFilled /> }
+        </Button>
+      );
+    };
+
+    const getStarButton = (inModal) => {
+      if (loadRecipeBookChange) {
+        return starButton(!isSaved, inModal);
+      }
+      if (isSaved) {
+        return (
+          <Tooltip title="Remove from My Cook Book">
+            {starButton(false, inModal)}
+          </Tooltip>
+        );
+      }
+      return (
+        <Tooltip title="Add to My Cook Book">
+          {starButton(true, inModal)}
+        </Tooltip>
+      );
+    };
+
     return (
-      <>
+      <div>
         <Card
           className="recipe-card"
-          // onClick={() => openRecipe(link)}
+          onClick={this.showModal}
+          loading={loading}
           hoverable
           cover={(
             <img
               className="recipe-image"
               src={imageURL}
-              alt={title}
+              alt=""
+              onLoad={this.onLoad}
             />
           )}
-
           actions={[
             <Tooltip title="Show info">
               <Button className="recipe-button" block type="link" size="large" onClick={this.showModal}>
                 <InfoCircleOutlined />
               </Button>
             </Tooltip>,
-            <Tooltip title="Add to My Cook Book">
-              <Button className="recipe-button" block type="link" size="large">
-                <StarOutlined />
-              </Button>
-            </Tooltip>,
+            getStarButton(false),
             <Tooltip title="Go to recipe">
               <Button className="recipe-button" block type="link" size="large" onClick={openRecipe}>
                 <ExportOutlined />
@@ -91,13 +165,9 @@ class RecipeCard extends React.Component {
           visible={showModal}
           onCancel={this.hideModal}
           footer={[
-            <Tooltip title="Add to My Cook Book">
-              <Button key="Save">
-                <StarOutlined />
-              </Button>
-            </Tooltip>,
-            <Tooltip title="Go to recipe">
-              <Button key="Go" onClick={openRecipe}>
+            getStarButton(true),
+            <Tooltip key="Go" title="Go to recipe">
+              <Button onClick={openRecipe}>
                 <ExportOutlined />
               </Button>
             </Tooltip>,
@@ -172,33 +242,34 @@ class RecipeCard extends React.Component {
           </Row>
           <Row span={18}>
             {
-                    tags.map((tag, index) => (
-                      <Tag
-                        className="recipe-tag"
-                        visible={index < 5 || viewMore}
-                      >
-                        <span>
-                          {tag }
-                        </span>
-                      </Tag>
-                    ))
-                }
+              tags.map((tag, index) => (
+                <Tag
+                  className="recipe-tag"
+                  visible={index < 5 || viewMoreTags}
+                  key={`recipe-tag ${getRandomID()}`}
+                >
+                  <span>
+                    {tag}
+                  </span>
+                </Tag>
+              ))
+            }
             {tags.length > 5 && (
             <Button
               className="more-tags-button"
               onClick={() => {
-                this.setState({ viewMore: !viewMore });
+                this.setState({ viewMoreTags: !viewMoreTags });
               }}
               size="small"
             >
               <span>
-                {!viewMore ? viewMoreText : 'Show less'}
+                {!viewMoreTags ? viewMoreText : 'Show less'}
               </span>
             </Button>
             )}
           </Row>
         </Modal>
-      </>
+      </div>
     );
   }
 }
@@ -213,7 +284,13 @@ RecipeCard.propTypes = {
     number_of_raters: PropTypes.number,
     tags: PropTypes.arrayOf(PropTypes.string),
     id: PropTypes.string,
+    isSaved: PropTypes.bool,
   }).isRequired,
+  isLoggedIn: PropTypes.bool.isRequired,
+  viewRecipe: PropTypes.func.isRequired,
+  addRecipe: PropTypes.func.isRequired,
+  removeRecipe: PropTypes.func.isRequired,
+  token: PropTypes.string.isRequired,
 };
 
 export default RecipeCard;
