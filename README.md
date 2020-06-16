@@ -62,7 +62,7 @@ Further usage can be found easily using Google search and [this cheatsheet](http
 ## To run elasticsearch (with sample recipes) in an attached/detached container
 
 ```bash
-docker run -p 9200:9200 -p 9300:9300 -e "discovery.type=single-node" [-d] hagais/es-recipes:0.2
+docker run -p 9200:9200 -p 9300:9300 -e "discovery.type=single-node" [-d] hagais/es-recipes:1.0
 ```
 
 then make sure that .env has `ELASTIC_SEARCH_HOST=http://localhost:9200` set before running `yarn`
