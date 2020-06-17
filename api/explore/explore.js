@@ -65,12 +65,11 @@ function GetBoxes(size, dateString, amount) {
 router.post('/explore', asyncHandler(async (request, response, next) => {
   const {
     count = 10,
+    dateString = '',
   } = request.body;
 
-  const dateString = request.time;
-
   // eslint-disable-next-line no-restricted-globals
-  if (typeof dateString === 'string' || dateString instanceof String || Number.isInteger(count)) {
+  if (typeof dateString !== 'string' || !(dateString instanceof String) || Number.isInteger(count)) {
     response.sendStatus(400);
     return;
   }
