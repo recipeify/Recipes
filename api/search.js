@@ -5,6 +5,8 @@ const get = require('lodash/get');
 
 const auth = require('./auth');
 const User = require('./users/userModel');
+const searchFunc = require('./search_func.js');
+
 
 const router = express.Router();
 
@@ -162,29 +164,10 @@ router.post('/recipes', asyncHandler(async (request, response, _next) => {
     bool.must.push(cuisineQueryPart);
   }
 
-  const body = {
-    query: {
-      boosting: {
-        positive: { bool },
-        negative: {
-          term: {
-            image_placeholder_flag: true,
-          },
-        },
-        negative_boost: 0.5,
-      },
-    },
-    from,
-    size,
-  };
-
-  const query = await esClient.search({
-    index: process.env.ELASTIC_SEARCH_INDEX,
-    body,
-  });
+  const query = await searchFunc(bool, from, size);
 
   // eslint-disable-next-line no-underscore-dangle
-  let items = query.hits.hits.map((e) => e._source);
+  let items = query.hits.map((e) => e._source);
 
   try {
     const user = await auth.checkJwt(request);
@@ -199,7 +182,7 @@ router.post('/recipes', asyncHandler(async (request, response, _next) => {
   }
 
   response.send({
-    total: query.hits.total,
+    total: query.total,
     items,
   });
 }));

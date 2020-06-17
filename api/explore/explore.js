@@ -5,6 +5,7 @@ const holiday = require('./next_holiday_calc');
 const MonthJson = require('./ingredients_of_the_month.json');
 const BoxesJson = require('./random_boxes.json');
 const recs = require('../recommend_func.js');
+const searchFunc = require('../search_func.js');
 
 
 const router = express.Router();
@@ -19,7 +20,7 @@ function randomChoice(arr, del) {
   return retval;
 }
 
-function GetBoxes(size, dateString) {
+function GetBoxes(size, dateString, amount) {
   const monthIngs = MonthJson[new Date(dateString).toLocaleDateString('default', { month: 'long' })];
   const keys = Object.keys(BoxesJson);
   let n = size;
@@ -32,12 +33,29 @@ function GetBoxes(size, dateString) {
   }
 
   while (n > 0) {
-    const key = randomChoice(keys, false);
+    const key = randomChoice(keys, true);
+    let box;
+
     if (key === 'ingredient') {
-      retval.ingredient.push(randomChoice(monthIngs, true));
+      box = randomChoice(monthIngs, true);
     } else {
-      retval[key].push(randomChoice(BoxesJson[key], true));
+      box = randomChoice(BoxesJson[key], true);
     }
+
+    const bool = {
+      must: {
+        simple_query_string: {
+          query: box,
+          fields: ['title', 'ingredients', 'tags'],
+        },
+      },
+    };
+
+    const values = searchFunc(bool, 0, amount);
+
+
+    retval[key].push({ box: values });
+
     n -= 1;
   }
 
@@ -47,11 +65,12 @@ function GetBoxes(size, dateString) {
 router.post('/explore', asyncHandler(async (request, response, next) => {
   const {
     count = 10,
-    dateString,
   } = request.body;
 
+  const dateString = request.time;
+
   // eslint-disable-next-line no-restricted-globals
-  if (isNaN(new Date(dateString)) || Number.isInteger(count)) {
+  if (typeof dateString === 'string' || dateString instanceof String || Number.isInteger(count)) {
     response.sendStatus(400);
     return;
   }
