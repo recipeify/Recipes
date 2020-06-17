@@ -1,8 +1,5 @@
 const elasticsearch = require('elasticsearch');
 
-const auth = require('./auth');
-const User = require('./users/userModel');
-
 const esClient = new elasticsearch.Client({
   host: process.env.ELASTIC_SEARCH_HOST,
   log: 'trace',
