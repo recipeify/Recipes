@@ -1,8 +1,11 @@
 const express = require('express');
 const asyncHandler = require('express-async-handler');
+const crypto = require('crypto');
 const holiday = require('./next_holiday_calc');
 const MonthJson = require('./ingredients_of_the_month.json');
 const BoxesJson = require('./random_boxes.json');
+const recs = require('../recommend_func.js');
+
 
 const router = express.Router();
 
@@ -41,17 +44,40 @@ function GetBoxes(size, dateString) {
   return retval;
 }
 
-router.get('/get_explore', asyncHandler(async (request, response) => {
-  const dateString = request.query.time;
-  const { size } = request.query.size; /* how many boxes are required */
+router.post('/explore', asyncHandler(async (request, response, next) => {
+  const {
+    count = 10,
+    dateString,
+  } = request.body;
 
   // eslint-disable-next-line no-restricted-globals
-  if (isNaN(new Date(dateString)) || typeof (first) !== 'boolean' || typeof (size) !== 'number') {
+  if (isNaN(new Date(dateString)) || Number.isInteger(count)) {
     response.sendStatus(400);
     return;
   }
 
-  const retval = GetBoxes(size, dateString);
+  const retval = GetBoxes(count, dateString);
+
+  let userHash;
+  let isAnonymous;
+
+  if (request.openid) {
+    userHash = crypto.createHash('sha256').update(request.openid.user.sub).digest('hex');
+    isAnonymous = false;
+  } else {
+    userHash = crypto.createHash('sha256').update('anonymous').digest('hex');
+    isAnonymous = true;
+  }
+
+  await recs(userHash, count, 'explore', isAnonymous)
+    .then((recommendation) => {
+      retval.personal = recommendation.personal;
+      retval.popular = recommendation.popular;
+    })
+    .catch((err) => {
+      if (err) next(err);
+    });
+
 
   response.send(retval);
 }));
