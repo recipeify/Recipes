@@ -4,8 +4,8 @@ const crypto = require('crypto');
 const holiday = require('./next_holiday_calc');
 const MonthJson = require('./ingredients_of_the_month.json');
 const BoxesJson = require('./random_boxes.json');
-const recs = require('../recommend_func.js');
-const searchFunc = require('../search_func.js');
+const recs = require('../recommend.js');
+const searchFunc = require('../search.js');
 
 
 const router = express.Router();
@@ -64,17 +64,17 @@ function GetBoxes(size, dateString, amount) {
 
 router.post('/explore', asyncHandler(async (request, response, next) => {
   const {
-    count = 10,
+    size = 10,
     dateString = '',
   } = request.body;
 
   // eslint-disable-next-line no-restricted-globals
-  if (typeof dateString !== 'string' || !(dateString instanceof String) || Number.isInteger(count)) {
+  if (typeof dateString !== 'string' || !(dateString instanceof String) || Number.isInteger(size)) {
     response.sendStatus(400);
     return;
   }
 
-  const retval = GetBoxes(count, dateString);
+  const retval = GetBoxes(size, dateString);
 
   let userHash;
   let isAnonymous;
@@ -87,7 +87,7 @@ router.post('/explore', asyncHandler(async (request, response, next) => {
     isAnonymous = true;
   }
 
-  await recs(userHash, count, 'explore', isAnonymous)
+  await recs.recExplore(userHash, size, isAnonymous)
     .then((recommendation) => {
       retval.personal = recommendation.personal;
       retval.popular = recommendation.popular;
@@ -95,7 +95,6 @@ router.post('/explore', asyncHandler(async (request, response, next) => {
     .catch((err) => {
       if (err) next(err);
     });
-
 
   response.send(retval);
 }));

@@ -5,10 +5,6 @@ const get = require('lodash/get');
 
 const auth = require('./auth');
 const User = require('./users/userModel');
-const searchFunc = require('./search_func.js');
-
-
-const router = express.Router();
 
 const esClient = new elasticsearch.Client({
   host: process.env.ELASTIC_SEARCH_HOST,
@@ -16,8 +12,36 @@ const esClient = new elasticsearch.Client({
   apiVersion: '7.2', // use the same version of your Elasticsearch instance
 });
 
+const router = express.Router();
+
 function isString(value) {
   return typeof value === 'string' || value instanceof String;
+}
+
+// eslint-disable-next-line no-unused-vars
+async function searchFunc(bool, from, size) {
+  const body = {
+    query: {
+      boosting: {
+        positive: { bool },
+        negative: {
+          term: {
+            image_placeholder_flag: true,
+          },
+        },
+        negative_boost: 0.5,
+      },
+    },
+    from,
+    size,
+  };
+
+  const query = await esClient.search({
+    index: process.env.ELASTIC_SEARCH_INDEX,
+    body,
+  });
+
+  return (query.hits);
 }
 
 // eslint-disable-next-line no-unused-vars
@@ -213,4 +237,6 @@ router.post('/ids', asyncHandler(async (request, response, _next) => {
   });
 }));
 
+
+module.exports = searchFunc;
 module.exports.router = router;
