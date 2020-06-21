@@ -35,6 +35,9 @@ if (!process.env.ELASTIC_SEARCH_HOST) {
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+app.get('/health', asyncHandler(async (_request, response, _next) => {
+  response.sendStatus(200);
+}));
 
 app.get('/login', asyncHandler(async (_request, response, _next) => {
   response.redirect(`${process.env.ISSUER_BASE_URL}/authorize`);
