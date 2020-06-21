@@ -33,11 +33,7 @@ jobs:
         run: cd client && yarn
 
       - name: Build image
-        run: docker build . --file Dockerfile --tag $IMAGE_NAME
-        env:
-          REACT_APP_AUTH0_DOMAIN: ${{ secrets.REACT_APP_AUTH0_DOMAIN }}
-          REACT_APP_AUTH0_CLIENT_ID: ${{ secrets.REACT_APP_AUTH0_CLIENT_ID }}
-          REACT_APP_AUTH0_AUDIENCE: ${{ secrets.REACT_APP_AUTH0_AUDIENCE }}
+        run: docker build --build-arg REACT_APP_AUTH0_DOMAIN=${{ secrets.REACT_APP_AUTH0_DOMAIN }} --build-arg REACT_APP_AUTH0_CLIENT_ID=${{ secrets.REACT_APP_AUTH0_CLIENT_ID }} --build-arg REACT_APP_AUTH0_AUDIENCE=${{ secrets.REACT_APP_AUTH0_AUDIENCE }} . --file Dockerfile --tag $IMAGE_NAME
 
       - name: Log into registry
         run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
