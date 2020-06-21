@@ -82,12 +82,12 @@ jobs:
           image: 635062671985.dkr.ecr.eu-central-1.amazonaws.com/recipeify:latest
 
       - name: Deploy to EB
-          uses: einaregilsson/beanstalk-deploy@v10
-          with:
-            aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
-            aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-            application_name: recipeify
-            environment_name: Recipeify-env
-            version_label: 0.1-2
-            region: eu-central-1
+        uses: einaregilsson/beanstalk-deploy@v10
+        with:
+          aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          application_name: recipeify
+          environment_name: Recipeify-env
+          version_label: 0.1-2
+          region: eu-central-1
 
