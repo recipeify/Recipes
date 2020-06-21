@@ -79,7 +79,7 @@ jobs:
           access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           region: eu-central-1
-          image: 635062671985.dkr.ecr.eu-central-1.amazonaws.com/recipeify:latest
+          image: recipeify:latest
 
       - name: Deploy to EB
         uses: einaregilsson/beanstalk-deploy@v10
