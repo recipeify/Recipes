@@ -68,6 +68,9 @@ jobs:
           docker tag $IMAGE_NAME $IMAGE_ID:$VERSION
           docker push $IMAGE_ID:$VERSION
 
+          echo "::set-env name=IMAGE_ID::$IMAGE_ID"
+          echo "::set-env name=VERSION::$VERSION"
+
       - name: Push to ECR
         id: ecr
         uses: jwalton/gh-ecr-push@v1
