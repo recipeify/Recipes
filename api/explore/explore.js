@@ -5,7 +5,7 @@ const holiday = require('./next_holiday_calc');
 const MonthJson = require('./ingredients_of_the_month.json');
 const BoxesJson = require('./random_boxes.json');
 const recs = require('../recommend.js');
-const searchFunc = require('../search.js');
+const search = require('../search.js');
 
 
 const router = express.Router();
@@ -20,20 +20,39 @@ function randomChoice(arr, del) {
   return retval;
 }
 
-function GetBoxes(size, dateString, amount) {
-  const monthIngs = MonthJson[new Date(dateString).toLocaleDateString('default', { month: 'long' })];
+async function innerSearch(searchString, amount, request) {
+  const bool = {
+    must: {
+      simple_query_string: {
+        query: searchString,
+        fields: ['title', 'ingredients', 'tags'],
+      },
+    },
+  };
+
+  await search.searchFunc(bool, 0, amount, request)
+    .then((values) => values)
+    .catch((err) => {
+      throw (err);
+    });
+}
+
+async function GetBoxes(size, dateString, request, amount) {
+  const monthIngs = MonthJson[new Date().toLocaleDateString('default', { month: 'long' })];
   const keys = Object.keys(BoxesJson);
   let n = size;
   keys.push('ingredient');
   const retval = {};
+  const nextHoliday = holiday(dateString);
 
-  if (holiday(dateString)) {
-    retval['next holiday'] = holiday(dateString);
+  if (nextHoliday) {
+    const holidayRecipes = await innerSearch(holiday(dateString), amount, request);
+    retval['next holiday'] = { name: nextHoliday, recipes: holidayRecipes };
     n -= 1;
   }
 
   while (n > 0) {
-    const key = randomChoice(keys, true);
+    const key = randomChoice(keys, false);
     let box;
 
     if (key === 'ingredient') {
@@ -42,19 +61,13 @@ function GetBoxes(size, dateString, amount) {
       box = randomChoice(BoxesJson[key], true);
     }
 
-    const bool = {
-      must: {
-        simple_query_string: {
-          query: box,
-          fields: ['title', 'ingredients', 'tags'],
-        },
-      },
-    };
+    // eslint-disable-next-line no-await-in-loop
+    const values = await innerSearch(box, amount, request);
 
-    const values = searchFunc(bool, 0, amount);
-
-
-    retval[key].push({ box: values });
+    if (!retval[key]) {
+      retval[key] = [];
+    }
+    retval[key].push({ name: box, recipes: values });
 
     n -= 1;
   }
@@ -69,12 +82,20 @@ router.post('/explore', asyncHandler(async (request, response, next) => {
   } = request.body;
 
   // eslint-disable-next-line no-restricted-globals
-  if (typeof dateString !== 'string' || !(dateString instanceof String) || Number.isInteger(size)) {
+  if (!search.isString(dateString) || Number.isInteger(size)) {
     response.sendStatus(400);
     return;
   }
 
-  const retval = GetBoxes(size, dateString);
+  let retval;
+
+  await GetBoxes(size, dateString, request)
+    .then((boxes) => {
+      retval = boxes;
+    })
+    .catch((err) => {
+      throw (err);
+    });
 
   let userHash;
   let isAnonymous;

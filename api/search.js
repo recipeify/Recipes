@@ -19,7 +19,7 @@ function isString(value) {
 }
 
 // eslint-disable-next-line no-unused-vars
-async function searchFunc(bool, from, size) {
+async function searchFunc(bool, from, size, request) {
   const body = {
     query: {
       boosting: {
@@ -41,7 +41,26 @@ async function searchFunc(bool, from, size) {
     body,
   });
 
-  return (query.hits);
+  // eslint-disable-next-line no-underscore-dangle
+  let items = query.hits.hits.map((e) => e._source);
+
+  try {
+    const user = await auth.checkJwt(request);
+    if (user) {
+      // TODO: only query relevant items to make this a bit more effcient
+      const result = await User.findById(user.sub, 'recipes');
+      const savedIds = new Set(result.recipes);
+      items = items.map((i) => ({ ...i, isSaved: savedIds.has(i.id) }));
+    }
+  } catch (e) {
+    // eslint-disable-next-line no-console
+    console.error('failed to check jwt', e);
+  }
+
+  return ({
+    total: query.hits.total,
+    items,
+  });
 }
 
 // eslint-disable-next-line no-unused-vars
@@ -188,27 +207,9 @@ router.post('/recipes', asyncHandler(async (request, response, _next) => {
     bool.must.push(cuisineQueryPart);
   }
 
-  const query = await searchFunc(bool, from, size);
+  const retval = await searchFunc(bool, from, size, request);
 
-  // eslint-disable-next-line no-underscore-dangle
-  let items = query.hits.map((e) => e._source);
-
-  try {
-    const user = await auth.checkJwt(request);
-    if (user) {
-      // TODO: only query relevant items to make this a bit more effcient
-      const result = await User.findById(user.sub, 'recipes');
-      const savedIds = new Set(result.recipes);
-      items = items.map((i) => ({ ...i, isSaved: savedIds.has(i.id) }));
-    }
-  } catch (e) {
-    console.error('failed to check jwt', e);
-  }
-
-  response.send({
-    total: query.total,
-    items,
-  });
+  response.send(retval);
 }));
 
 // eslint-disable-next-line no-unused-vars
@@ -238,5 +239,5 @@ router.post('/ids', asyncHandler(async (request, response, _next) => {
 }));
 
 
-module.exports = searchFunc;
+module.exports = { searchFunc, isString };
 module.exports.router = router;
