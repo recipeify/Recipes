@@ -68,8 +68,6 @@ jobs:
           docker tag $IMAGE_NAME $IMAGE_ID:$VERSION
           docker push $IMAGE_ID:$VERSION
 
-          echo "::set-env name=IMAGE_ID::$IMAGE_ID"
-          echo "::set-env name=VERSION::$VERSION"
 
       - name: Push to ECR
         id: ecr
@@ -78,7 +76,7 @@ jobs:
           access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           region: eu-central-1
-          image: $IMAGE_ID:$VERSION
+          image: 635062671985.dkr.ecr.eu-central-1.amazonaws.com/recipeify:latest
 
       - name: Deploy to EB
         uses: einaregilsson/beanstalk-deploy@v10
