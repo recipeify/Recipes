@@ -1,5 +1,5 @@
 import {
-  sendView, getUserRecipes, addRecipes, removeRecipes,
+  sendView, getUserRecipes, addRecipes, removeRecipes, setUserPreferences,
 } from '../service/apiRequests';
 import { updateRecipeSaved } from './recipeActions';
 
@@ -169,31 +169,31 @@ const removeUserBlacklistItem = (ingredient) => ({
   payload: ingredient,
 });
 
-// const editUserPreferencesPending = () => ({
-//   type: userActions.EDIT_USER_PREFERENCES_PENDING,
-// });
+const editUserPreferencesPending = () => ({
+  type: userActions.EDIT_USER_PREFERENCES_PENDING,
+});
 
-// const editUserPreferencesSuceess = () => ({
-//   type: userActions.EDIT_USER_PREFERENCES_SUCCESS,
-// });
+const editUserPreferencesSuceess = () => ({
+  type: userActions.EDIT_USER_PREFERENCES_SUCCESS,
+});
 
-// const editUserPreferencesFailure = (error) => ({
-//   type: userActions.EDIT_USER_PREFERENCES_FAILURE,
-//   payload: { error },
-// });
+const editUserPreferencesFailure = (error) => ({
+  type: userActions.EDIT_USER_PREFERENCES_FAILURE,
+  payload: { error },
+});
 
 
-// function editUserPreferences(token, preferences) {
-//   return async (dispatch) => {
-//     try {
-//       dispatch(editUserPreferencesPending());
-//       // await setUserPreferences(token, preferences);
-//       return dispatch(editUserPreferencesSuceess());
-//     } catch (error) {
-//       return dispatch(editUserPreferencesFailure(error));
-//     }
-//   };
-// }
+function editUserPreferences(token, dietaryPrefs, blacklist) {
+  return async (dispatch) => {
+    try {
+      dispatch(editUserPreferencesPending());
+      await setUserPreferences(token, dietaryPrefs, blacklist);
+      return dispatch(editUserPreferencesSuceess());
+    } catch (error) {
+      return dispatch(editUserPreferencesFailure(error));
+    }
+  };
+}
 
 export {
   userLogin,
@@ -206,5 +206,5 @@ export {
   removeUserDiet,
   addUserBlacklistItem,
   removeUserBlacklistItem,
-  // editUserPreferences,
+  editUserPreferences,
 };

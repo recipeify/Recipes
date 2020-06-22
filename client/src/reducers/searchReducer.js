@@ -5,21 +5,48 @@ import { searchActions } from '../actions/searchActions';
 
 const initialState = {
   // include: [
-  //   'flour',
-  //   'coconut',
-  //   'coconut milk',
-  //   'margarine',
-  //   'almond milk',
-  //   'ginger ale',
-  //   'peaches',
-  //   'strawberries',
-  //   'blueberries',
-  //   'bananas',
-  //   'oranges',
-  //   'tangerines',
+  //   {
+  //     key: 'salt',
+  //   },
+  //   {
+  //     key: 'pepper',
+  //   },
+  //   {
+  //     key: 'butter',
+  //   },
+  //   {
+  //     key: 'garlic',
+  //   },
+  //   {
+  //     key: 'sugar',
+  //   },
+  //   {
+  //     key: 'flour',
+  //   },
+  //   {
+  //     key: 'onion',
+  //   },
+  //   {
+  //     key: 'olive oil',
+  //   },
+  //   {
+  //     key: 'water',
+  //   },
+  //   {
+  //     key: 'olive',
+  //   },
+  //   {
+  //     key: 'egg',
+  //   },
+  //   {
+  //     key: 'black pepper',
+  //   },
+  //   {
+  //     key: 'milk',
+  //   },
   // ],
-  freeText: '',
   include: [],
+  freeText: '',
   exclude: [],
   diet: [],
   dishType: [],

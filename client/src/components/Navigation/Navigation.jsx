@@ -40,7 +40,7 @@ const Navigation = (props) => {
 
   const loadingButton = (
     <Button
-      className="login"
+      className="loading"
       type="primary"
       loading
     >
@@ -109,7 +109,7 @@ const Navigation = (props) => {
   const loggedInRow = () => {
     const { loggedInUser } = props;
     const avatar = loggedInUser ? (
-      <Avatar size="large" src={loggedInUser.picture} style={{ 'margin-top': '3px' }} />
+      <Avatar size="large" src={loggedInUser.picture} style={{ marginTop: '3px' }} />
     ) : null;
     const name = loggedInUser ? loggedInUser.name : null;
     return (
@@ -124,7 +124,7 @@ const Navigation = (props) => {
           <Col flex="40px">
             {avatar}
           </Col>
-          <Col style={{ 'margin-top': '4px' }}>
+          <Col style={{ marginTop: '4px' }}>
             {name}
           </Col>
           <Col>

@@ -54,7 +54,7 @@ class PreferenceSelect extends React.Component {
     super(props);
     this.state = {
       data: [],
-      value: '',
+      value: undefined,
     };
   }
 
@@ -62,13 +62,13 @@ class PreferenceSelect extends React.Component {
     const { addPreference } = this.props;
     const { data } = this.state;
     const option = [...data.filter((item) => item.key === value)];
-    if (option === 0 && value !== '') {
+    if (option.length === 0) {
       addPreference(value);
-      this.setState({ value: '', data: [] });
+      this.setState({ value: undefined, data: [] });
     }
     if (option[0]) {
       addPreference(option[0]);
-      this.setState({ value: '', data: [] });
+      this.setState({ value: null, data: [] });
     }
   }
 
@@ -114,7 +114,8 @@ class PreferenceSelect extends React.Component {
               className="search-box"
               showSearch
               allowClear
-              onClick={() => this.handleClick()}
+              onFocus={() => this.handleClick()}
+              onBlur={() => this.setState({ value: undefined })}
               value={value}
               showArrow={false}
               onSelect={(inputValue) => this.onEnterPreference(inputValue)}
@@ -125,6 +126,8 @@ class PreferenceSelect extends React.Component {
                 }
               }}
               notFoundContent={null}
+              placeholder="meow"
+              autoFocus
             >
               {options}
             </Select>

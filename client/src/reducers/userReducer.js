@@ -11,6 +11,10 @@ const initialState = {
     error: null,
     items: [],
   },
+  preferences: {
+    blacklist: [],
+    diet: [],
+  },
 };
 
 export default function userReducer(state = initialState, action) {
@@ -41,6 +45,22 @@ export default function userReducer(state = initialState, action) {
         };
       case (userActions.REMOVE_RECIPE_USERPAGE):
         draft.recipes.items = draft.recipes.items.filter((recipe) => recipe.id !== action.payload);
+        break;
+      case (userActions.ADD_USER_BLACKLIST):
+        draft.preferences.blacklist.push(action.payload);
+        break;
+      case (userActions.REMOVE_USER_BLACKLIST):
+        draft.preferences.blacklist = draft.preferences.blacklist.filter(
+          (item) => item.key !== action.payload.key,
+        );
+        break;
+      case (userActions.ADD_USER_DIET):
+        draft.preferences.diet.push(action.payload);
+        break;
+      case (userActions.REMOVE_USER_DIET):
+        draft.preferences.diet = draft.preferences.diet.filter(
+          (item) => item.key !== action.payload.key,
+        );
         break;
       default:
         return draft;

@@ -7,6 +7,7 @@ import {
   InfoCircleOutlined, StarOutlined, ExportOutlined,
   CloseCircleOutlined, StarFilled, LoadingOutlined,
 } from '@ant-design/icons';
+import capitalize from 'lodash/capitalize';
 import RecipeNames from './RecipeConsts';
 import { getRandomID } from '../../../../common/helpers';
 
@@ -94,14 +95,14 @@ class RecipeCard extends React.Component {
     const starButton = (save = false, inModal) => {
       if (save) {
         return (
-          <Button className="recipe-button" block type="link" size="large" onClick={saveRecipe}>
+          <Button className="recipe-button" type={inModal ? 'default' : 'link'} size="large" onClick={saveRecipe}>
             {/* eslint-disable-next-line max-len */}
             {loadRecipeBookChange && (!showModal || inModal) ? <LoadingOutlined /> : <StarOutlined /> }
           </Button>
         );
       }
       return (
-        <Button className="recipe-button" block type="link" size="large" onClick={unsaveRecipe}>
+        <Button className="recipe-button" type={inModal ? 'default' : 'link'} size="large" onClick={unsaveRecipe}>
           {loadRecipeBookChange && (!showModal || inModal) ? <LoadingOutlined /> : <StarFilled /> }
         </Button>
       );
@@ -119,7 +120,7 @@ class RecipeCard extends React.Component {
         );
       }
       return (
-        <Tooltip title="Add to My Cook Book">
+        <Tooltip key="star" title="Add to My Cook Book">
           {starButton(true, inModal)}
         </Tooltip>
       );
@@ -160,6 +161,7 @@ class RecipeCard extends React.Component {
             description={site}
           />
         </Card>
+
         <Modal
           title={title}
           visible={showModal}
@@ -167,7 +169,7 @@ class RecipeCard extends React.Component {
           footer={[
             getStarButton(true),
             <Tooltip key="Go" title="Go to recipe">
-              <Button onClick={openRecipe}>
+              <Button onClick={openRecipe} size="large">
                 <ExportOutlined />
               </Button>
             </Tooltip>,
@@ -244,19 +246,19 @@ class RecipeCard extends React.Component {
             {
               tags.map((tag, index) => (
                 <Tag
-                  className="recipe-tag"
+                  className="preference-chip"
                   visible={index < 5 || viewMoreTags}
                   key={`recipe-tag ${getRandomID()}`}
                 >
                   <span>
-                    {tag}
+                    {capitalize(tag)}
                   </span>
                 </Tag>
               ))
             }
             {tags.length > 5 && (
             <Button
-              className="more-tags-button"
+              className="modal-tag-button"
               onClick={() => {
                 this.setState({ viewMoreTags: !viewMoreTags });
               }}

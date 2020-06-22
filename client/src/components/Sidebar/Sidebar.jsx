@@ -1,10 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Row, Col, Avatar } from 'antd';
+import {
+  Row,
+  Col,
+  Avatar,
+  Collapse,
+  Divider,
+} from 'antd';
 import PreferenceSelect from './PreferenceSelect';
 import { selectVariants } from './PreferenceSelect/PreferenceSelect';
 import TimeSlider from './TimeSlider';
 import FreeTextSearch from './FreeTextSearch/index';
+
+const { Panel } = Collapse;
 
 class Sidebar extends React.Component {
   componentDidMount() {
@@ -74,36 +82,43 @@ class Sidebar extends React.Component {
             <FreeTextSearch />
           </Col>
         </Row>
-        <Row gutter={[16, 30]}>
-          <Col offset={1} span={21}>
-            <PreferenceSelect variant={selectVariants.INCLUDE_INGREDIENTS} />
-          </Col>
-        </Row>
-        <Row gutter={[16, 30]}>
-          <Col offset={1} span={21}>
-            <PreferenceSelect variant={selectVariants.EXCLUDE_INGREDIENTS} />
-          </Col>
-        </Row>
-        <Row gutter={[16, 30]}>
-          <Col offset={1} span={21}>
-            <PreferenceSelect variant={selectVariants.DIET} openDropdownOnClick />
-          </Col>
-        </Row>
-        <Row gutter={[16, 30]}>
-          <Col offset={1} span={21}>
-            <PreferenceSelect variant={selectVariants.DISH_TYPE} openDropdownOnClick />
-          </Col>
-        </Row>
-        <Row gutter={[16, 30]}>
-          <Col offset={1} span={21}>
-            <PreferenceSelect variant={selectVariants.CUISINE} openDropdownOnClick />
-          </Col>
-        </Row>
-        <Row gutter={[16, 30]}>
-          <Col offset={1} span={21}>
-            <TimeSlider />
-          </Col>
-        </Row>
+        <Divider plain style={{ backgroundColor: '#d9d9d9', marginBottom: '0px', marginTop: '0px' }} />
+        <Collapse bordered={false} defaultActiveKey={['ingredients', 'moreFilters']}>
+          <Panel header="Cook by ingredients" key="ingredients">
+            <Row gutter={[16, 30]}>
+              <Col span={23}>
+                <PreferenceSelect variant={selectVariants.INCLUDE_INGREDIENTS} />
+              </Col>
+            </Row>
+            <Row gutter={[16, 30]}>
+              <Col span={23}>
+                <PreferenceSelect variant={selectVariants.EXCLUDE_INGREDIENTS} />
+              </Col>
+            </Row>
+          </Panel>
+          <Panel header="Cook by preferences" key="moreFilters">
+            <Row gutter={[16, 30]}>
+              <Col span={23}>
+                <PreferenceSelect variant={selectVariants.DIET} openDropdownOnClick />
+              </Col>
+            </Row>
+            <Row gutter={[16, 30]}>
+              <Col span={23}>
+                <PreferenceSelect variant={selectVariants.DISH_TYPE} openDropdownOnClick />
+              </Col>
+            </Row>
+            <Row gutter={[16, 30]}>
+              <Col span={23}>
+                <PreferenceSelect variant={selectVariants.CUISINE} openDropdownOnClick />
+              </Col>
+            </Row>
+            <Row gutter={[16, 30]}>
+              <Col span={23}>
+                <TimeSlider />
+              </Col>
+            </Row>
+          </Panel>
+        </Collapse>
       </div>
     );
 
@@ -119,7 +134,16 @@ class Sidebar extends React.Component {
             <h1>{user.name}</h1>
           </Col>
         </Row>
-
+        <Row gutter={[16, 30]}>
+          <Col offset={1} span={22}>
+            <PreferenceSelect variant={selectVariants.PERSONAL_DIET} openDropdownOnClick />
+          </Col>
+        </Row>
+        <Row gutter={[16, 30]}>
+          <Col offset={1} span={22}>
+            <PreferenceSelect variant={selectVariants.PERSONAL_EXCLUDES} openDropdownOnClick />
+          </Col>
+        </Row>
       </div>
     );
 

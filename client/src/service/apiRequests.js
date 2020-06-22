@@ -76,6 +76,23 @@ export const getUserRecipes = async (token) => {
   return response.json();
 };
 
+export const setUserPreferences = async (token, dietaryPrefs, blacklist) => {
+  const response = await fetch('/api/users/preferences',
+    {
+      method: 'POST',
+      headers: {
+        ...globalHeaders,
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        excludeTerms: blacklist,
+        diet: dietaryPrefs,
+      }),
+    });
+  handleErrors(response);
+  return response;
+};
+
 export const searchByFilters = async (
   token,
   freeText,

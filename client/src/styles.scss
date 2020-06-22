@@ -3,8 +3,24 @@
   src: url(https://fonts.googleapis.com/css2?family=Baloo+2:wght@500&display=swap)
 }
 
-#root {
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
   height: 100%;
+  min-height: 100vh;
+}
+
+.ant-layout.ant-layout-has-sider > .ant-layout, .ant-layout.ant-layout-has-sider > .ant-layout-content {
+	overflow-x: visible;
+}
+
+#root {
+  min-height: 100%;
   margin: 0;
 }
 
@@ -18,12 +34,17 @@
 div.authentication {
   button {
     margin-top: 20px;
-    &.login {
+    &.login, &.loading {
       background-color: #900c3f;
       border-color: #900c3f;
       &:hover {
         background-color: #bd4271;
         border-color: #900c3f;
+      }
+    }
+    &.login {
+      ant-btn-loading-icon {
+        display: none;
       }
     } 
   }
@@ -42,9 +63,9 @@ div.authentication {
 }
 
 #sidebar {
-  height: 100vh;
   background-color: #f5b43c;
   width: 400px;
+  min-height: 100vh;
 }
 
 .sidebar {
@@ -62,6 +83,11 @@ div.authentication {
     font-size: 24px;
     color: #900c3f;
   }
+  .ant-collapse {
+    display: inline-block;
+    width: 100%;
+    background-color: #f5b43c;
+  }
 }
 
 #content {
@@ -73,8 +99,6 @@ div.authentication {
 }
 
 .search-box-label {
-  font-family: 'Manrope', sans-serif;
-  font-size: 20px;
   color: #900c3f;
 }
 
@@ -156,19 +180,25 @@ button.preference-search-button {
 .preference-tag-button {
   padding: 5px;
   background: #f5b43c !important;
-  position: -8px !important;
+  margin-top: 4px !important;
 }
 
+
 // ghost button style
-.preference-tag-button, .preference-tag-button, .logout, .logout{
+.preference-tag-button, .preference-tag-button, .logout, .logout, .modal-tag-button{
   &:hover {
     color: #000 !important;
     border-color: #000 !important;
   }
   &:focus {
     color: #000 !important;
-    border-color: rgb(217, 217, 217) !important;
+    border-color: #d9d9d9 !important;
   }
+}
+
+.modal-tag-button {
+  padding: 5px;
+  margin-top: 4px !important;
 }
 
 #time-switch {
@@ -187,6 +217,10 @@ button.preference-search-button {
       border-color: #000 !important;
     }
   }
+}
+
+.ant-select-selection-placeholder{
+  visibility: visible;
 }
 
 @import 'antd/dist/antd.css';

@@ -13,6 +13,12 @@ import {
   addCuisine,
   removeCuisine,
 } from '../../../actions/searchActions';
+import {
+  addUserDiet,
+  removeUserDiet,
+  addUserBlacklistItem,
+  removeUserBlacklistItem,
+} from '../../../actions/userActions';
 
 const actions = {
   [selectVariants.INCLUDE_INGREDIENTS]: {
@@ -34,6 +40,14 @@ const actions = {
   [selectVariants.CUISINE]: {
     add: addCuisine,
     remove: removeCuisine,
+  },
+  [selectVariants.PERSONAL_DIET]: {
+    add: addUserDiet,
+    remove: removeUserDiet,
+  },
+  [selectVariants.PERSONAL_EXCLUDES]: {
+    add: addUserBlacklistItem,
+    remove: removeUserBlacklistItem,
   },
 };
 
@@ -58,6 +72,12 @@ const mapStateToProps = (state, ownProps) => {
     case (selectVariants.CUISINE):
       appliedPreferenceList = state.filters.cuisine;
       break;
+    case (selectVariants.PERSONAL_EXCLUDES):
+      appliedPreferenceList = state.user.preferences.blacklist;
+      break;
+    case (selectVariants.PERSONAL_DIET):
+      appliedPreferenceList = state.user.preferences.diet;
+      break;
   }
   let dataset;
   // eslint-disable-next-line default-case
@@ -76,6 +96,12 @@ const mapStateToProps = (state, ownProps) => {
       break;
     case (selectVariants.CUISINE):
       dataset = resources.cuisine;
+      break;
+    case (selectVariants.PERSONAL_EXCLUDES):
+      dataset = resources.ingredients;
+      break;
+    case (selectVariants.PERSONAL_DIET):
+      dataset = resources.diets;
       break;
   }
 

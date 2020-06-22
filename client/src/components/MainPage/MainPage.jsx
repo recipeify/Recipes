@@ -15,12 +15,12 @@ class MainPage extends React.Component {
   render() {
     return (
       <>
-        <Layout style={{ height: '100vh' }}>
+        <Layout style={{ height: '100%' }}>
           <Header id="header">
             <Navigation />
           </Header>
           <Layout>
-            <Sider theme="light" id="sidebar" width={380}>
+            <Sider theme="light" id="sidebar" width={400} style={{ height: '100%' }}>
               <Sidebar />
             </Sider>
             <Layout id="content" style={{ padding: '0 24px 24px' }}>
