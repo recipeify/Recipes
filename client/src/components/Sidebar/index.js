@@ -13,7 +13,6 @@ const mapStateToProps = (state) => ({
   toCookTime: state.filters.toCookTime,
   fromCookTime: state.filters.fromCookTime,
   token: state.user.token,
-  siteMode: state.mode.mode,
   user: state.user.user,
 });
 

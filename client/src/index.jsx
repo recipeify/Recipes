@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-
 import App, { history } from './App';
 import store from './redux/store';
 import { Auth0Provider } from './react-auth0-spa';

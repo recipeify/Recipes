@@ -9,6 +9,7 @@ import {
   Tooltip,
 } from 'antd';
 import { FaBookmark } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 import Icon, { LogoutOutlined, HomeFilled } from '@ant-design/icons';
 import { useAuth0 } from '../../react-auth0-spa';
 import logo from '../../assets/cropped-logo.svg';
@@ -19,7 +20,11 @@ const Navigation = (props) => {
   } = useAuth0();
 
   useEffect(() => {
-    const { isLoggedIn, onLogout, onLogin } = props;
+    const {
+      isLoggedIn,
+      onLogout,
+      onLogin,
+    } = props;
     if (!isLoggedIn && isAuthenticated && user) {
       onLogin(user, getTokenSilently);
     }
@@ -66,33 +71,32 @@ const Navigation = (props) => {
     const {
       siteMode,
       isLoggedIn,
-      goToMyRecipes,
-      goToExplore,
-      token,
     } = props;
     let button;
     if (isLoggedIn && siteMode === 'explore') {
       button = (
-        <Button
-          className="logout"
-          onClick={() => goToMyRecipes(token)}
-          icon={<Icon component={FaBookmark} />}
-          type="ghost"
-        >
-          My Recipes
-        </Button>
+        <Link to="/myrecipes">
+          <Button
+            className="logout"
+            icon={<Icon component={FaBookmark} />}
+            type="ghost"
+          >
+            My Recipes
+          </Button>
+        </Link>
       );
     }
     if (siteMode === 'myRecipes') {
       button = (
-        <Button
-          className="logout"
-          onClick={() => goToExplore()}
-          icon={<HomeFilled />}
-          type="ghost"
-        >
-          Explore
-        </Button>
+        <Link to="/">
+          <Button
+            className="logout"
+            icon={<HomeFilled />}
+            type="ghost"
+          >
+            Explore
+          </Button>
+        </Link>
       );
     }
     if (!modeSwitchButton) {
