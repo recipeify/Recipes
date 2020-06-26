@@ -5,7 +5,6 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
 const compression = require('compression');
-// eslint-disable-next-line no-unused-vars
 const helmet = require('helmet');
 const asyncHandler = require('express-async-handler');
 
@@ -20,8 +19,11 @@ const port = process.env.PORT || 5000;
 /* compress all routes */
 app.use(compression());
 
-/* vulnerability protection */
-// app.use(helmet());
+if (process.env.NODE_ENV === 'production') {
+  app.use(helmet({
+    dnsPrefetchControl: false,
+  }));
+}
 
 /* static routes */
 app.use(express.static(path.join(__dirname, 'build')));
@@ -35,6 +37,9 @@ if (!process.env.ELASTIC_SEARCH_HOST) {
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+app.get('/health', asyncHandler(async (_request, response, _next) => {
+  response.sendStatus(200);
+}));
 
 app.get('/login', asyncHandler(async (_request, response, _next) => {
   response.redirect(`${process.env.ISSUER_BASE_URL}/authorize`);
