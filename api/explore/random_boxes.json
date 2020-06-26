@@ -2,7 +2,6 @@
     "easy": [
         "easy",
         "five ingredients",
-        "instant",
         "one pan",
         "one pot",
         "quick",
@@ -15,7 +14,7 @@
         "kid friendly",
         "meal prep"
     ],
-    "guests": [
+    "social gathering": [
         "appetizer",
         "barbecue",
         "dip",
@@ -24,7 +23,7 @@
         "party",
         "picnic"
     ],
-    "cuisine": [
+    "world cuisines": [
         "american",
         "austrian",
         "chinese",
