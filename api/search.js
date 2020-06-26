@@ -18,7 +18,6 @@ function isString(value) {
   return typeof value === 'string' || value instanceof String;
 }
 
-// eslint-disable-next-line no-unused-vars
 async function searchFunc(bool, from, size, request) {
   const body = {
     query: {

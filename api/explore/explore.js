@@ -10,13 +10,9 @@ const search = require('../search.js');
 
 const router = express.Router();
 
-function randomChoice(arr, del) {
+function randomChoice(arr) {
   const ind = Math.floor(arr.length * Math.random());
   const retval = arr[ind];
-  if (del) {
-    // To avoid repetitions, the arrays will get smaller as we go.
-    arr.splice(ind, 1);
-  }
   return retval;
 }
 
@@ -44,33 +40,36 @@ async function GetBoxes(size, dateString, request, amount) {
   keys.push('ingredient');
   const retval = {};
   const nextHoliday = holiday(dateString);
+  const boxes = [];
+  retval.explore = [];
 
   if (nextHoliday) {
     const holidayRecipes = await innerSearch(holiday(dateString), amount, request);
-    retval['next holiday'] = { name: nextHoliday, recipes: holidayRecipes };
+    retval.explore.push({ name: nextHoliday, recipes: holidayRecipes });
     n -= 1;
   }
 
+  // Get the n random boxes
   while (n > 0) {
-    const key = randomChoice(keys, false);
+    const key = randomChoice(keys);
     let box;
 
     if (key === 'ingredient') {
-      box = randomChoice(monthIngs, true);
+      box = randomChoice(monthIngs);
     } else {
-      box = randomChoice(BoxesJson[key], true);
+      box = randomChoice(BoxesJson[key]);
     }
 
-    // eslint-disable-next-line no-await-in-loop
-    const values = await innerSearch(box, amount, request);
-
-    if (!retval[key]) {
-      retval[key] = [];
+    // To avoid repetitions
+    if (!boxes.includes(box)) {
+      boxes.push(box);
+      n -= 1;
     }
-    retval[key].push({ name: box, recipes: values });
-
-    n -= 1;
   }
+
+  // Fill the boxes
+  await boxes.foreach((box) => (
+    retval.explore.push({ name: box, recipes: innerSearch(box, amount, request) })));
 
   return retval;
 }
@@ -81,7 +80,6 @@ router.post('/explore', asyncHandler(async (request, response, next) => {
     dateString = '',
   } = request.body;
 
-  // eslint-disable-next-line no-restricted-globals
   if (!search.isString(dateString) || Number.isInteger(size)) {
     response.sendStatus(400);
     return;
@@ -98,17 +96,14 @@ router.post('/explore', asyncHandler(async (request, response, next) => {
     });
 
   let userHash;
-  let isAnonymous;
 
   if (request.openid) {
     userHash = crypto.createHash('sha256').update(request.openid.user.sub).digest('hex');
-    isAnonymous = false;
   } else {
     userHash = crypto.createHash('sha256').update('anonymous').digest('hex');
-    isAnonymous = true;
   }
 
-  await recs.recExplore(userHash, size, isAnonymous)
+  await recs.recExplore(userHash, size)
     .then((recommendation) => {
       retval.personal = recommendation.personal;
       retval.popular = recommendation.popular;

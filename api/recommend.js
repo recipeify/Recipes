@@ -13,7 +13,7 @@ async function recPersonal(userHash, count) {
     new rqs.RecommendItemsToUser(userHash, count, { scenario: 'personal_view' }),
   )
     .then((recommendation) => {
-      result = { recipes: recommendation.recomms.map((e) => e.id) || [] };
+      result = { recipes: recommendation.recomms || [] };
     })
     .catch(() => {
       recombeeClient.send(
@@ -21,7 +21,7 @@ async function recPersonal(userHash, count) {
       );
     })
     .then((recommendation) => {
-      result = { recipes: recommendation.recomms.map((e) => e.id) || [] };
+      result = { recipes: recommendation.recomms || [] };
     })
     .catch((err) => {
       throw (err);
@@ -35,7 +35,7 @@ async function recPopular(userHash, count) {
     new rqs.RecommendItemsToUser(userHash, count, { scenario: 'popular_view' }),
   )
     .then((recommendation) => {
-      result = { recipes: recommendation.recomms.map((e) => e.id) || [] };
+      result = { recipes: recommendation.recomms || [] };
     })
     .catch(() => { result = { recipes: [] }; })
     .catch((err) => {
@@ -45,15 +45,15 @@ async function recPopular(userHash, count) {
 }
 
 
-async function recExplore(userHash, count, isAnonymous) {
+async function recExplore(userHash, count) {
   const result = { personal: [], popular: [] };
-  if (!isAnonymous) {
-    await recPersonal(userHash, count)
-      .then((res) => { result.personal = res; })
-      .catch((err) => {
-        throw (err);
-      });
-  }
+
+  await recPersonal(userHash, count)
+    .then((res) => { result.personal = res; })
+    .catch((err) => {
+      throw (err);
+    });
+
   await recPopular(userHash, count)
     .then((res) => { result.popular = res; })
     .catch((err) => {
@@ -79,7 +79,7 @@ router.post('/personal', asyncHandler(async (request, response, next) => {
 
   await recPersonal(userHash, count)
     .then((recommendation) => {
-      response.send({ recipes: recommendation });
+      response.send({ recipes: recommendation.map((e) => e.id) });
     })
     .catch((err) => {
       if (err) next(err);
@@ -101,7 +101,7 @@ router.post('/popular', asyncHandler(async (request, response, next) => {
 
   await recPopular(userHash, count)
     .then((recommendation) => {
-      response.send({ recipes: recommendation });
+      response.send({ recipes: recommendation.map((e) => e.id) });
     })
     .catch((err) => {
       if (err) next(err);

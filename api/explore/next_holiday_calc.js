@@ -11,7 +11,6 @@ function nextHoliday(tz) {
     /* assuming Israeli users are jewish.
         This is obviously false but we'll use it for now */
     let hday = new Hebcal.HDate();
-    // eslint-disable-next-line id-length
     for (let i = 0; i < 21; i += 1) {
       if (hday.holidays()) {
         return hday.holidays()[0];
