@@ -104,8 +104,12 @@ router.post('/', asyncHandler(async (request, response, next) => {
 
   await recs.recExplore(userHash, size)
     .then((recommendation) => {
-      retval.personal = recommendation.personal;
-      retval.popular = recommendation.popular;
+      if (recommendation.personal.recipes.length !== 0) {
+        retval.personal = recommendation.personal;
+      }
+      if (recommendation.popular.recipes.length !== 0) {
+        retval.popular = recommendation.popular;
+      }
     })
     .catch((err) => {
       if (err) next(err);
