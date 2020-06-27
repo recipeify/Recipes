@@ -105,12 +105,14 @@ router.post('/', asyncHandler(async (request, response, next) => {
   await recs.recExplore(userHash, size)
     .then(async (recommendation) => {
       if (recommendation.personal.recipes.length !== 0) {
-        const temp = recommendation.personal.recipes.recomms.map((j) => j.id);
-        retval.personal = await search.searchIdFunc(temp);
+        let temp = recommendation.personal.recipes.recomms.map((j) => j.id);
+        temp = await search.searchIdFunc(temp);
+        retval.personal = temp.docs;
       }
       if (recommendation.popular.recipes.length !== 0) {
-        const temp = recommendation.popular.recipes.recomms.map((j) => j.id);
-        retval.popular = await search.searchIdFunc(temp);
+        let temp = recommendation.popular.recipes.recomms.map((j) => j.id);
+        temp = await search.searchIdFunc(temp);
+        retval.popular = temp.docs;
       }
     })
     .catch((err) => {
