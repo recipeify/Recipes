@@ -60,4 +60,9 @@ app.use('/api/recommend', require('./recommend').router);
 /* explore routes */
 app.use('/api/explore', require('./explore/explore').router);
 
+/* pass everything else to react router */
+app.use('/*', asyncHandler(async (_request, response, _next) => {
+  response.sendFile(path.join(`${__dirname}/build/index.html`));
+}));
+
 app.listen(port, () => console.log(`Listening on port ${port}`));
