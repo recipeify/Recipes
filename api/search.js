@@ -6,16 +6,73 @@ const get = require('lodash/get');
 const auth = require('./auth');
 const User = require('./users/userModel');
 
-const router = express.Router();
-
 const esClient = new elasticsearch.Client({
   host: process.env.ELASTIC_SEARCH_HOST,
   log: 'trace',
   apiVersion: '7.2', // use the same version of your Elasticsearch instance
 });
 
+const router = express.Router();
+
 function isString(value) {
   return typeof value === 'string' || value instanceof String;
+}
+
+async function searchFunc(bool, from, size, request) {
+  const body = {
+    query: {
+      boosting: {
+        positive: { bool },
+        negative: {
+          term: {
+            image_placeholder_flag: true,
+          },
+        },
+        negative_boost: 0.5,
+      },
+    },
+    from,
+    size,
+  };
+
+  const query = await esClient.search({
+    index: process.env.ELASTIC_SEARCH_INDEX,
+    body,
+  });
+
+  // eslint-disable-next-line no-underscore-dangle
+  let items = query.hits.hits.map((e) => e._source);
+
+  try {
+    const user = await auth.checkJwt(request);
+    if (user) {
+      // TODO: only query relevant items to make this a bit more effcient
+      const result = await User.findById(user.sub, 'recipes');
+      const savedIds = new Set(result.recipes);
+      items = items.map((i) => ({ ...i, isSaved: savedIds.has(i.id) }));
+    }
+  } catch (e) {
+    // eslint-disable-next-line no-console
+    console.error('failed to check jwt', e);
+  }
+
+  return ({
+    total: query.hits.total,
+    items,
+  });
+}
+
+async function searchIdFunc(ids) {
+  const body = {
+    ids,
+  };
+
+  const query = await esClient.mget({
+    index: process.env.ELASTIC_SEARCH_INDEX,
+    body,
+  });
+
+  return query;
 }
 
 // eslint-disable-next-line no-unused-vars
@@ -162,46 +219,9 @@ router.post('/recipes', asyncHandler(async (request, response, _next) => {
     bool.must.push(cuisineQueryPart);
   }
 
-  const body = {
-    query: {
-      boosting: {
-        positive: { bool },
-        negative: {
-          term: {
-            image_placeholder_flag: true,
-          },
-        },
-        negative_boost: 0.5,
-      },
-    },
-    from,
-    size,
-  };
+  const retval = await searchFunc(bool, from, size, request);
 
-  const query = await esClient.search({
-    index: process.env.ELASTIC_SEARCH_INDEX,
-    body,
-  });
-
-  // eslint-disable-next-line no-underscore-dangle
-  let items = query.hits.hits.map((e) => e._source);
-
-  try {
-    const user = await auth.checkJwt(request);
-    if (user) {
-      // TODO: only query relevant items to make this a bit more effcient
-      const result = await User.findById(user.sub, 'recipes');
-      const savedIds = new Set(result.recipes);
-      items = items.map((i) => ({ ...i, isSaved: savedIds.has(i.id) }));
-    }
-  } catch (e) {
-    console.error('failed to check jwt', e);
-  }
-
-  response.send({
-    total: query.hits.total,
-    items,
-  });
+  response.send(retval);
 }));
 
 // eslint-disable-next-line no-unused-vars
@@ -215,14 +235,7 @@ router.post('/ids', asyncHandler(async (request, response, _next) => {
     return;
   }
 
-  const body = {
-    ids,
-  };
-
-  const query = await esClient.mget({
-    index: process.env.ELASTIC_SEARCH_INDEX,
-    body,
-  });
+  const query = searchIdFunc(ids);
 
   response.send({
     // eslint-disable-next-line no-underscore-dangle
@@ -230,4 +243,6 @@ router.post('/ids', asyncHandler(async (request, response, _next) => {
   });
 }));
 
+
+module.exports = { isString, searchFunc, searchIdFunc };
 module.exports.router = router;

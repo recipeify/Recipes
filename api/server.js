@@ -57,4 +57,7 @@ app.use('/api/resources', require('./resources').router);
 /* recommendation routes */
 app.use('/api/recommend', require('./recommend').router);
 
+/* explore routes */
+app.use('/api/explore', require('./explore/explore').router);
+
 app.listen(port, () => console.log(`Listening on port ${port}`));

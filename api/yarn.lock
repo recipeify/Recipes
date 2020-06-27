@@ -1094,6 +1094,11 @@ functional-red-black-tree@^1.0.1:
   resolved "https://registry.yarnpkg.com/functional-red-black-tree/-/functional-red-black-tree-1.0.1.tgz#1b0ab3bd553b2a0d6399d29c0e3ea0b252078327"
   integrity sha1-GwqzvVU7Kg1jmdKcDj6gslIHgyc=
 
+gematriya@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/gematriya/-/gematriya-1.0.1.tgz#0f45949aee67227d06ddffc7e2febf4914876c39"
+  integrity sha1-D0WUmu5nIn0G3f/H4v6/SRSHbDk=
+
 get-caller-file@^2.0.1:
   version "2.0.5"
   resolved "https://registry.yarnpkg.com/get-caller-file/-/get-caller-file-2.0.5.tgz#4f94412a82db32f36e3b0b9741f8a97feb031f7e"
@@ -1178,6 +1183,14 @@ has@^1.0.3:
   integrity sha512-f2dvO0VU6Oej7RkWJGrehjbzMAjFp5/VKPp5tTpWIV4JHHZK1/BxbFRtf/siA2SWTe09caDmVtYYzWEIbBS4zw==
   dependencies:
     function-bind "^1.1.1"
+
+hebcal@^2.3.2:
+  version "2.3.2"
+  resolved "https://registry.yarnpkg.com/hebcal/-/hebcal-2.3.2.tgz#c00160f5c6d5c4de9cfea5ac968761424b4fc37c"
+  integrity sha512-Lgp6eDaRUygazUzjR4D8/3zwMFs/18f/VejdCLgdfRa6HSMqb9BS+0u8XAN9GxHP77hooA/mB/R+K4Y4lQNaIw==
+  dependencies:
+    gematriya "^1.0.1"
+    suncalc "^1.8.0"
 
 helmet-crossdomain@0.4.0:
   version "0.4.0"
@@ -1697,6 +1710,18 @@ mkdirp@^0.5.1:
   integrity sha512-NKmAlESf6jMGym1++R0Ra7wvhV+wFW63FaSOFPwRahvea0gMUcGUhVeAg/0BC0wiv9ih5NYPB1Wn1UEI1/L+xQ==
   dependencies:
     minimist "^1.2.5"
+
+moment-holiday@^1.5.1:
+  version "1.5.1"
+  resolved "https://registry.yarnpkg.com/moment-holiday/-/moment-holiday-1.5.1.tgz#b37939c52b919b02ff142d754037ee776cd40547"
+  integrity sha1-s3k5xSuRmwL/FC11QDfud2zUBUc=
+  dependencies:
+    moment ">=2.0.0"
+
+moment@>=2.0.0:
+  version "2.26.0"
+  resolved "https://registry.yarnpkg.com/moment/-/moment-2.26.0.tgz#5e1f82c6bafca6e83e808b30c8705eed0dcbd39a"
+  integrity sha512-oIixUO+OamkUkwjhAVE18rAMfRJNsNe/Stid/gwHSOfHrOtw9EhAY2AHvdKZ/k/MggcYELFCJz/Sn2pL8b8JMw==
 
 mongodb@3.5.7, mongodb@^3.5.7:
   version "3.5.7"
@@ -2506,6 +2531,11 @@ strip-json-comments@^3.0.1:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/strip-json-comments/-/strip-json-comments-3.1.0.tgz#7638d31422129ecf4457440009fba03f9f9ac180"
   integrity sha512-e6/d0eBu7gHtdCqFt0xJr642LdToM5/cN4Qb9DbHjVx1CP5RyeM+zH7pbecEmDv/lBqb0QH+6Uqq75rxFPkM0w==
+
+suncalc@^1.8.0:
+  version "1.8.0"
+  resolved "https://registry.yarnpkg.com/suncalc/-/suncalc-1.8.0.tgz#1d9898109563078750f4994a959e654d876acbf5"
+  integrity sha1-HZiYEJVjB4dQ9JlKlZ5lTYdqy/U=
 
 supports-color@^2.0.0:
   version "2.0.0"
