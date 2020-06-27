@@ -29,23 +29,18 @@ const selectConfig = {
   },
   [selectVariants.DIET]: {
     title: 'Dietary preferences',
-    color: 'purple',
   },
   [selectVariants.CUISINE]: {
     title: 'Search recipes by cuisine',
-    color: 'geekblue',
   },
   [selectVariants.DISH_TYPE]: {
     title: 'Search recipes by dish type',
-    color: 'magenta',
   },
   [selectVariants.PERSONAL_EXCLUDES]: {
     title: 'Ingerdient blacklist',
-    color: 'volcano',
   },
   [selectVariants.PERSONAL_DIET]: {
     title: 'Dietary preferences',
-    color: 'purple',
   },
 };
 
@@ -56,6 +51,15 @@ class PreferenceSelect extends React.Component {
       data: [],
       value: undefined,
     };
+  }
+
+  componentDidUpdate(prevProps) {
+    const { placeholder: prevPlaceholder } = prevProps;
+    const { placeholder } = this.props;
+    if (placeholder && !prevPlaceholder) {
+      // eslint-disable-next-line react/no-did-update-set-state
+      this.setState({ placeholder });
+    }
   }
 
   onEnterPreference(value) {
@@ -92,10 +96,9 @@ class PreferenceSelect extends React.Component {
     const {
       variant, appliedPreferenceList, removePreference,
     } = this.props;
-
-    const { data, value } = this.state;
+    const { data, value, placeholder } = this.state;
     const options = data.map((item) => (
-      <Option key={item.key}>{item.key}</Option>
+      <Option value={item.key}>{item.key}</Option>
     ));
     return (
       <>
@@ -126,7 +129,7 @@ class PreferenceSelect extends React.Component {
                 }
               }}
               notFoundContent={null}
-              placeholder="meow"
+              placeholder={placeholder}
               autoFocus
             >
               {options}
@@ -138,7 +141,7 @@ class PreferenceSelect extends React.Component {
             variant={variant}
             appliedPreferenceList={appliedPreferenceList}
             onClose={removePreference}
-            color={get(selectConfig, `${variant}.color`) || null}
+            color={get(selectConfig, `${variant}.color`, '')}
           />
         </Row>
       </>
@@ -153,6 +156,7 @@ PreferenceSelect.propTypes = {
   addPreference: PropTypes.func.isRequired,
   removePreference: PropTypes.func.isRequired,
   openDropdownOnClick: PropTypes.bool,
+  placeholder: PropTypes.string.isRequired,
 };
 
 PreferenceSelect.defaultProps = {

@@ -1,5 +1,6 @@
 import { connect } from 'react-redux';
 import get from 'lodash/get';
+import { sample, isEmpty } from 'lodash';
 import PreferenceSelect, { selectVariants } from './PreferenceSelect';
 import {
   addIngredientToInclude,
@@ -104,10 +105,15 @@ const mapStateToProps = (state, ownProps) => {
       dataset = resources.diets;
       break;
   }
-
+  let placeholder = '';
+  if (!isEmpty(dataset)) {
+    const randomItem = sample(dataset);
+    placeholder = `try ${randomItem.key}`;
+  }
   return {
     dataset,
     appliedPreferenceList,
+    placeholder,
   };
 };
 

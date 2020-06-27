@@ -15,10 +15,13 @@ class FreeTextSearch extends React.Component {
   }
 
   render() {
+    const { currentValue } = this.props;
     return (
       <Row gutter={16}>
         <Col span={24}>
           <Search
+            className="free-text-search"
+            defaultValue={currentValue || undefined}
             placeholder="What do you feel like cooking?"
             onSearch={(value) => this.onSearch(value)}
             allowClear
@@ -33,6 +36,7 @@ class FreeTextSearch extends React.Component {
 
 FreeTextSearch.propTypes = {
   addFreeText: PropTypes.func.isRequired,
+  currentValue: PropTypes.string.isRequired,
 };
 
 export default FreeTextSearch;

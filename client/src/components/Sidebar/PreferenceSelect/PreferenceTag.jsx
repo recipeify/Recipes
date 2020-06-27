@@ -14,7 +14,7 @@ const PreferenceTag = (props) => {
   } = props;
   return (
     <Tag
-      className="preference-chip"
+      className={`preference-chip${!color ? ' uncolored' : ''}`}
       key={`${variant}${getRandomID()}`}
       closable
       onClose={() => onClose(preferenceObj)}
@@ -34,11 +34,14 @@ PreferenceTag.propTypes = {
     tags: PropTypes.arrayOf(PropTypes.string),
   }).isRequired,
   onClose: PropTypes.func.isRequired,
-  color: PropTypes.string.isRequired,
+  color: PropTypes.string,
   viewMore: PropTypes.bool.isRequired,
   variant: PropTypes.string.isRequired,
   index: PropTypes.number.isRequired,
 };
 
+PreferenceTag.defaultProps = {
+  color: null,
+};
 
 export default PreferenceTag;

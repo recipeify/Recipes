@@ -170,13 +170,13 @@ Navigation.propTypes = {
   onLogin: PropTypes.func.isRequired,
   onLogout: PropTypes.func.isRequired,
   siteMode: PropTypes.string.isRequired,
-  goToMyRecipes: PropTypes.func.isRequired,
-  goToExplore: PropTypes.func.isRequired,
   token: PropTypes.string,
-  ingredients: PropTypes.arrayOf(PropTypes.object).isRequired,
-  diets: PropTypes.arrayOf(PropTypes.object).isRequired,
+  ingredients: PropTypes.arrayOf(PropTypes.object),
+  diets: PropTypes.arrayOf(PropTypes.object),
 };
 
 Navigation.defaultProps = {
   token: '',
+  diets: [],
+  ingredients: [],
 };
