@@ -77,6 +77,7 @@ router.post('/', asyncHandler(async (request, response, next) => {
   const {
     size = 10,
     dateString = '',
+    amount = 30,
   } = request.body;
 
   if (!search.isString(dateString)) {
@@ -86,7 +87,7 @@ router.post('/', asyncHandler(async (request, response, next) => {
 
   let retval;
 
-  await GetBoxes(size, dateString, request, 30)
+  await GetBoxes(size, dateString, request, amount)
     .then((boxes) => {
       retval = boxes;
     })
@@ -102,7 +103,7 @@ router.post('/', asyncHandler(async (request, response, next) => {
     userHash = crypto.createHash('sha256').update('anonymous').digest('hex');
   }
 
-  await recs.recExplore(userHash, size)
+  await recs.recExplore(userHash, amount)
     .then(async (recommendation) => {
       if (recommendation.personal.recipes.length !== 0) {
         let temp = recommendation.personal.recipes.recomms.map((j) => j.id);
