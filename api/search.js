@@ -62,6 +62,19 @@ async function searchFunc(bool, from, size, request) {
   });
 }
 
+async function searchIdFunc(ids) {
+  const body = {
+    ids,
+  };
+
+  const query = await esClient.mget({
+    index: process.env.ELASTIC_SEARCH_INDEX,
+    body,
+  });
+
+  return query;
+}
+
 // eslint-disable-next-line no-unused-vars
 router.post('/recipes', asyncHandler(async (request, response, _next) => {
   const {
@@ -222,14 +235,7 @@ router.post('/ids', asyncHandler(async (request, response, _next) => {
     return;
   }
 
-  const body = {
-    ids,
-  };
-
-  const query = await esClient.mget({
-    index: process.env.ELASTIC_SEARCH_INDEX,
-    body,
-  });
+  const query = searchIdFunc(ids);
 
   response.send({
     // eslint-disable-next-line no-underscore-dangle
@@ -238,5 +244,5 @@ router.post('/ids', asyncHandler(async (request, response, _next) => {
 }));
 
 
-module.exports = { searchFunc, isString };
+module.exports = { isString, searchFunc, searchIdFunc };
 module.exports.router = router;
