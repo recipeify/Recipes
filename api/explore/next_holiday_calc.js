@@ -42,7 +42,7 @@ function nextHoliday(tz) {
     return holidaysBetween[0].isHoliday();
   }
 
-  return false;
+  return null;
 }
 
 module.exports = nextHoliday;
