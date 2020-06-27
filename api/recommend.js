@@ -13,15 +13,15 @@ async function recPersonal(userHash, count) {
     new rqs.RecommendItemsToUser(userHash, count, { scenario: 'personal_view' }),
   )
     .then((recommendation) => {
-      result = { recipes: recommendation.recomms || [] };
+      result = { recipes: recommendation || [] };
     })
     .catch(() => {
       recombeeClient.send(
-        new recombee.RecommendItemsToUser(userHash, count, { scenario: 'homepage_view' }),
+        new rqs.RecommendItemsToUser(userHash, count, { scenario: 'homepage_view' }),
       );
     })
     .then((recommendation) => {
-      result = { recipes: recommendation.recomms || [] };
+      result = { recipes: recommendation || [] };
     })
     .catch((err) => {
       throw (err);
@@ -35,7 +35,7 @@ async function recPopular(userHash, count) {
     new rqs.RecommendItemsToUser(userHash, count, { scenario: 'popular_view' }),
   )
     .then((recommendation) => {
-      result = { recipes: recommendation.recomms || [] };
+      result = { recipes: recommendation || [] };
     })
     .catch(() => { result = { recipes: [] }; })
     .catch((err) => {
@@ -79,7 +79,7 @@ router.post('/personal', asyncHandler(async (request, response, next) => {
 
   await recPersonal(userHash, count)
     .then((recommendation) => {
-      response.send({ recipes: recommendation.map((e) => e.id) });
+      response.send({ recipes: recommendation });
     })
     .catch((err) => {
       if (err) next(err);
@@ -101,7 +101,7 @@ router.post('/popular', asyncHandler(async (request, response, next) => {
 
   await recPopular(userHash, count)
     .then((recommendation) => {
-      response.send({ recipes: recommendation.map((e) => e.id) });
+      response.send({ recipes: recommendation });
     })
     .catch((err) => {
       if (err) next(err);

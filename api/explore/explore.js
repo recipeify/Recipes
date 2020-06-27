@@ -16,7 +16,7 @@ function randomChoice(arr) {
   return retval;
 }
 
-async function innerSearch(searchString, amount, request) {
+function innerSearch(searchString, amount, request) {
   const bool = {
     must: {
       simple_query_string: {
@@ -26,7 +26,7 @@ async function innerSearch(searchString, amount, request) {
     },
   };
 
-  await search.searchFunc(bool, 0, amount, request)
+  search.searchFunc(bool, 0, amount, request)
     .then((values) => values)
     .catch((err) => {
       throw (err);
@@ -68,19 +68,19 @@ async function GetBoxes(size, dateString, request, amount) {
   }
 
   // Fill the boxes
-  await boxes.foreach((box) => (
+  await boxes.forEach((box) => (
     retval.explore.push({ name: box, recipes: innerSearch(box, amount, request) })));
 
   return retval;
 }
 
-router.post('/explore', asyncHandler(async (request, response, next) => {
+router.post('/', asyncHandler(async (request, response, next) => {
   const {
     size = 10,
     dateString = '',
   } = request.body;
 
-  if (!search.isString(dateString) || Number.isInteger(size)) {
+  if (!search.isString(dateString)) {
     response.sendStatus(400);
     return;
   }
@@ -88,7 +88,7 @@ router.post('/explore', asyncHandler(async (request, response, next) => {
   let retval;
 
   await GetBoxes(size, dateString, request)
-    .then((boxes) => {
+    .then((boxes) => { 
       retval = boxes;
     })
     .catch((err) => {
