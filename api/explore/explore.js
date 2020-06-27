@@ -76,7 +76,7 @@ async function GetBoxes(size, dateString, request, amount) {
 router.post('/', asyncHandler(async (request, response, next) => {
   const {
     size = 10,
-    dateString,
+    dateString = '',
   } = request.body;
 
   if (!search.isString(dateString)) {
