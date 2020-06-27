@@ -16,7 +16,7 @@ function randomChoice(arr) {
   return retval;
 }
 
-function innerSearch(searchString, amount, request) {
+async function innerSearch(searchString, amount, request) {
   const bool = {
     must: {
       simple_query_string: {
@@ -26,7 +26,7 @@ function innerSearch(searchString, amount, request) {
     },
   };
 
-  const values = search.searchFunc(bool, 0, amount, request)
+  const values = await search.searchFunc(bool, 0, amount, request);
   return values.items;
 }
 
@@ -41,7 +41,7 @@ async function GetBoxes(size, dateString, request, amount) {
   retval.explore = [];
 
   if (nextHoliday) {
-    const holidayRecipes = innerSearch(nextHoliday, amount, request);
+    const holidayRecipes = await innerSearch(nextHoliday, amount, request);
     retval.explore.push({ name: nextHoliday, recipes: holidayRecipes });
     n -= 1;
   }
@@ -65,8 +65,10 @@ async function GetBoxes(size, dateString, request, amount) {
   }
 
   // Fill the boxes
-  boxes.forEach((box) => (
-    retval.explore.push({ name: box, recipes: innerSearch(box, amount, request) })));
+  boxes.forEach(async (box) => {
+    const res = await innerSearch(box, amount, request);
+    retval.explore.push({ name: box, recipes: res });
+  });
 
   return retval;
 }
@@ -84,7 +86,7 @@ router.post('/', asyncHandler(async (request, response, next) => {
 
   let retval;
 
-  GetBoxes(size, dateString, request)
+  await GetBoxes(size, dateString, request)
     .then((boxes) => {
       retval = boxes;
     })
@@ -100,7 +102,7 @@ router.post('/', asyncHandler(async (request, response, next) => {
     userHash = crypto.createHash('sha256').update('anonymous').digest('hex');
   }
 
-  recs.recExplore(userHash, size)
+  await recs.recExplore(userHash, size)
     .then((recommendation) => {
       retval.personal = recommendation.personal;
       retval.popular = recommendation.popular;
