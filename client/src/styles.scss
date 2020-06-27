@@ -30,6 +30,9 @@ body {
   padding-right: 20px;
   height: 70px;
 }
+.ant-input-affix-wrapper-lg {
+  max-height: 60px !important;
+}
 
 div.authentication {
   button {
@@ -64,14 +67,14 @@ div.authentication {
 
 #sidebar {
   background-color: #f5b43c;
-  width: 400px;
+  width: 500px;
   min-height: 100vh;
 }
 
 .sidebar {
   height: 100%;
   margin-top: 20px;
-  width: 400px;
+  width: 500px;
   .avatar {
     height: 200px;
     width: 200px;
@@ -79,9 +82,8 @@ div.authentication {
     margin: 0 auto;
   }
   h1 {
-    font-family: 'Manrope', sans-serif;
-    font-size: 24px;
-    color: #900c3f;
+    // font-family: 'Manrope', sans-serif;
+    font-size: 20px;
   }
   .ant-collapse {
     display: inline-block;
@@ -96,10 +98,6 @@ div.authentication {
 
 .search-box {
   width: 100%;
-}
-
-.search-box-label {
-  color: #900c3f;
 }
 
 #logo {
@@ -147,6 +145,9 @@ div.authentication {
 .recipe-card-meta {
   div.ant-card-meta-detail > div.ant-card-meta-title {
     word-wrap: auto;
+  }
+  .ant-card-meta-description {
+    color: #ec7533;
   }
 }
 

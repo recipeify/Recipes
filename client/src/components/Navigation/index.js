@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import Navigation from './Navigation';
 import {
-  userLogin, userLogout, fetchUserRecipes,
+  userLogin, userLogout, fetchUserRecipes, fetchUserPreferences,
 } from '../../actions/userActions';
 
 const mapStateToProps = (state) => ({
@@ -17,6 +17,7 @@ const mapDispatchToProps = (dispatch) => ({
     const data = { user, token };
     dispatch(userLogin(data));
     dispatch(fetchUserRecipes(token));
+    dispatch(fetchUserPreferences(token));
   },
   onLogout: () => dispatch(userLogout()),
 });

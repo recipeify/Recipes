@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import 'antd/dist/antd.css';
 import { Layout } from 'antd';
 import RecipeList from '../RecipeList';
-import Sidebar from '../Sidebar';
 import Navigation from '../Navigation';
+import UserPageSiderbar from '../Sidebar/UserPageSidebar';
 
 const { Header, Sider } = Layout;
 
@@ -23,8 +23,8 @@ class RecipeBook extends React.Component {
             <Navigation siteMode="myRecipes" />
           </Header>
           <Layout>
-            <Sider theme="light" id="sidebar" width={400} style={{ height: '100%' }}>
-              <Sidebar siteMode="myRecipes" />
+            <Sider theme="light" id="sidebar" width={500} style={{ height: '100%' }}>
+              <UserPageSiderbar />
             </Sider>
             <Layout id="content" style={{ padding: '0 24px 24px' }}>
               <RecipeList siteMode="myRecipes" />

@@ -12,6 +12,8 @@ const initialState = {
     items: [],
   },
   preferences: {
+    pending: false,
+    error: null,
     blacklist: [],
     diet: [],
   },
@@ -39,10 +41,27 @@ export default function userReducer(state = initialState, action) {
         };
         break;
       case (userActions.FETCH_USER_RECIPES_FAILURE):
-        return {
-          ...initialState,
+        draft.recipes = {
+          ...initialState.recipes,
           error: action.payload.error,
         };
+        break;
+      case (userActions.FETCH_USER_PREFERENCES_PENDING):
+        draft.preferences.pending = true;
+        break;
+      case (userActions.FETCH_USER_PREFERENCES_SUCCESS):
+        draft.preferences = {
+          ...initialState.preferences,
+          diet: action.payload.diet,
+          blacklist: action.payload.excludeTerms,
+        };
+        break;
+      case (userActions.FETCH_USER_PREFERENCES_FAILURE):
+        draft.preferences = {
+          ...initialState.preferences,
+          error: action.payload.error,
+        };
+        break;
       case (userActions.REMOVE_RECIPE_USERPAGE):
         draft.recipes.items = draft.recipes.items.filter((recipe) => recipe.id !== action.payload);
         break;

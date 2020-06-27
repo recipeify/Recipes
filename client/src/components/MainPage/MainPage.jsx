@@ -2,8 +2,9 @@ import React from 'react';
 import 'antd/dist/antd.css';
 import { Layout } from 'antd';
 import RecipeList from '../RecipeList';
-import Sidebar from '../Sidebar';
+import MainPageSidebar from '../Sidebar/MainPageSidebar';
 import Navigation from '../Navigation';
+import FreeTextSearch from '../Sidebar/FreeTextSearch/FreeTextSearch';
 
 const { Header, Sider } = Layout;
 
@@ -20,10 +21,13 @@ class MainPage extends React.Component {
             <Navigation siteMode="explore" />
           </Header>
           <Layout>
-            <Sider theme="light" id="sidebar" width={400} style={{ height: '100%' }}>
-              <Sidebar siteMode="explore" />
+            <Sider theme="light" id="sidebar" width={500} style={{ height: '100%' }}>
+              <MainPageSidebar />
             </Sider>
             <Layout id="content" style={{ padding: '0 24px 24px' }}>
+              <div>
+                <FreeTextSearch />
+              </div>
               <RecipeList siteMode="explore" />
             </Layout>
           </Layout>
