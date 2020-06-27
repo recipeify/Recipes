@@ -7,7 +7,7 @@ function nextHoliday(tz) {
   const day = new Date();
   const day20 = new Date();
   day20.setDate(day.getDate() + 20);
-  if (tz.search('Israel') > 0) {
+  if (tz.search('Israel') >= 0) {
     /* assuming Israeli users are jewish.
         This is obviously false but we'll use it for now */
     let hday = new Hebcal.HDate();
@@ -19,21 +19,21 @@ function nextHoliday(tz) {
     }
     return false;
   }
-  if (tz.search('Argentina') > 0) {
+  if (tz.search('Argentina') >= 0) {
     moment.set('Argentina');
-  } else if (tz.search('Canada') > 0) {
+  } else if (tz.search('Canada') >= 0) {
     moment.set('Canada');
-  } else if (tz.search('Croatia') > 0) {
+  } else if (tz.search('Croatia') >= 0) {
     moment.set('Croatia');
-  } else if (tz.search('Denmark') > 0) {
+  } else if (tz.search('Denmark') >= 0) {
     moment.set('Denmark');
-  } else if (tz.search('Finland') > 0) {
+  } else if (tz.search('Finland') >= 0) {
     moment.set('Finland');
-  } else if (tz.search('Germany') > 0) {
+  } else if (tz.search('Germany') >= 0) {
     moment.set('Germany');
-  } else if (tz.search('India') > 0) {
+  } else if (tz.search('India') >= 0) {
     moment.set('India');
-  } else if (tz.search('Switzerland') > 0) {
+  } else if (tz.search('Switzerland') >= 0) {
     moment.set('Switzerland');
   }
   /* Not knowing this country's holidays' return only US holidays */
