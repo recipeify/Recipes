@@ -7,4 +7,8 @@ const mapDispatchToProps = (dispatch) => ({
   clearFreeText: () => dispatch(addFreeText('')),
 });
 
-export default connect(null, mapDispatchToProps)(FreeTextSearch);
+const mapStateToProps = (state) => ({
+  currentValue: state.filters.freeText,
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(FreeTextSearch);

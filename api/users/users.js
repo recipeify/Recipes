@@ -39,7 +39,9 @@ db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 router.get('/preferences', asyncHandler(async (request, response, next) => {
   await User.findById(request.user.sub, 'excludeTerms diet', (err, user) => {
     if (err) next(err);
-    if (!user) { response.sendStatus(404); } else { response.send(user); }
+    if (!user) { response.sendStatus(404); } else {
+      response.send(user);
+    }
   });
 }));
 

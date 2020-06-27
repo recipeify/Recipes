@@ -1,27 +1,29 @@
 import { connect } from 'react-redux';
 import Navigation from './Navigation';
-import { userLogin, userLogout, fetchUserRecipes } from '../../actions/userActions';
-import { switchToMyRecipes, switchToExplore } from '../../actions/modeActions';
+import {
+  userLogin, userLogout, fetchUserPreferences, fetchUserRecipes,
+} from '../../actions/userActions';
 
 const mapStateToProps = (state) => ({
   isLoggedIn: state.user.loggedIn,
+  authLoading: state.user.loading,
   loggedInUser: state.user.user,
-  siteMode: state.mode.mode,
   token: state.user.token,
+  diets: state.resources.diets,
+  ingredients: state.resources.ingredients,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onLogin: async (user, getTokenSilently) => {
+  onLogin: async (user, getTokenSilently, ingredients, diets) => {
     const token = await getTokenSilently();
-    const data = { user, token };
-    dispatch(userLogin(data));
+    if (token) {
+      const data = { user, token };
+      dispatch(userLogin(data));
+      dispatch(fetchUserPreferences(token, ingredients, diets));
+      dispatch(fetchUserRecipes(token));
+    }
   },
   onLogout: () => dispatch(userLogout()),
-  goToMyRecipes: (token) => {
-    dispatch(fetchUserRecipes(token));
-    dispatch(switchToMyRecipes());
-  },
-  goToExplore: () => dispatch(switchToExplore()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Navigation);

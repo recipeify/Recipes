@@ -1,5 +1,6 @@
+import { find } from 'lodash';
 import {
-  sendView, getUserRecipes, addRecipes, removeRecipes,
+  sendView, getUserRecipes, addRecipes, removeRecipes, setUserPreferences, getUserPreferences,
 } from '../service/apiRequests';
 import { updateRecipeSaved } from './recipeActions';
 
@@ -19,6 +20,9 @@ export const userActions = {
   FETCH_USER_RECIPES_PENDING: 'FETCH_USER_RECIPES_PENDING',
   FETCH_USER_RECIPES_SUCCESS: 'FETCH_USER_RECIPES_SUCCESS',
   FETCH_USER_RECIPES_FAILURE: 'FETCH_USER_RECIPES_FAILURE',
+  FETCH_USER_PREFERENCES_PENDING: 'FETCH_USER_PREFERENCES_PENDING',
+  FETCH_USER_PREFERENCES_SUCCESS: 'FETCH_USER_PREFERENCES_SUCCESS',
+  FETCH_USER_PREFERENCES_FAILURE: 'FETCH_USER_PREFERENCES_FAILURE',
   EDIT_USER_PREFERENCES_PENDING: 'EDIT_USER_PREFERENCES_PENDING',
   EDIT_USER_PREFERENCES_SUCCESS: 'EDIT_USER_PREFERENCES_SUCCESS',
   EDIT_USER_PREFERENCES_FAILURE: 'EDIT_USER_PREFERENCES_FAILURE',
@@ -149,6 +153,48 @@ const fetchUserRecipes = (token) => {
   };
 };
 
+const fetchUserPreferencesPending = () => ({
+  type: userActions.FETCH_USER_PREFERENCES_PENDING,
+});
+
+const fetchUserPreferencesSuccess = (excludeTerms, diet) => ({
+  type: userActions.FETCH_USER_PREFERENCES_SUCCESS,
+  payload: { excludeTerms, diet },
+});
+
+const fetchUserPreferencesFailure = (error) => ({
+  type: userActions.FETCH_USER_PREFERENCES_FAILURE,
+  payload: { error },
+});
+
+
+function fetchUserPreferences(token, diets, ingredients) {
+  return async (dispatch) => {
+    try {
+      dispatch(fetchUserPreferencesPending());
+      const response = await getUserPreferences(token);
+      const { excludeTerms, diet } = response;
+      const userDiet = diet.map((item) => {
+        const dietObj = find(diets, { key: item });
+        if (dietObj) {
+          return dietObj;
+        }
+        return ({ key: item });
+      });
+      const userBlacklist = excludeTerms.map((item) => {
+        const ingredientObj = find(ingredients, { key: item });
+        if (ingredientObj) {
+          return ingredientObj;
+        }
+        return ({ key: item });
+      });
+      return dispatch(fetchUserPreferencesSuccess(userBlacklist, userDiet));
+    } catch (error) {
+      return dispatch(fetchUserPreferencesFailure(error));
+    }
+  };
+}
+
 const addUserDiet = (diet) => ({
   type: userActions.ADD_USER_DIET,
   payload: diet,
@@ -169,31 +215,33 @@ const removeUserBlacklistItem = (ingredient) => ({
   payload: ingredient,
 });
 
-// const editUserPreferencesPending = () => ({
-//   type: userActions.EDIT_USER_PREFERENCES_PENDING,
-// });
+const editUserPreferencesPending = () => ({
+  type: userActions.EDIT_USER_PREFERENCES_PENDING,
+});
 
-// const editUserPreferencesSuceess = () => ({
-//   type: userActions.EDIT_USER_PREFERENCES_SUCCESS,
-// });
+const editUserPreferencesSuccess = () => ({
+  type: userActions.EDIT_USER_PREFERENCES_SUCCESS,
+});
 
-// const editUserPreferencesFailure = (error) => ({
-//   type: userActions.EDIT_USER_PREFERENCES_FAILURE,
-//   payload: { error },
-// });
+const editUserPreferencesFailure = (error) => ({
+  type: userActions.EDIT_USER_PREFERENCES_FAILURE,
+  payload: { error },
+});
 
 
-// function editUserPreferences(token, preferences) {
-//   return async (dispatch) => {
-//     try {
-//       dispatch(editUserPreferencesPending());
-//       // await setUserPreferences(token, preferences);
-//       return dispatch(editUserPreferencesSuceess());
-//     } catch (error) {
-//       return dispatch(editUserPreferencesFailure(error));
-//     }
-//   };
-// }
+function editUserPreferences(token, dietaryPrefs, blacklist) {
+  const diet = dietaryPrefs.map((item) => item.key);
+  const excludeTerms = blacklist.map((item) => item.key);
+  return async (dispatch) => {
+    try {
+      dispatch(editUserPreferencesPending());
+      await setUserPreferences(token, diet, excludeTerms);
+      return dispatch(editUserPreferencesSuccess());
+    } catch (error) {
+      return dispatch(editUserPreferencesFailure(error));
+    }
+  };
+}
 
 export {
   userLogin,
@@ -206,5 +254,6 @@ export {
   removeUserDiet,
   addUserBlacklistItem,
   removeUserBlacklistItem,
-  // editUserPreferences,
+  fetchUserPreferences,
+  editUserPreferences,
 };

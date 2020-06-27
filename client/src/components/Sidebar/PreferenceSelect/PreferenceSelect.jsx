@@ -29,23 +29,18 @@ const selectConfig = {
   },
   [selectVariants.DIET]: {
     title: 'Dietary preferences',
-    color: 'purple',
   },
   [selectVariants.CUISINE]: {
     title: 'Search recipes by cuisine',
-    color: 'geekblue',
   },
   [selectVariants.DISH_TYPE]: {
     title: 'Search recipes by dish type',
-    color: 'magenta',
   },
   [selectVariants.PERSONAL_EXCLUDES]: {
     title: 'Ingerdient blacklist',
-    color: 'volcano',
   },
   [selectVariants.PERSONAL_DIET]: {
     title: 'Dietary preferences',
-    color: 'purple',
   },
 };
 
@@ -54,21 +49,30 @@ class PreferenceSelect extends React.Component {
     super(props);
     this.state = {
       data: [],
-      value: '',
+      value: undefined,
     };
+  }
+
+  componentDidUpdate(prevProps) {
+    const { placeholder: prevPlaceholder } = prevProps;
+    const { placeholder } = this.props;
+    if (placeholder && !prevPlaceholder) {
+      // eslint-disable-next-line react/no-did-update-set-state
+      this.setState({ placeholder });
+    }
   }
 
   onEnterPreference(value) {
     const { addPreference } = this.props;
     const { data } = this.state;
     const option = [...data.filter((item) => item.key === value)];
-    if (option === 0 && value !== '') {
+    if (option.length === 0) {
       addPreference(value);
-      this.setState({ value: '', data: [] });
+      this.setState({ value: undefined, data: [] });
     }
     if (option[0]) {
       addPreference(option[0]);
-      this.setState({ value: '', data: [] });
+      this.setState({ value: null, data: [] });
     }
   }
 
@@ -92,10 +96,9 @@ class PreferenceSelect extends React.Component {
     const {
       variant, appliedPreferenceList, removePreference,
     } = this.props;
-
-    const { data, value } = this.state;
+    const { data, value, placeholder } = this.state;
     const options = data.map((item) => (
-      <Option key={item.key}>{item.key}</Option>
+      <Option value={item.key}>{item.key}</Option>
     ));
     return (
       <>
@@ -114,7 +117,8 @@ class PreferenceSelect extends React.Component {
               className="search-box"
               showSearch
               allowClear
-              onClick={() => this.handleClick()}
+              onFocus={() => this.handleClick()}
+              onBlur={() => this.setState({ value: undefined })}
               value={value}
               showArrow={false}
               onSelect={(inputValue) => this.onEnterPreference(inputValue)}
@@ -125,6 +129,8 @@ class PreferenceSelect extends React.Component {
                 }
               }}
               notFoundContent={null}
+              placeholder={placeholder}
+              autoFocus
             >
               {options}
             </Select>
@@ -135,7 +141,7 @@ class PreferenceSelect extends React.Component {
             variant={variant}
             appliedPreferenceList={appliedPreferenceList}
             onClose={removePreference}
-            color={get(selectConfig, `${variant}.color`) || null}
+            color={get(selectConfig, `${variant}.color`, '')}
           />
         </Row>
       </>
@@ -150,6 +156,7 @@ PreferenceSelect.propTypes = {
   addPreference: PropTypes.func.isRequired,
   removePreference: PropTypes.func.isRequired,
   openDropdownOnClick: PropTypes.bool,
+  placeholder: PropTypes.string.isRequired,
 };
 
 PreferenceSelect.defaultProps = {

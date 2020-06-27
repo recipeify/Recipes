@@ -1,8 +1,10 @@
 import React from 'react';
-import { BrowserRouter, Route } from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { createBrowserHistory } from 'history';
-import MainPage from './components/MainPage/MainPage';
 import GA from './common/GoogleAnalytics';
+import MainPage from './components/MainPage';
+import RecipeBook from './components/RecipeBook';
+import PrivateRoute from './PrivateRoute';
 
 
 export const history = createBrowserHistory();
@@ -10,10 +12,10 @@ export const history = createBrowserHistory();
 const App = () => (
   <BrowserRouter>
     { GA.init() && <GA.RouteTracker /> }
-    <>
+    <Switch>
       <Route path="/" exact component={MainPage} />
-      {/* <Route path="/" exact component={RecipeBook} /> */}
-    </>
+      <PrivateRoute path="/myrecipes" component={RecipeBook} />
+    </Switch>
   </BrowserRouter>
 );
 

@@ -3,8 +3,24 @@
   src: url(https://fonts.googleapis.com/css2?family=Baloo+2:wght@500&display=swap)
 }
 
-#root {
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
   height: 100%;
+  min-height: 100vh;
+}
+
+.ant-layout.ant-layout-has-sider > .ant-layout, .ant-layout.ant-layout-has-sider > .ant-layout-content {
+	overflow-x: visible;
+}
+
+#root {
+  min-height: 100%;
   margin: 0;
 }
 
@@ -14,16 +30,24 @@
   padding-right: 20px;
   height: 70px;
 }
+.ant-input-affix-wrapper-lg {
+  max-height: 60px !important;
+}
 
 div.authentication {
   button {
     margin-top: 20px;
-    &.login {
+    &.login, &.loading {
       background-color: #900c3f;
       border-color: #900c3f;
       &:hover {
         background-color: #bd4271;
         border-color: #900c3f;
+      }
+    }
+    &.login {
+      ant-btn-loading-icon {
+        display: none;
       }
     } 
   }
@@ -42,9 +66,10 @@ div.authentication {
 }
 
 #sidebar {
-  height: 100vh;
   background-color: #f5b43c;
   width: 400px;
+  min-height: 100vh;
+  height: 100%;
 }
 
 .sidebar {
@@ -58,9 +83,13 @@ div.authentication {
     margin: 0 auto;
   }
   h1 {
-    font-family: 'Manrope', sans-serif;
-    font-size: 24px;
-    color: #900c3f;
+    // font-family: 'Manrope', sans-serif;
+    font-size: 20px;
+  }
+  .ant-collapse {
+    display: inline-block;
+    width: 100%;
+    background-color: #f5b43c;
   }
 }
 
@@ -70,12 +99,6 @@ div.authentication {
 
 .search-box {
   width: 100%;
-}
-
-.search-box-label {
-  font-family: 'Manrope', sans-serif;
-  font-size: 20px;
-  color: #900c3f;
 }
 
 #logo {
@@ -124,10 +147,13 @@ div.authentication {
   div.ant-card-meta-detail > div.ant-card-meta-title {
     word-wrap: auto;
   }
+  .ant-card-meta-description {
+    color: #ec7533;
+  }
 }
 
 #page-sidebar {
-  max-width: 500px;
+  max-width: 400px;
   // width: 350px;
   > div {
     padding: 20px;
@@ -145,30 +171,54 @@ button.preference-search-button {
 
 .preference-chip {
   margin-top: 4px !important;
+  border-radius: 2px;
   text-align: center;
   > span {
     font-size: 16px;
     display: 'inline-block'; 
     padding: 2px,
   }
+  &.uncolored {
+    background: #f5b43c !important;
+    &:hover {
+      color: #000 !important;
+      border-color: #000 !important;
+    }
+    &:focus {
+      color: #000 !important;
+      border-color: #d9d9d9 !important;
+    }
+  }
 }
 
 .preference-tag-button {
   padding: 5px;
   background: #f5b43c !important;
-  position: -8px !important;
+  margin-top: 4px !important;
 }
 
+
 // ghost button style
-.preference-tag-button, .preference-tag-button, .logout, .logout{
+.preference-tag-button, .preference-tag-button, .logout, .logout, .modal-tag-button{
   &:hover {
     color: #000 !important;
     border-color: #000 !important;
   }
   &:focus {
     color: #000 !important;
-    border-color: rgb(217, 217, 217) !important;
+    border-color: #d9d9d9 !important;
   }
+}
+
+.free-text-search {
+  .ant-input, .anticon {
+    font-size: 20px;
+  }
+}
+
+.modal-tag-button {
+  padding: 5px;
+  margin-top: 4px !important;
 }
 
 #time-switch {
@@ -187,6 +237,10 @@ button.preference-search-button {
       border-color: #000 !important;
     }
   }
+}
+
+.ant-select-selection-placeholder{
+  visibility: visible;
 }
 
 @import 'antd/dist/antd.css';

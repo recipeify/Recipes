@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
-import Sidebar from './Sidebar';
-import { fetchRecipesByFilters } from '../../actions/recipeActions';
-import { fetchResources } from '../../actions/resourceActions';
+import { fetchRecipesByFilters } from '../../../actions/recipeActions';
+import { fetchResources } from '../../../actions/resourceActions';
+import MainPageSidebar from './MainPageSidebar';
 
 const mapStateToProps = (state) => ({
   freeText: state.filters.freeText,
@@ -13,7 +13,6 @@ const mapStateToProps = (state) => ({
   toCookTime: state.filters.toCookTime,
   fromCookTime: state.filters.fromCookTime,
   token: state.user.token,
-  siteMode: state.mode.mode,
   user: state.user.user,
 });
 
@@ -50,4 +49,4 @@ const mapDispatchToProps = (dispatch) => ({
   ),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Sidebar);
+export default connect(mapStateToProps, mapDispatchToProps)(MainPageSidebar);

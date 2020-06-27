@@ -1,25 +1,53 @@
 /* eslint-disable no-param-reassign */
 import { produce } from 'immer';
-
+import uniqBy from 'lodash/uniqBy';
 import { searchActions } from '../actions/searchActions';
+import { userActions } from '../actions/userActions';
 
 const initialState = {
   // include: [
-  //   'flour',
-  //   'coconut',
-  //   'coconut milk',
-  //   'margarine',
-  //   'almond milk',
-  //   'ginger ale',
-  //   'peaches',
-  //   'strawberries',
-  //   'blueberries',
-  //   'bananas',
-  //   'oranges',
-  //   'tangerines',
+  //   {
+  //     key: 'salt',
+  //   },
+  //   {
+  //     key: 'pepper',
+  //   },
+  //   {
+  //     key: 'butter',
+  //   },
+  //   {
+  //     key: 'garlic',
+  //   },
+  //   {
+  //     key: 'sugar',
+  //   },
+  //   {
+  //     key: 'flour',
+  //   },
+  //   {
+  //     key: 'onion',
+  //   },
+  //   {
+  //     key: 'olive oil',
+  //   },
+  //   {
+  //     key: 'water',
+  //   },
+  //   {
+  //     key: 'olive',
+  //   },
+  //   {
+  //     key: 'egg',
+  //   },
+  //   {
+  //     key: 'black pepper',
+  //   },
+  //   {
+  //     key: 'milk',
+  //   },
   // ],
-  freeText: '',
   include: [],
+  freeText: '',
   exclude: [],
   diet: [],
   dishType: [],
@@ -49,6 +77,10 @@ export default function searchReducer(state = initialState, action) {
         } else {
           draft.exclude.push(action.payload);
         }
+        break;
+      case (userActions.FETCH_USER_PREFERENCES_SUCCESS):
+        draft.exclude = uniqBy(draft.exclude.concat(action.payload.excludeTerms), 'key');
+        draft.diet = uniqBy(draft.diet.concat(action.payload.diet), 'key');
         break;
       case (searchActions.REMOVE_INGREDIENT_TO_EXCLUDE):
         draft.exclude = draft.exclude.filter((item) => item.key !== action.payload.key);

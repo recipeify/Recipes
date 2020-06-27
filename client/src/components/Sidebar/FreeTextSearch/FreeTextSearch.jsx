@@ -15,33 +15,28 @@ class FreeTextSearch extends React.Component {
   }
 
   render() {
+    const { currentValue } = this.props;
     return (
-      <>
-        <Row>
-          <Col span={24}>
-            <h1
-              className="search-box-label"
-            >
-              Search for your next meal
-            </h1>
-          </Col>
-        </Row>
-        <Row>
-          <Col span={24}>
-            <Search
-              placeholder="What do you feel like cooking?"
-              onSearch={(value) => this.onSearch(value)}
-              allowClear
-            />
-          </Col>
-        </Row>
-      </>
+      <Row gutter={16}>
+        <Col span={24}>
+          <Search
+            className="free-text-search"
+            defaultValue={currentValue || undefined}
+            placeholder="What do you feel like cooking?"
+            onSearch={(value) => this.onSearch(value)}
+            allowClear
+            size="large"
+            style={{ marginTop: '20px' }}
+          />
+        </Col>
+      </Row>
     );
   }
 }
 
 FreeTextSearch.propTypes = {
   addFreeText: PropTypes.func.isRequired,
+  currentValue: PropTypes.string.isRequired,
 };
 
 export default FreeTextSearch;

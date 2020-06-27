@@ -9,6 +9,7 @@ import {
   Tooltip,
 } from 'antd';
 import { FaBookmark } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 import Icon, { LogoutOutlined, HomeFilled } from '@ant-design/icons';
 import { useAuth0 } from '../../react-auth0-spa';
 import logo from '../../assets/cropped-logo.svg';
@@ -19,9 +20,15 @@ const Navigation = (props) => {
   } = useAuth0();
 
   useEffect(() => {
-    const { isLoggedIn, onLogout, onLogin } = props;
+    const {
+      isLoggedIn,
+      onLogout,
+      onLogin,
+      diets,
+      ingredients,
+    } = props;
     if (!isLoggedIn && isAuthenticated && user) {
-      onLogin(user, getTokenSilently);
+      onLogin(user, getTokenSilently, ingredients, diets);
     }
     if (isLoggedIn && !isAuthenticated) {
       onLogout(user);
@@ -40,7 +47,7 @@ const Navigation = (props) => {
 
   const loadingButton = (
     <Button
-      className="login"
+      className="loading"
       type="primary"
       loading
     >
@@ -66,33 +73,32 @@ const Navigation = (props) => {
     const {
       siteMode,
       isLoggedIn,
-      goToMyRecipes,
-      goToExplore,
-      token,
     } = props;
     let button;
     if (isLoggedIn && siteMode === 'explore') {
       button = (
-        <Button
-          className="logout"
-          onClick={() => goToMyRecipes(token)}
-          icon={<Icon component={FaBookmark} />}
-          type="ghost"
-        >
-          My Recipes
-        </Button>
+        <Link to="/myrecipes">
+          <Button
+            className="logout"
+            icon={<Icon component={FaBookmark} />}
+            type="ghost"
+          >
+            My Recipes
+          </Button>
+        </Link>
       );
     }
     if (siteMode === 'myRecipes') {
       button = (
-        <Button
-          className="logout"
-          onClick={() => goToExplore()}
-          icon={<HomeFilled />}
-          type="ghost"
-        >
-          Explore
-        </Button>
+        <Link to="/">
+          <Button
+            className="logout"
+            icon={<HomeFilled />}
+            type="ghost"
+          >
+            Explore
+          </Button>
+        </Link>
       );
     }
     if (!modeSwitchButton) {
@@ -109,7 +115,7 @@ const Navigation = (props) => {
   const loggedInRow = () => {
     const { loggedInUser } = props;
     const avatar = loggedInUser ? (
-      <Avatar size="large" src={loggedInUser.picture} style={{ 'margin-top': '3px' }} />
+      <Avatar size="large" src={loggedInUser.picture} style={{ marginTop: '3px' }} />
     ) : null;
     const name = loggedInUser ? loggedInUser.name : null;
     return (
@@ -124,7 +130,7 @@ const Navigation = (props) => {
           <Col flex="40px">
             {avatar}
           </Col>
-          <Col style={{ 'margin-top': '4px' }}>
+          <Col style={{ marginTop: '4px' }}>
             {name}
           </Col>
           <Col>
@@ -164,11 +170,13 @@ Navigation.propTypes = {
   onLogin: PropTypes.func.isRequired,
   onLogout: PropTypes.func.isRequired,
   siteMode: PropTypes.string.isRequired,
-  goToMyRecipes: PropTypes.func.isRequired,
-  goToExplore: PropTypes.func.isRequired,
   token: PropTypes.string,
+  ingredients: PropTypes.arrayOf(PropTypes.object),
+  diets: PropTypes.arrayOf(PropTypes.object),
 };
 
 Navigation.defaultProps = {
   token: '',
+  diets: [],
+  ingredients: [],
 };
