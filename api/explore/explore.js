@@ -20,7 +20,7 @@ async function innerSearch(searchString, amount, request) {
   const bool = {
     must: {
       simple_query_string: {
-        query: searchString,
+        query: searchString.replace(' ', '+'),
         fields: ['title', 'ingredients', 'tags'],
       },
     },
@@ -86,7 +86,7 @@ router.post('/', asyncHandler(async (request, response, next) => {
 
   let retval;
 
-  await GetBoxes(size, dateString, request)
+  await GetBoxes(size, dateString, request, 30)
     .then((boxes) => {
       retval = boxes;
     })
