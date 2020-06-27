@@ -40,7 +40,6 @@ router.get('/preferences', asyncHandler(async (request, response, next) => {
   await User.findById(request.user.sub, 'excludeTerms diet', (err, user) => {
     if (err) next(err);
     if (!user) { response.sendStatus(404); } else {
-      console.log(user);
       response.send(user);
     }
   });

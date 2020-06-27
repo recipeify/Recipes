@@ -20,13 +20,11 @@ class UserPageSiderbar extends React.Component {
       diet,
       blacklist,
       updateUserPreferences,
-      getUserPreferences,
     } = this.props;
-    if (token) {
+    const dietChanged = diet.length !== prevProps.diet.length;
+    const blacklistChanged = blacklist.length !== prevProps.blacklist.length;
+    if (token && (dietChanged || blacklistChanged)) {
       updateUserPreferences(token, diet, blacklist);
-    }
-    if (!prevProps.token && token) {
-      getUserPreferences(token);
     }
   }
 
@@ -68,6 +66,7 @@ UserPageSiderbar.propTypes = {
   diet: PropTypes.arrayOf(PropTypes.object).isRequired,
   blacklist: PropTypes.arrayOf(PropTypes.object).isRequired,
   updateUserPreferences: PropTypes.func.isRequired,
+  getResources: PropTypes.func.isRequired,
 };
 
 UserPageSiderbar.defaultProps = {

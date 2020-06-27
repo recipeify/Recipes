@@ -86,7 +86,7 @@ export const getUserPreferences = async (token) => {
       },
     });
   handleErrors(response);
-  return response;
+  return response.json();
 };
 
 export const setUserPreferences = async (token, dietaryPrefs, blacklist) => {

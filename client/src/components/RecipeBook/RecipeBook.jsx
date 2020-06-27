@@ -10,9 +10,10 @@ const { Header, Sider } = Layout;
 
 class RecipeBook extends React.Component {
   componentDidMount() {
-    const { getUserRecipes, getUserPreferences, token } = this.props;
-    getUserRecipes(token);
-    getUserPreferences(token);
+    const { getUserRecipes, token } = this.props;
+    if (token) {
+      getUserRecipes(token);
+    }
   }
 
   render() {
@@ -23,7 +24,7 @@ class RecipeBook extends React.Component {
             <Navigation siteMode="myRecipes" />
           </Header>
           <Layout>
-            <Sider theme="light" id="sidebar" width={500} style={{ height: '100%' }}>
+            <Sider theme="light" id="sidebar" width={400} style={{ height: '100%' }}>
               <UserPageSiderbar />
             </Sider>
             <Layout id="content" style={{ padding: '0 24px 24px' }}>
@@ -39,7 +40,6 @@ class RecipeBook extends React.Component {
 RecipeBook.propTypes = {
   token: PropTypes.string.isRequired,
   getUserRecipes: PropTypes.func.isRequired,
-  getUserPreferences: PropTypes.func.isRequired,
 };
 
 export default RecipeBook;

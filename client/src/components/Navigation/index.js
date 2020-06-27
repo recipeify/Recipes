@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import Navigation from './Navigation';
 import {
-  userLogin, userLogout, fetchUserRecipes, fetchUserPreferences,
+  userLogin, userLogout, fetchUserPreferences, fetchUserRecipes,
 } from '../../actions/userActions';
 
 const mapStateToProps = (state) => ({
@@ -9,15 +9,19 @@ const mapStateToProps = (state) => ({
   authLoading: state.user.loading,
   loggedInUser: state.user.user,
   token: state.user.token,
+  diets: state.resources.diets,
+  ingredients: state.resources.ingredients,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onLogin: async (user, getTokenSilently) => {
+  onLogin: async (user, getTokenSilently, ingredients, diets) => {
     const token = await getTokenSilently();
-    const data = { user, token };
-    dispatch(userLogin(data));
-    dispatch(fetchUserRecipes(token));
-    dispatch(fetchUserPreferences(token));
+    if (token) {
+      const data = { user, token };
+      dispatch(userLogin(data));
+      dispatch(fetchUserPreferences(token, ingredients, diets));
+      dispatch(fetchUserRecipes(token));
+    }
   },
   onLogout: () => dispatch(userLogout()),
 });

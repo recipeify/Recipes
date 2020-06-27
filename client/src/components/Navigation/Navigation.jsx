@@ -24,9 +24,11 @@ const Navigation = (props) => {
       isLoggedIn,
       onLogout,
       onLogin,
+      diets,
+      ingredients,
     } = props;
     if (!isLoggedIn && isAuthenticated && user) {
-      onLogin(user, getTokenSilently);
+      onLogin(user, getTokenSilently, ingredients, diets);
     }
     if (isLoggedIn && !isAuthenticated) {
       onLogout(user);
@@ -171,6 +173,8 @@ Navigation.propTypes = {
   goToMyRecipes: PropTypes.func.isRequired,
   goToExplore: PropTypes.func.isRequired,
   token: PropTypes.string,
+  ingredients: PropTypes.arrayOf(PropTypes.object).isRequired,
+  diets: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 Navigation.defaultProps = {

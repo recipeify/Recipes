@@ -1,3 +1,4 @@
+import { find } from 'lodash';
 import {
   sendView, getUserRecipes, addRecipes, removeRecipes, setUserPreferences, getUserPreferences,
 } from '../service/apiRequests';
@@ -167,13 +168,27 @@ const fetchUserPreferencesFailure = (error) => ({
 });
 
 
-function fetchUserPreferences(token) {
+function fetchUserPreferences(token, diets, ingredients) {
   return async (dispatch) => {
     try {
       dispatch(fetchUserPreferencesPending());
       const response = await getUserPreferences(token);
-      const { excludeTerms, diet } = response.user;
-      return dispatch(fetchUserPreferencesSuccess(excludeTerms, diet));
+      const { excludeTerms, diet } = response;
+      const userDiet = diet.map((item) => {
+        const dietObj = find(diets, { key: item });
+        if (dietObj) {
+          return dietObj;
+        }
+        return ({ key: item });
+      });
+      const userBlacklist = excludeTerms.map((item) => {
+        const ingredientObj = find(ingredients, { key: item });
+        if (ingredientObj) {
+          return ingredientObj;
+        }
+        return ({ key: item });
+      });
+      return dispatch(fetchUserPreferencesSuccess(userBlacklist, userDiet));
     } catch (error) {
       return dispatch(fetchUserPreferencesFailure(error));
     }
