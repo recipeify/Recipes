@@ -14,29 +14,8 @@ const { Panel } = Collapse;
 class MainPageSidebar extends React.Component {
   componentDidMount() {
     const {
-      getRecipesByFilters,
-      freeText,
-      includeTerms,
-      excludeTerms,
-      toCookTime,
-      fromCookTime,
-      diet,
-      dishType,
-      cuisine,
       getResources,
-      token,
     } = this.props;
-    getRecipesByFilters(
-      token,
-      freeText,
-      includeTerms,
-      excludeTerms,
-      diet,
-      dishType,
-      cuisine,
-      toCookTime,
-      fromCookTime,
-    );
     getResources();
   }
 
