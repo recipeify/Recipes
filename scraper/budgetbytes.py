@@ -9,4 +9,4 @@ class BudgetBytes(AbstractCrawler):
         rules = [('/.*?/', 'parse_recipes')]
         domains = ['budgetbytes.com']
         process.crawl(FilteredSitemapSpider, es=es, num=self.num, sitemap_urls=URL, sitemap_rules=rules,
-                      sitename='budgetbytes', allowed_domains=domains, init=self.flag)
+                      sitename='budgetbytes', allowed_domains=domains, init=self.init)

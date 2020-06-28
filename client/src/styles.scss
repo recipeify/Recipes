@@ -15,8 +15,9 @@ body {
   min-height: 100vh;
 }
 
-.ant-layout.ant-layout-has-sider > .ant-layout, .ant-layout.ant-layout-has-sider > .ant-layout-content {
+.ant-layout.ant-layout-has-sider {
 	overflow-x: visible;
+    background: #f5b43c;
 }
 
 #root {

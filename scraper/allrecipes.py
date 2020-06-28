@@ -10,4 +10,4 @@ class AllRecipes(AbstractCrawler):
         rules = [('/recipe/', 'parse_recipes')]
         domains = ['allrecipes.com']
         process.crawl(FilteredSitemapSpider, es=es, num=self.num, sitemap_urls=URL, sitemap_rules=rules,
-                      sitename='allrecipes', allowed_domains=domains, init=self.flag)
+                      sitename='allrecipes', allowed_domains=domains, init=self.init)

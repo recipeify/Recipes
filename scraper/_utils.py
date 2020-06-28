@@ -98,7 +98,7 @@ def insert_to_es(es, s, name):
         r['number_of_raters'] = None
         logging.log(logging.WARNING, 'Scrapy failed to get number of raters from ' + s.url)
 
-    r['time_acquired'] = datetime.now()
+    r['time_acquired'] = datetime.now().isoformat()
 
     try:
         s = es.create(index='recipes', id=r['id'], body=json.dumps(r))
