@@ -1,4 +1,5 @@
 import React from 'react';
+import cloudinary from 'cloudinary-core';
 import PropTypes from 'prop-types';
 import {
   Card, Modal, Button, Tag, Divider, Row, Col, Tooltip,
@@ -12,6 +13,7 @@ import RecipeNames from './RecipeConsts';
 import { getRandomID } from '../../../../common/helpers';
 
 const { Meta } = Card;
+const cl = new cloudinary.Cloudinary({ cloud_name: 'recipeify', secure: true });
 
 class RecipeCard extends React.Component {
   constructor(props) {
@@ -62,6 +64,9 @@ class RecipeCard extends React.Component {
     const {
       showModal, viewMoreTags, loadRecipeBookChange, loading,
     } = this.state;
+    const clTag = cl.imageTag(imageURL, {
+      width: 520, fetchFormat: 'auto', type: fetch, secure: true, crop: 'fit',
+    });
 
     const openRecipe = (e) => {
       e.stopPropagation();
@@ -136,7 +141,7 @@ class RecipeCard extends React.Component {
           cover={(
             <img
               className="recipe-image"
-              src={imageURL}
+              src={clTag}
               alt={title}
               onLoad={this.onLoad}
             />
@@ -177,7 +182,7 @@ class RecipeCard extends React.Component {
         >
           <img
             className="recipe-modal-image"
-            src={imageURL}
+            src={clTag}
             alt={title}
           />
 
