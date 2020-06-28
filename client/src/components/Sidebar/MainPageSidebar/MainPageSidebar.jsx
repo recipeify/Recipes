@@ -17,6 +17,29 @@ class MainPageSidebar extends React.Component {
       getResources,
     } = this.props;
     getResources();
+    const {
+      getRecipesByFilters,
+      freeText,
+      includeTerms,
+      excludeTerms,
+      toCookTime,
+      fromCookTime,
+      diet,
+      cuisine,
+      dishType,
+      token,
+    } = this.props;
+    getRecipesByFilters(
+      token,
+      freeText,
+      includeTerms,
+      excludeTerms,
+      diet,
+      dishType,
+      cuisine,
+      toCookTime,
+      fromCookTime,
+    );
   }
 
 

@@ -5,7 +5,7 @@ import { recipeActions } from '../actions/recipeActions';
 
 const initialState = {
   items: [],
-  loading: true,
+  loading: false,
   error: null,
   scroll: {
     loading: false,
