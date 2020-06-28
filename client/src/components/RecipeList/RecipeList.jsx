@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import RecipeCard from './components/RecipeCard';
-import spinner from '../../assets/Spin-1s-300px-transparent.gif';
 
 class RecipeList extends React.Component {
   constructor(props) {
@@ -58,7 +57,10 @@ class RecipeList extends React.Component {
     if (loading) {
       return (
         <div className="recipe-list-placeholders">
-          <img src={spinner} alt="" />
+          <picture>
+            <source srcSet="../../assets/Spin-1s-300px-transparent.webp" type="image/webp" />
+            <img src="../../assets/Spin-1s-300px-transparent.gif" alt="" />
+          </picture>
         </div>
       );
     }

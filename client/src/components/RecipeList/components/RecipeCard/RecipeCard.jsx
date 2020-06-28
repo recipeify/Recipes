@@ -137,7 +137,7 @@ class RecipeCard extends React.Component {
             <img
               className="recipe-image"
               src={imageURL}
-              alt=""
+              alt={title}
               onLoad={this.onLoad}
             />
           )}
