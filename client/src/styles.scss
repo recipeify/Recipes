@@ -123,10 +123,10 @@ div.authentication {
 }
 
 .recipe-image {
-  .no-webp {
+  .no-webp & {
     background-image: url('./Spin-1s-300px.gif');
   }
-  .webp{
+  .webp & {
     background-image: url('./Spin-1s-300px.webp');
   }
   object-fit: cover;
