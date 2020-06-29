@@ -49,7 +49,7 @@ div.authentication {
       ant-btn-loading-icon {
         display: none;
       }
-    } 
+    }
   }
   .logout:hover {
     color: #000 !important;
@@ -123,10 +123,15 @@ div.authentication {
 }
 
 .recipe-image {
+  .no-webp {
+    background-image: url('./Spin-1s-300px.gif');
+  }
+  .webp{
+    background-image: url('./Spin-1s-300px.webp');
+  }
   object-fit: cover;
   width: 300px;
   height: 300px;
-  background-image: url('./Spin-1s-300px.gif');
   background-position: center;
 }
 
@@ -182,7 +187,7 @@ button.preference-search-button {
   text-align: center;
   > span {
     font-size: 16px;
-    display: 'inline-block'; 
+    display: 'inline-block';
     padding: 2px,
   }
   &.uncolored {

@@ -12,6 +12,7 @@ import RecipeNames from './RecipeConsts';
 import { getRandomID } from '../../../../common/helpers';
 
 const { Meta } = Card;
+const clSrc = 'https://res.cloudinary.com/recipeify/image/fetch/f_auto,w_520,q_100/';
 
 class RecipeCard extends React.Component {
   constructor(props) {
@@ -136,8 +137,8 @@ class RecipeCard extends React.Component {
           cover={(
             <img
               className="recipe-image"
-              src={imageURL}
-              alt=""
+              src={imageURL.includes('bbcgoodfood') ? clSrc.concat('https:', encodeURIComponent(imageURL)) : clSrc.concat(encodeURIComponent(imageURL))}
+              alt={title}
               onLoad={this.onLoad}
             />
           )}
@@ -177,7 +178,7 @@ class RecipeCard extends React.Component {
         >
           <img
             className="recipe-modal-image"
-            src={imageURL}
+            src={imageURL.includes('bbcgoodfood') ? clSrc.concat('https:', encodeURIComponent(imageURL)) : clSrc.concat(encodeURIComponent(imageURL))}
             alt={title}
           />
 
