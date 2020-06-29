@@ -9,7 +9,6 @@
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
     "antd": "^4.2.0",
-    "cloudinary-core": "^2.9.0",
     "history": "^4.10.1",
     "immer": "^6.0.3",
     "lodash": "^4.17.15",
