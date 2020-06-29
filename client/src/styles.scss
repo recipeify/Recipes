@@ -122,19 +122,16 @@ div.authentication {
   }
 }
 
-.no-webp .recipe-image {
+.recipe-image {
+  .no-webp {
+    background-image: url('./Spin-1s-300px.gif');
+  }
+  .webp{
+    background-image: url('./Spin-1s-300px.webp');
+  }
   object-fit: cover;
   width: 300px;
   height: 300px;
-  background-image: url('./Spin-1s-300px.gif');
-  background-position: center;
-}
-
-.webp .recipe-image {
-  object-fit: cover;
-  width: 300px;
-  height: 300px;
-  background-image: url('./Spin-1s-300px.webp');
   background-position: center;
 }
 
