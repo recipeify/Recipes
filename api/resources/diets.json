@@ -1,0 +1,83 @@
+{
+  "diets": {
+    "keto": "keto",
+    "lowcarb": "low carb",
+    "eggfree": "egg free",
+    "peanutfree": "peanut free",
+    "soyfree": "soy free",
+    "diabetic": "diabetic",
+    "glutenfree": "gluten free",
+    "halal": "halal",
+    "kosher": "kosher",
+    "lowcalorie": "low calorie",
+    "lowfat": "low fat",
+    "lowlactose": "low lactose",
+    "lactosefree": "lactose free",
+    "lowsalt": "low salt",
+    "vegan": "vegan",
+    "vegetarian": "vegetarian",
+    "highfiber": "high fiber",
+    "dairyfree": "dairy free",
+    "lowcholesterol": "low cholesterol",
+    "lowsodium": "low sodium",
+    "nutfree": "nut free"
+  },
+  "tags": [
+    {
+      "key": "vegetarian",
+      "tags": ["vegetarian", "veggie"]
+    },
+    {
+      "key": "healthy",
+      "tags": ["healthy"]
+    },
+    {
+      "key": "vegan",
+      "tags": ["vegan", "veganuary"]
+    },
+    {
+      "key": "pregnancy",
+      "tags": ["pregnancy"]
+    },
+    {
+      "key": "dairy free",
+      "tags": ["dairy_free", "dairyfree"]
+    },
+    {
+      "key": "low carb",
+      "tags": ["low_carb"]
+    },
+    {
+      "key": "kosher",
+      "tags": ["kosher"]
+    },
+    {
+      "key": "gluten free",
+      "tags": ["gluten_free", "glutenfree", "Gluten-Free", "gluten-free"]
+    },
+    {
+      "key": "soy free",
+      "tags": ["soyfree", "soy_free"]
+    },
+    {
+      "key": "eggfree",
+      "tags": ["eggfree"]
+    },
+    {
+      "key": "diabetes",
+      "tags": ["diabetes"]
+    },
+    {
+      "key": "paleo",
+      "tags": ["paleo"]
+    },
+    {
+      "key": "pescatarian",
+      "tags": ["pescatarian"]
+    },
+    {
+      "key": "halal",
+      "tags": ["halal"]
+    }
+  ]
+}

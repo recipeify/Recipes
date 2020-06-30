@@ -18,16 +18,36 @@
     "elasticsearch": "^16.7.1",
     "express": "^4.17.1",
     "express-async-handler": "^1.1.4",
-    "express-openid-connect": "^1.0.1",
+    "express-jwt": "^5.3.3",
+    "hebcal": "^2.3.2",
     "helmet": "^3.22.0",
+    "jsonwebtoken": "^8.5.1",
+    "jwks-rsa": "^1.8.0",
+    "lodash": "^4.17.15",
+    "moment-holiday": "^1.5.1",
     "mongodb": "^3.5.7",
     "mongoose": "^5.9.14",
-    "querystring": "^0.2.0"
+    "querystring": "^0.2.0",
+    "recombee-api-client": "^3.0.0"
   },
   "devDependencies": {
     "concurrently": "^5.1.0",
     "eslint": "^6.8.0",
     "eslint-config-airbnb-base": "^14.1.0",
     "eslint-plugin-import": "^2.20.2"
+  },
+  "eslintConfig": {
+    "env": {
+      "browser": false,
+      "node": true
+    },
+    "rules": {
+      "no-unused-vars": [
+        "error",
+        {
+          "argsIgnorePattern": "^_"
+        }
+      ]
+    }
   }
 }

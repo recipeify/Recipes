@@ -2,19 +2,14 @@ version: '3.4'
 services:
 # Elasticsearch
   elasticsearch:
-    image: hagais/es-recipes:0.2
+    image: hagais/es-recipes:1.0
     environment:
       - discovery.type=single-node
     ports:
       - 9200:9200
-# mongoDB
-  mongo:
-    image: mongo:3.6
-    ports:
-      - 27017-27019:27017-27019
 # Recipeify
   recipeify:
-     image: 635062671985.dkr.ecr.eu-central-1.amazonaws.com/recipeify:0.4
+     image: 635062671985.dkr.ecr.eu-central-1.amazonaws.com/recipeify:latest
      build:
       context: .
       dockerfile: Dockerfile
@@ -22,7 +17,6 @@ services:
        - 3000:5000
      depends_on:
       - elasticsearch
-      - mongo
      env_file:
        - api/docker.env
      stdin_open: true

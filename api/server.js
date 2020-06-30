@@ -1,15 +1,17 @@
-/* eslint-disable no-underscore-dangle */
+/* eslint-disable no-console */
+/* eslint no-unused-vars: ["error", { "argsIgnorePattern": "^_" }] */
 // disabling this because we send requests to the _search endpoint of the ES client
 const express = require('express');
 const bodyParser = require('body-parser');
-const fs = require('fs');
 const path = require('path');
-const { auth } = require('express-openid-connect');
-const asyncHandler = require('express-async-handler');
 const compression = require('compression');
 const helmet = require('helmet');
+const asyncHandler = require('express-async-handler');
 
+// call this before importing modules that depend on env
 require('dotenv').config();
+
+const auth = require('./auth');
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -17,20 +19,15 @@ const port = process.env.PORT || 5000;
 /* compress all routes */
 app.use(compression());
 
-/* vulnerability protection */
-// app.use(helmet());
-
-/* setup auth0 middleware with required authentication for all /api/users routes */
-app.use(auth({
-  required: (req) => req.originalUrl.startsWith('/api/users'),
-  redirectUriPath: '/',
-}));
+if (process.env.NODE_ENV === 'production') {
+  app.use(helmet({
+    dnsPrefetchControl: false,
+  }));
+}
 
 /* static routes */
 app.use(express.static(path.join(__dirname, 'build')));
 
-const rawData = fs.readFileSync('ingredients.json');
-const ingredients = JSON.parse(rawData);
 
 if (!process.env.ELASTIC_SEARCH_HOST) {
   console.error('missing ELASTIC_SEARCH_HOST');
@@ -40,17 +37,32 @@ if (!process.env.ELASTIC_SEARCH_HOST) {
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+app.get('/health', asyncHandler(async (_request, response, _next) => {
+  response.sendStatus(200);
+}));
+
+app.get('/login', asyncHandler(async (_request, response, _next) => {
+  response.redirect(`${process.env.ISSUER_BASE_URL}/authorize`);
+}));
+
 /* users routes */
-app.use('/api/users', require('./users/users').router);
+app.use('/api/users', auth.enforceJwt, require('./users/users').router);
 
 /* search routes */
 app.use('/api/search', require('./search').router);
 
-// eslint-disable-next-line no-unused-vars
-app.get('/api/resources/ingredients', asyncHandler(async (_request, response, _next) => {
-  response.send({
-    items: ingredients.ingredients,
-  });
+/* resources routes */
+app.use('/api/resources', require('./resources').router);
+
+/* recommendation routes */
+app.use('/api/recommend', require('./recommend').router);
+
+/* explore routes */
+app.use('/api/explore', require('./explore/explore').router);
+
+/* pass everything else to react router */
+app.use('/*', asyncHandler(async (_request, response, _next) => {
+  response.sendFile(path.join(`${__dirname}/build/index.html`));
 }));
 
 app.listen(port, () => console.log(`Listening on port ${port}`));
