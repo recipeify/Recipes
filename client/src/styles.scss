@@ -258,4 +258,29 @@ button.preference-search-button {
   visibility: visible;
 }
 
+.slick-slide {
+	padding: 0 8px;
+	box-sizing: border-box;
+ }
+
+.carousel-button {
+  z-index: 1000;
+  background-color: #900c3f !important;
+  border-color: #900c3f !important;
+  &:hover {
+    background-color: #bd4271 !important;
+    border-color: #900c3f !important;
+  }
+}
+
+// /* the slides */
+// .slick-slide {
+//   margin-left: 10px;
+// }
+
+// /* the parent */
+// .slick-list {
+//   margin-left: -10px;
+// }
+
 @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@500&family=Pompiere&display=swap');
