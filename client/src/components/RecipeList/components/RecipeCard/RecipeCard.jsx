@@ -13,6 +13,7 @@ import { getRandomID } from '../../../../common/helpers';
 
 const { Meta } = Card;
 
+
 class RecipeCard extends React.Component {
   constructor(props) {
     super(props);
@@ -62,6 +63,11 @@ class RecipeCard extends React.Component {
     const {
       showModal, viewMoreTags, loadRecipeBookChange, loading,
     } = this.state;
+    let imgSrc = imageURL;
+    if (process.env.NODE_ENV === 'production') {
+      const clSrc = 'https://res.cloudinary.com/recipeify/image/fetch/f_auto,w_520,q_90/';
+      imgSrc = imageURL.includes('bbcgoodfood') ? clSrc.concat('https:', encodeURIComponent(imageURL)) : clSrc.concat(encodeURIComponent(imageURL));
+    }
 
     const openRecipe = (e) => {
       e.stopPropagation();
@@ -136,8 +142,8 @@ class RecipeCard extends React.Component {
           cover={(
             <img
               className="recipe-image"
-              src={imageURL}
-              alt=""
+              src={imgSrc}
+              alt={title}
               onLoad={this.onLoad}
             />
           )}
@@ -177,7 +183,7 @@ class RecipeCard extends React.Component {
         >
           <img
             className="recipe-modal-image"
-            src={imageURL}
+            src={imgSrc}
             alt={title}
           />
 
