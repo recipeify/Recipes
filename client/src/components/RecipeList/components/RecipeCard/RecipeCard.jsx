@@ -12,7 +12,10 @@ import RecipeNames from './RecipeConsts';
 import { getRandomID } from '../../../../common/helpers';
 
 const { Meta } = Card;
-const clSrc = 'https://res.cloudinary.com/recipeify/image/fetch/f_auto,w_520,q_90/';
+let clSrc = '';
+if (process.env.NODE_ENV === 'production') {
+  clSrc = 'https://res.cloudinary.com/recipeify/image/fetch/f_auto,w_520,q_90/';
+}
 
 class RecipeCard extends React.Component {
   constructor(props) {
