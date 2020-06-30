@@ -71,7 +71,7 @@ class RecipeCard extends React.Component {
 
     const openRecipe = (e) => {
       e.stopPropagation();
-      window.open(link, 'noopener noreferrer');
+      window.open(link, '_blank');
       if (isLoggedIn) {
         viewRecipe(token, id);
       }
