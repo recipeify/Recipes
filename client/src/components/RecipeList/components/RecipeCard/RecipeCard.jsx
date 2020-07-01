@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-  Card, Modal, Button, Tag, Divider, Row, Col, Tooltip,
+  Card, Modal, Button, Tag, Divider, Row, Col, Tooltip, message,
 } from 'antd';
 import {
   InfoCircleOutlined, StarOutlined, ExportOutlined,
@@ -82,6 +82,8 @@ class RecipeCard extends React.Component {
       if (isLoggedIn) {
         this.setState({ loadRecipeBookChange: true });
         addRecipe(token, id);
+      } else {
+        message.info('To save recipe, please log in', 5);
       }
     };
 
@@ -90,6 +92,8 @@ class RecipeCard extends React.Component {
       if (isLoggedIn) {
         this.setState({ loadRecipeBookChange: true });
         removeRecipe(token, id);
+      } else {
+        message.info('To save recipe, please log in', 5);
       }
     };
 
@@ -176,7 +180,7 @@ class RecipeCard extends React.Component {
             getStarButton(true),
             <Tooltip key="Go" title="Go to recipe">
               <Button onClick={openRecipe} size="large">
-                <ExportOutlined />
+                {` View in ${site}`}
               </Button>
             </Tooltip>,
           ]}

@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import InfiniteScroll from 'react-infinite-scroll-component';
+import { message } from 'antd';
 import RecipeCard from './components/RecipeCard';
 
 class RecipeList extends React.Component {
@@ -64,6 +65,10 @@ class RecipeList extends React.Component {
         </div>
       );
     }
+
+    message.config({
+      maxCount: 1,
+    });
 
     return (
       <InfiniteScroll
