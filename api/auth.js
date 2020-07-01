@@ -18,7 +18,7 @@ const jwksConfig = {
 const jwtVerifyOpts = {
   audience: authConfig.audience,
   issuer: `${authConfig.domain}/`,
-  algorithm: ['RS256'],
+  algorithms: ['RS256'],
 };
 
 const jwksClient = jwksRsa(jwksConfig);
