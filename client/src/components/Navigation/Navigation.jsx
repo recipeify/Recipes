@@ -1,5 +1,5 @@
 /* eslint-disable react/no-unused-prop-types */
-import React, { useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import {
   Button,
@@ -16,24 +16,8 @@ import logo from '../../assets/cropped-logo.svg';
 
 const Navigation = (props) => {
   const {
-    isAuthenticated, loginWithRedirect, logout, loading, user, getTokenSilently,
+    isAuthenticated, loginWithRedirect, logout, loading,
   } = useAuth0();
-
-  useEffect(() => {
-    const {
-      isLoggedIn,
-      onLogout,
-      onLogin,
-      diets,
-      ingredients,
-    } = props;
-    if (!isLoggedIn && isAuthenticated && user) {
-      onLogin(user, getTokenSilently, ingredients, diets);
-    }
-    if (isLoggedIn && !isAuthenticated) {
-      onLogout(user);
-    }
-  });
 
   const loginButton = (
     <Button
