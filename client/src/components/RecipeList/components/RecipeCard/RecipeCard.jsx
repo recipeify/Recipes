@@ -9,7 +9,7 @@ import {
 } from '@ant-design/icons';
 import capitalize from 'lodash/capitalize';
 import RecipeNames from './RecipeConsts';
-import { getRandomID } from '../../../../common/helpers';
+import { getRandomID, minutesToText } from '../../../../common/helpers';
 
 const { Meta } = Card;
 
@@ -216,7 +216,7 @@ class RecipeCard extends React.Component {
               {site}
             </Col>
             <Col span={8}>
-              {totalTime ? `${totalTime} minutes`
+              {totalTime ? minutesToText(totalTime)
                 : (
                   <span>
                     <CloseCircleOutlined />
