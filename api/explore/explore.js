@@ -40,7 +40,7 @@ function getBox(keys, monthIngs) {
   } else {
     box = randomChoice(BoxesJson[key]);
   }
-  return box;
+  return {type: key, name: box};
 }
 
 async function GetBoxes(size, dateString, request, amount) {
@@ -59,15 +59,13 @@ async function GetBoxes(size, dateString, request, amount) {
     if (holidayRecipes.length < min) {
       events.tags.forEach((e) => {
         if (nextHoliday.search(e.key) >= 0) {
-          console.log(e.key);
           e.tags.forEach(async (t) => {
-            console.log(t);
             holidayRecipes.concat(await innerSearch(t, min - holidayRecipes.length, request));
           });
         }
       });
     }
-    retval.explore.push({ name: nextHoliday, recipes: holidayRecipes });
+    retval.explore.push({ type: 'Next Holiday', name: nextHoliday, recipes: holidayRecipes });
     n -= 1;
   }
 
@@ -83,9 +81,9 @@ async function GetBoxes(size, dateString, request, amount) {
 
   // Fill the boxes
   boxes.forEach(async (box) => {
-    const res = await innerSearch(box, amount, request);
+    const res = await innerSearch(box.name, amount, request);
     if (res.length >= min) {
-      retval.explore.push({ name: box, recipes: res });
+      retval.explore.push({ type: box.type, name: box.name, recipes: res });
     } else {
       // Get a different box, hopefully one with more recipes.
       const newBox = getBox(keys, monthIngs);
