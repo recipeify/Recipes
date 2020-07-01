@@ -108,7 +108,7 @@ router.post('/', asyncHandler(async (request, response, next) => {
     amount = 30,
   } = request.body;
 
-  if (!search.isString(Country)) {
+  if (!search.isString(Country) || !search.isString(timeString)) {
     response.sendStatus(400);
     return;
   }
