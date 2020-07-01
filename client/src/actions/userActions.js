@@ -5,6 +5,7 @@ import {
 import { updateRecipeSaved } from './recipeActions';
 
 export const userActions = {
+  AUTH_LOADING: 'AUTH_LOADING',
   USER_LOGIN: 'USER_LOGIN',
   USER_LOGOUT: 'USER_LOGOUT',
   REPORT_VIEW_PENDING: 'REPORT_VIEW_PENDING',
@@ -31,6 +32,11 @@ export const userActions = {
   ADD_USER_DIET: 'ADD_USER_DIET',
   REMOVE_USER_DIET: 'REMOVE_USER_DIET',
 };
+
+const authLoading = (b) => ({
+  type: userActions.AUTH_LOADING,
+  payload: b,
+});
 
 const userLogin = (data) => ({
   type: userActions.USER_LOGIN,
@@ -244,6 +250,7 @@ function editUserPreferences(token, dietaryPrefs, blacklist) {
 }
 
 export {
+  authLoading,
   userLogin,
   userLogout,
   reportView,
