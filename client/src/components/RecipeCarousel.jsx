@@ -1,9 +1,13 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
 import PropTypes from 'prop-types';
 import Slider from 'react-slick';
-import { Button, Row, Col } from 'antd';
+import { Row, Col } from 'antd';
 import { CaretLeftOutlined, CaretRightOutlined } from '@ant-design/icons';
+import { capitalize } from 'lodash';
 import RecipeCard from './RecipeList/components/RecipeCard';
 import spinner from '../assets/Spin-1s-300px-transparent.gif';
 
@@ -23,7 +27,7 @@ class RecipeCarousel extends React.Component {
   }
 
   render() {
-    const { recipes } = this.props;
+    const { recipes, title } = this.props;
     if (recipes.length === 0) {
       return (
         <div className="recipe-list-placeholders">
@@ -36,44 +40,38 @@ class RecipeCarousel extends React.Component {
     );
 
     const nextButton = (
-      <Button
+      <a
         className="carousel-button"
-        type="primary"
-        shape="circle"
-        size="middle"
         onClick={() => this.next()}
       >
         <CaretRightOutlined />
-      </Button>
+      </a>
     );
 
     const prevButton = (
-      <Button
+      <a
         className="carousel-button"
-        type="primary"
-        shape="circle"
-        size="middle"
         onClick={() => this.previous()}
       >
         <CaretLeftOutlined />
-      </Button>
+      </a>
     );
 
     const settings = {
       dots: true,
-      infinite: false,
+      infinite: true,
       speed: 500,
       slidesToShow: 7,
       slidesToScroll: 7,
       initialSlide: 0,
+      // nextArrow:
+      arrows: true,
       responsive: [
         {
           breakpoint: 2000,
           settings: {
-            slidesToShow: 3,
-            slidesToScroll: 3,
-            infinite: true,
-            dots: true,
+            slidesToShow: 4,
+            slidesToScroll: 4,
           },
         },
         {
@@ -95,32 +93,36 @@ class RecipeCarousel extends React.Component {
     };
 
     return (
-      <Row justify="space-around" align="middle">
-        <Col flex="24px">
-          {prevButton}
-        </Col>
-        <Col style={{ maxWidth: '95%' }}>
-          <div>
+      <div className="carousel" key={`carousel-${title}`}>
+        <Row className="carousel-title">
+          <h1>{capitalize(title)}</h1>
+        </Row>
+        <Row justify="space-around" align="middle">
+          <Col flex="24px">
+            {prevButton}
+          </Col>
+          <Col style={{ width: '97%' }}>
             <Slider
               className="carousel"
-              // eslint-disable-next-line no-return-assign
+            // eslint-disable-next-line no-return-assign
               ref={(c) => (this.slider = c)}
               {...settings}
             >
               {recipeCards}
             </Slider>
-          </div>
-        </Col>
-        <Col flex="24px">
-          {nextButton}
-        </Col>
-      </Row>
+          </Col>
+          <Col flex="24px">
+            {nextButton}
+          </Col>
+        </Row>
+      </div>
     );
   }
 }
 
 RecipeCarousel.propTypes = {
   recipes: PropTypes.arrayOf(PropTypes.object).isRequired,
+  title: PropTypes.string.isRequired,
 };
 
 export default RecipeCarousel;

@@ -1,8 +1,8 @@
 import { connect } from 'react-redux';
-import Navigation from './Navigation';
 import {
-  userLogin, userLogout, fetchUserPreferences, fetchUserRecipes,
-} from '../../actions/userActions';
+  authLoading, userLogin, userLogout, fetchUserPreferences, fetchUserRecipes,
+} from '../actions/userActions';
+import App from './App';
 
 const mapStateToProps = (state) => ({
   isLoggedIn: state.user.loggedIn,
@@ -23,6 +23,7 @@ const mapDispatchToProps = (dispatch) => ({
     }
   },
   onLogout: () => dispatch(userLogout()),
+  setAuthLoading: (b) => dispatch(authLoading(b)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Navigation);
+export default connect(mapStateToProps, mapDispatchToProps)(App);
