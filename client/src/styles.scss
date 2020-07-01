@@ -258,29 +258,31 @@ button.preference-search-button {
   visibility: visible;
 }
 
-.slick-slide {
-	padding: 0 8px;
-	box-sizing: border-box;
- }
-
-.carousel-button {
-  z-index: 1000;
-  background-color: #900c3f !important;
-  border-color: #900c3f !important;
-  &:hover {
-    background-color: #bd4271 !important;
+.carousel {
+  .carousel-button {
+    z-index: 1000;
+    color: #fff;
+    font-size: 16px;
+    background-color: #900c3f !important;
     border-color: #900c3f !important;
+    &:hover {
+      background-color: #bd4271 !important;
+      border-color: #900c3f !important;
+    }
   }
+  .slick-slide {
+    padding: 0 8px;
+    box-sizing: border-box;
+   }
+   .slick-prev, .slick-next {
+     display: none !important;
+   }
+   .carousel-title {
+     font-size: 20px;
+     margin-left: 12px;
+   }
+
+  //  .slick-cloned {
+  //    display: none !important;
+  //  }
 }
-
-// /* the slides */
-// .slick-slide {
-//   margin-left: 10px;
-// }
-
-// /* the parent */
-// .slick-list {
-//   margin-left: -10px;
-// }
-
-@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@500&family=Pompiere&display=swap');

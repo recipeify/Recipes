@@ -13,6 +13,32 @@ class RecipeList extends React.Component {
     };
   }
 
+  componentDidUpdate() {
+    const {
+      getRecipesByFilters,
+      freeText,
+      includeTerms,
+      excludeTerms,
+      toCookTime,
+      fromCookTime,
+      diet,
+      cuisine,
+      dishType,
+      token,
+    } = this.props;
+    getRecipesByFilters(
+      token,
+      freeText,
+      includeTerms,
+      excludeTerms,
+      diet,
+      dishType,
+      cuisine,
+      toCookTime,
+      fromCookTime,
+    );
+  }
+
   next() {
     const { from } = this.state;
     const {
@@ -86,6 +112,7 @@ class RecipeList extends React.Component {
 }
 
 RecipeList.propTypes = {
+  getRecipesByFilters: PropTypes.func.isRequired,
   recipes: PropTypes.arrayOf(PropTypes.object).isRequired,
   loading: PropTypes.bool.isRequired,
   error: PropTypes.string,

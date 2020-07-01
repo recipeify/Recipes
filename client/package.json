@@ -39,7 +39,9 @@
   "eslintConfig": {
     "extends": "react-app"
   },
-  "eslintIgnore": ["public/modernizr-custom.js"],
+  "eslintIgnore": [
+    "public/modernizr-custom.js"
+  ],
   "browserslist": {
     "production": [
       ">0.2%",

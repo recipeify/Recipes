@@ -1,7 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import App, { history } from './App';
+import { history } from './App/App';
+import App from './App';
 import store from './redux/store';
 import { Auth0Provider } from './react-auth0-spa';
 import * as serviceWorker from './serviceWorker';

@@ -44,7 +44,6 @@ export const scrollRecipesFailure = (error) => ({
   payload: { error },
 });
 
-
 export function fetchRecipesByFilters(
   token,
   freeText,

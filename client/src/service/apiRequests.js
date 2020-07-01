@@ -103,7 +103,23 @@ export const setUserPreferences = async (token, dietaryPrefs, blacklist) => {
       }),
     });
   handleErrors(response);
-  return response;
+  return response.json();
+};
+
+export const getExplorePage = async (token, date) => {
+  const response = await fetch('/api/explore',
+    {
+      method: 'POST',
+      headers: {
+        ...globalHeaders,
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        dateString: date,
+      }),
+    });
+  handleErrors(response);
+  return response.json();
 };
 
 export const searchByFilters = async (

@@ -3,6 +3,7 @@ import { produce } from 'immer';
 import { userActions } from '../actions/userActions';
 
 const initialState = {
+  pending: true,
   loggedIn: false,
   user: {},
   token: '',
@@ -23,6 +24,9 @@ export default function userReducer(state = initialState, action) {
   // eslint-disable-next-line consistent-return
   return produce(state, (draft) => {
     switch (action.type) {
+      case (userActions.AUTH_LOADING):
+        draft.pending = action.payload;
+        break;
       case (userActions.USER_LOGIN):
         draft.loggedIn = true;
         draft.user = action.payload.user;
