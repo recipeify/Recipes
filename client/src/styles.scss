@@ -30,6 +30,10 @@ body {
   padding-left: 10px;
   padding-right: 20px;
   height: 70px;
+  width: 100%;
+  position: fixed;
+  -webkit-transform: translateZ(0);
+  z-index: 1000;
 }
 .ant-input-affix-wrapper-lg {
   max-height: 60px !important;
@@ -75,8 +79,9 @@ div.authentication {
 
 .sidebar {
   height: 100%;
-  margin-top: 20px;
+  margin-top: 70px;
   width: 400px;
+  position: fixed;
   .avatar {
     height: 200px;
     width: 200px;
@@ -96,10 +101,25 @@ div.authentication {
 
 #content {
   background-color: #fcf8f5;
+  margin-top: 70px;
 }
 
 .search-box {
   width: 100%;
+}
+
+.search-box-wrapper {
+  background-color: #fcf8f5;
+  height: 70px;
+  div.ant-row {
+    position: fixed;
+    background-color: #fcf8f5;
+    -webkit-transform: translateZ(0);
+    z-index: 1000;
+    width: 80%;
+    padding-right: 50px;
+    padding-bottom : 10px;
+  }
 }
 
 #logo {
@@ -113,6 +133,7 @@ div.authentication {
 
 #recipe-list-grid {
   padding-top: 20px;
+  margin-top: auto;
   grid-gap: 20px;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
