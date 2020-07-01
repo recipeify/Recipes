@@ -40,7 +40,7 @@ function getBox(keys, monthIngs) {
   } else {
     box = randomChoice(BoxesJson[key]);
   }
-  return {type: key, name: box};
+  return { type: key, name: box };
 }
 
 async function GetBoxes(size, dateString, request, amount) {
