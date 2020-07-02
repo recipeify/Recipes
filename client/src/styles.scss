@@ -72,7 +72,8 @@ div.authentication {
 
 #sidebar {
   background-color: #f5b43c;
-  width: 400px;
+  width: 18%;
+  max-width: 400px;
   min-height: 100vh;
   height: 100%;
 }
@@ -80,8 +81,10 @@ div.authentication {
 .sidebar {
   height: 100%;
   margin-top: 70px;
-  width: 400px;
+  width: 18%;
+  max-width: 400px;
   position: fixed;
+  left:0;
   .avatar {
     height: 200px;
     width: 200px;
@@ -111,14 +114,15 @@ div.authentication {
 .search-box-wrapper {
   background-color: #fcf8f5;
   height: 70px;
-  width: 100%;
+  width: 82%;
+  position:fixed;
+  -webkit-transform: translateZ(0);
+  z-index: 1000;
   div.ant-row {
     position: fixed;
     background-color: #fcf8f5;
-    -webkit-transform: translateZ(0);
-    z-index: 1000;
-    width: 80%;
-    padding-right: 50px;
+    width: 100%;
+    padding-right: 32px;
     padding-bottom : 10px;
   }
 }
