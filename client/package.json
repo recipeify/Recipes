@@ -37,7 +37,19 @@
     "sass": "npx sass src/styles.scss public/styles.css"
   },
   "eslintConfig": {
-    "extends": "react-app"
+    "extends": "react-app",
+    "env": {
+      "browser": true,
+      "node": false
+    },
+    "rules": {
+      "no-unused-vars": [
+        "error",
+        {
+          "argsIgnorePattern": "^_"
+        }
+      ]
+    }
   },
   "eslintIgnore": [
     "public/modernizr-custom.js"
