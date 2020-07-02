@@ -67,7 +67,7 @@ div.authentication {
 
 #sidebar {
   background-color: #f5b43c;
-  width: 400px;
+  //width: 344px;
   min-height: 100vh;
   height: 100%;
 }
@@ -75,7 +75,6 @@ div.authentication {
 .sidebar {
   height: 100%;
   margin-top: 20px;
-  width: 400px;
   .avatar {
     height: 200px;
     width: 200px;
@@ -168,7 +167,7 @@ div.authentication {
 }
 
 #page-sidebar {
-  max-width: 400px;
+  max-width: 344px;
   // width: 350px;
   > div {
     padding: 20px;
