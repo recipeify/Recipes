@@ -86,12 +86,13 @@ async function GetBoxes(size, Country, request, amount) {
       events.tags.forEach((e) => {
         if (nextHoliday.search(e.key) >= 0) {
           e.tags.forEach(async (t) => {
-            holidayRecipes.concat(await innerSearch(t, min - holidayRecipes.length, request));
+            const tempAmount = min - holidayRecipes.length;
+            holidayRecipes.concat(await innerSearch(t, tempAmount, request));
           });
         }
       });
     }
-    retval.explore.push({ name: nextHoliday, recipes: holidayRecipes });
+    retval.explore.push({ type: 'Next Holiday', name: nextHoliday, recipes: holidayRecipes });
     n -= 1;
   }
 
