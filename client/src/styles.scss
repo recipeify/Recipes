@@ -156,6 +156,9 @@ div.authentication {
   .webp & {
     background-image: url('./Spin-1s-300px.webp');
   }
+  &:-moz-loading {
+    visibility: hidden;
+  }
   object-fit: cover;
   width: 300px;
   height: 300px;
