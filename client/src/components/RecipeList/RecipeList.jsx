@@ -58,12 +58,10 @@ class RecipeList extends React.Component {
 
     if (loading) {
       return (
-        <div className="recipe-list-placeholders">
-          <picture>
-            <source srcSet={webpSpin} type="image/webp" />
-            <img src={gifSpin} alt="" />
-          </picture>
-        </div>
+        <picture className="recipe-list-placeholders">
+          <source srcSet={webpSpin} type="image/webp" />
+          <img src={gifSpin} alt="" />
+        </picture>
       );
     }
 
