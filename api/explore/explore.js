@@ -107,7 +107,6 @@ async function GetBoxes(size, Country, request, amount) {
 
   // Fill the boxes
   boxes.forEach(async (box) => {
-
     const res = await innerSearch(box.name, amount, request);
     if (res.length >= min) {
       retval.explore.push({ type: box.type, name: box.name, recipes: res });
