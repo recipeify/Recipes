@@ -34,20 +34,27 @@ class MainPageSidebar extends React.Component {
     this.setState({ collapsed });
   };
 
-  onTitleClick = (key, _event) => {
+  onTitleClick = (clickEvent) => {
     const {
       collapsed,
       openKeys,
     } = this.state;
-    console.log(openKeys);
     if (collapsed) {
       this.setState({ collapsed: !collapsed });
     } else {
-      const index = openKeys.indexOf(key);
+      console.log(clickEvent.key);
+      console.log(openKeys);
+      const index = openKeys.indexOf(clickEvent.key);
       if (index === -1) {
-        this.setState({ openKeys: openKeys.push(key) });
+        this.setState((prevState) => ({ openKeys: [clickEvent.key, ...prevState.openKeys] }));
+        console.log('add');
       } else {
-        this.setState({ openKeys: openKeys.splice(index, 1) });
+        console.log(index);
+        console.log([...openKeys]);
+        this.setState((prevState) => ({
+          openKeys: prevState.openKeys.length === 1 ? [] : [...prevState.openKeys].splice(index-1, 1),
+        }));
+        console.log('remove');
       }
     }
   };
@@ -73,7 +80,7 @@ class MainPageSidebar extends React.Component {
                 </Col>
               </Row>
             </SubMenu>
-            <SubMenu key="moreFilters" icon={<ReconciliationOutlined />} title="Cook by Preferences">
+            <SubMenu key="moreFilters" icon={<ReconciliationOutlined />} title="Cook by Preferences" onTitleClick={this.onTitleClick}>
               <Row gutter={[16, 30]}>
                 <Col span={23}>
                   <PreferenceSelect variant={selectVariants.DIET} openDropdownOnClick />

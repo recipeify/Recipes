@@ -43,12 +43,6 @@
       "node": false
     },
     "rules": {
-      "no-unused-vars": [
-        "error",
-        {
-          "argsIgnorePattern": "^_"
-        }
-      ]
     }
   },
   "eslintIgnore": [
