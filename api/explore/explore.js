@@ -92,8 +92,10 @@ async function GetBoxes(size, Country, request, amount) {
         }
       });
     }
-    retval.explore.push({ type: 'Next Holiday', name: nextHoliday, recipes: holidayRecipes });
-    n -= 1;
+    if (holidayRecipes.length !== 0) {
+      retval.explore.push({ type: 'Next Holiday', name: nextHoliday, recipes: holidayRecipes });
+      n -= 1;
+    }
   }
 
   // Get the n random boxes
