@@ -1,11 +1,12 @@
 const express = require('express');
 const asyncHandler = require('express-async-handler');
 const crypto = require('crypto');
+const moment = require('moment');
 const holiday = require('./next_holiday_calc');
-const MonthJson = require('./ingredients_of_the_month.json');
-const BoxesJson = require('./random_boxes.json');
 const recs = require('../recommend.js');
 const search = require('../search.js');
+const MonthJson = require('./ingredients_of_the_month.json');
+const BoxesJson = require('./random_boxes.json');
 const events = require('../resources/events.json');
 
 
@@ -31,6 +32,31 @@ async function innerSearch(searchString, amount, request) {
   return values.items;
 }
 
+function mealByTime(timeString) {
+  let nextMeal = '';
+  let greet = '';
+  const format = 'HH:mm:ss';
+  const time = moment(timeString, format);
+
+  if (time.isBetween(moment('05:00:00', format), moment('09:59:59', format), null, '[]')) {
+    nextMeal = 'Breakfast';
+    greet = 'Good Morning, try breakfast recipes:';
+  } else if (time.isBetween(moment('10:00:00', format), moment('11:59:59', format), null, '[]')) {
+    nextMeal = 'Brunch';
+    greet = 'Good Morning, try brunch recipes:';
+  } else if (time.isBetween(moment('12:00:00', format), moment('16:59:59', format), null, '[]')) {
+    nextMeal = 'Lunch';
+    greet = 'Good Afternoon, try lunch recipes:';
+  } else if (time.isBetween(moment('17:00:00', format), moment('20:59:59', format), null, '[]')) {
+    nextMeal = 'Dinner';
+    greet = 'Good Evening, try dinner recipes:';
+  } else if (time.isBetween(moment('21:00:00', format), moment('04:59:59', format), null, '[]')) {
+    nextMeal = 'Night Snack';
+    greet = 'Good Night, try night snack recipes:';
+  }
+  return { name: greet, recipes: nextMeal };
+}
+
 function getBox(keys, monthIngs) {
   const key = randomChoice(keys);
   let box;
@@ -43,16 +69,16 @@ function getBox(keys, monthIngs) {
   return { type: key, name: box };
 }
 
-async function GetBoxes(size, dateString, request, amount) {
-  const monthIngs = MonthJson[new Date().toLocaleDateString('default', { month: 'long' })];
+async function GetBoxes(size, Country, request, amount) {
+  const monthIngs = MonthJson[new Date().toLocaleDateString('en-GB', { month: 'long' })];
   const keys = Object.keys(BoxesJson);
   let n = size;
   keys.push('ingredient');
   const retval = {};
-  const nextHoliday = holiday(dateString);
+  const nextHoliday = holiday(Country);
   const boxes = [];
   retval.explore = [];
-  const min = 10;
+  const min = Math.min(10, amount);
 
   if (nextHoliday) {
     const holidayRecipes = await innerSearch(nextHoliday, amount, request);
@@ -65,7 +91,7 @@ async function GetBoxes(size, dateString, request, amount) {
         }
       });
     }
-    retval.explore.push({ type: 'Next Holiday', name: nextHoliday, recipes: holidayRecipes });
+    retval.explore.push({ name: nextHoliday, recipes: holidayRecipes });
     n -= 1;
   }
 
@@ -100,24 +126,32 @@ async function GetBoxes(size, dateString, request, amount) {
 router.post('/', asyncHandler(async (request, response, next) => {
   const {
     size = 10,
-    dateString = '',
+    Country = '',
+    timeString = '',
     amount = 15,
   } = request.body;
 
-  if (!search.isString(dateString)) {
+  if (!search.isString(Country) || !search.isString(timeString)) {
     response.sendStatus(400);
     return;
   }
 
   let retval;
 
-  await GetBoxes(size, dateString, request, amount)
+  await GetBoxes(size, Country, request, amount)
     .then((boxes) => {
       retval = boxes;
     })
     .catch((err) => {
       throw (err);
     });
+
+  const nextMeal = mealByTime(timeString);
+  nextMeal.recipes = await innerSearch(nextMeal.recipes, amount, request);
+
+  if (nextMeal.recipes.length !== 0) {
+    retval.mealByTime = nextMeal;
+  }
 
   let userHash;
 
