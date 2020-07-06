@@ -23,6 +23,7 @@ class ExplorePage extends React.Component {
 
     return (
       <div>
+        <h1 className="explore-title">Explore new recipes</h1>
         {
            explore.filter((box) => (box.recipes.length > 7))
              .map((box) => (<RecipeCarousel recipes={box.recipes} title={box.name} />))
