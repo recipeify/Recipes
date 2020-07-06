@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import InfiniteScroll from 'react-infinite-scroll-component';
+import { message } from 'antd';
 import RecipeCard from './components/RecipeCard';
 import webpSpin from '../../assets/Spin-1s-300px-transparent.webp';
 import gifSpin from '../../assets/Spin-1s-300px-transparent.gif';
@@ -64,6 +65,10 @@ class RecipeList extends React.Component {
         </picture>
       );
     }
+
+    message.config({
+      maxCount: 1,
+    });
 
     return (
       <InfiniteScroll

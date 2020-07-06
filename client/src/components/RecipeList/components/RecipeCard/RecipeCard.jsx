@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-  Card, Modal, Button, Tag, Divider, Row, Col, Tooltip,
+  Card, Modal, Button, Tag, Divider, Row, Col, Tooltip, message,
 } from 'antd';
 import {
   InfoCircleOutlined, StarOutlined, ExportOutlined,
@@ -9,7 +9,7 @@ import {
 } from '@ant-design/icons';
 import capitalize from 'lodash/capitalize';
 import RecipeNames from './RecipeConsts';
-import { getRandomID } from '../../../../common/helpers';
+import { getRandomID, minutesToText } from '../../../../common/helpers';
 
 const { Meta } = Card;
 
@@ -71,7 +71,7 @@ class RecipeCard extends React.Component {
 
     const openRecipe = (e) => {
       e.stopPropagation();
-      window.open(link, 'noopener noreferrer');
+      window.open(link, '_blank');
       if (isLoggedIn) {
         viewRecipe(token, id);
       }
@@ -82,6 +82,8 @@ class RecipeCard extends React.Component {
       if (isLoggedIn) {
         this.setState({ loadRecipeBookChange: true });
         addRecipe(token, id);
+      } else {
+        message.info('To save a recipe, please log in', 5);
       }
     };
 
@@ -90,6 +92,8 @@ class RecipeCard extends React.Component {
       if (isLoggedIn) {
         this.setState({ loadRecipeBookChange: true });
         removeRecipe(token, id);
+      } else {
+        message.info('To save a recipe, please log in', 5);
       }
     };
 
@@ -101,14 +105,24 @@ class RecipeCard extends React.Component {
     const starButton = (save = false, inModal) => {
       if (save) {
         return (
-          <Button className="recipe-button" type={inModal ? 'default' : 'link'} size="large" onClick={saveRecipe}>
+          <Button
+            className={`recipe-button${inModal ? ' modal-star-button' : ''}`}
+            type={inModal ? 'ghost' : 'link'}
+            size="large"
+            onClick={saveRecipe}
+          >
             {/* eslint-disable-next-line max-len */}
             {loadRecipeBookChange && (!showModal || inModal) ? <LoadingOutlined /> : <StarOutlined /> }
           </Button>
         );
       }
       return (
-        <Button className="recipe-button" type={inModal ? 'default' : 'link'} size="large" onClick={unsaveRecipe}>
+        <Button
+          className={`recipe-button${inModal ? ' modal-star-button' : ''}`}
+          type={inModal ? 'ghost' : 'link'}
+          size="large"
+          onClick={unsaveRecipe}
+        >
           {loadRecipeBookChange && (!showModal || inModal) ? <LoadingOutlined /> : <StarFilled /> }
         </Button>
       );
@@ -120,13 +134,13 @@ class RecipeCard extends React.Component {
       }
       if (isSaved) {
         return (
-          <Tooltip title="Remove from My Cook Book">
+          <Tooltip title="Remove from my cookbook">
             {starButton(false, inModal)}
           </Tooltip>
         );
       }
       return (
-        <Tooltip key="star" title="Add to My Cook Book">
+        <Tooltip key="star" title="Add to my cookbook">
           {starButton(true, inModal)}
         </Tooltip>
       );
@@ -174,11 +188,9 @@ class RecipeCard extends React.Component {
           onCancel={this.hideModal}
           footer={[
             getStarButton(true),
-            <Tooltip key="Go" title="Go to recipe">
-              <Button onClick={openRecipe} size="large">
-                <ExportOutlined />
-              </Button>
-            </Tooltip>,
+            <Button onClick={openRecipe} size="large" type="primary" className="recipe-modal-goto-btn">
+              {` View in ${site}`}
+            </Button>,
           ]}
         >
           <img
@@ -216,7 +228,7 @@ class RecipeCard extends React.Component {
               {site}
             </Col>
             <Col span={8}>
-              {totalTime ? `${totalTime} minutes`
+              {totalTime ? minutesToText(totalTime)
                 : (
                   <span>
                     <CloseCircleOutlined />

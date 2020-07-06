@@ -29,14 +29,13 @@ class FilteredSitemapSpider(SitemapSpider):
     def sitemap_filter(self, entries):
         for entry in entries:
             try:
-                date_time = parser.parse(entry['lastmod'], ignoretz=True)
-                time_difference = datetime.now() - date_time
-                if self.init:
-                    if time_difference.days <= (4 * 365):
-                        yield entry
-                else:
+                if not self.init:
+                    date_time = parser.parse(entry['lastmod'], ignoretz=True)
+                    time_difference = datetime.now() - date_time
                     if time_difference.days <= 7:
                         yield entry
+                else:
+                    yield entry
             except KeyError:
                 pass
 

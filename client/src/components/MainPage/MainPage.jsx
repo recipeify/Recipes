@@ -21,7 +21,7 @@ class MainPage extends React.Component {
             <Navigation siteMode="explore" />
           </Header>
           <Layout>
-            <Sider theme="light" id="sidebar" width={400} style={{ height: '100%' }}>
+            <Sider className="ant-sider" theme="light" width="18%" id="sidebar" style={{ height: '100%', maxWidth: '400px', width: '18%' }}>
               <MainPageSidebar />
             </Sider>
             <Layout id="content" style={{ padding: '0 24px 24px' }}>

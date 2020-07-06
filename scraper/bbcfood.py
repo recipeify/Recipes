@@ -9,4 +9,4 @@ class BBCFood(AbstractCrawler):
         rules = [('/recipes/', 'parse_recipes')]
         domains = ['bbc.co.uk']
         process.crawl(FilteredSitemapSpider, es=es, num=self.num, sitemap_urls=URL, sitemap_rules=rules,
-                      sitename='bbcfood', allowed_domains=domains, init=self.flag)
+                      sitename='bbcfood', allowed_domains=domains, init=self.init)

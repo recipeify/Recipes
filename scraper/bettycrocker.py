@@ -9,4 +9,4 @@ class BettyCrocker(AbstractCrawler):
         rules = [('/([0-9a-fA-F]{8}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{12}$)', 'parse_recipes')]
         domains = ['bettycrocker.com']
         process.crawl(FilteredSitemapSpider, es=es, num=self.num, sitemap_urls=URL, sitemap_rules=rules,
-                      sitename='bettycrocker', allowed_domains=domains, init=self.flag)
+                      sitename='bettycrocker', allowed_domains=domains, init=self.init)
