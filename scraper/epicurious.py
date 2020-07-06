@@ -10,4 +10,4 @@ class Epicurious(AbstractCrawler):
         rules = [('https://www\.epicurious\.com/recipes/food/views/', 'parse_recipes')]
         domains = ['epicurious.com']
         process.crawl(FilteredSitemapSpider, es=es, num=self.num, sitemap_urls=URL, sitemap_rules=rules,
-                      sitename='epicurious', allowed_domains=domains, init=self.flag)
+                      sitename='epicurious', allowed_domains=domains, init=self.init)

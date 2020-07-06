@@ -3,7 +3,6 @@
 from scrapy.crawler import CrawlerProcess
 
 import recipescrapers.recipe_scrapers
-import certifi
 from elasticsearch import Elasticsearch
 from dotenv import load_dotenv
 import os
@@ -46,9 +45,7 @@ URLS = {
 def connect_to_es():
     elastic_search_host = os.getenv("ELASTIC_SEARCH_HOST")
     es = Elasticsearch(
-        [elastic_search_host],
-        use_ssl=True,
-        ca_certs=certifi.where())
+        [elastic_search_host])
     return es
 
 
