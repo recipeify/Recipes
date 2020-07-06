@@ -6,7 +6,8 @@ import {
   Row,
   Col,
 } from 'antd';
-import { ShoppingCartOutlined, ReconciliationOutlined } from '@ant-design/icons';
+import IngredientsIcon from '../../../assets/ingredients.svg';
+import SettingsIcon from '../../../assets/cook-settings.svg';
 import PreferenceSelect from '../PreferenceSelect';
 import { selectVariants } from '../PreferenceSelect/PreferenceSelect';
 import TimeSlider from '../TimeSlider';
@@ -52,7 +53,7 @@ class MainPageSidebar extends React.Component {
         console.log(index);
         console.log([...openKeys]);
         this.setState((prevState) => ({
-          openKeys: prevState.openKeys.length === 1 ? [] : [...prevState.openKeys].splice(index-1, 1),
+          openKeys: prevState.openKeys.length === 1 ? [] : [...prevState.openKeys].splice(index - 1, 1),
         }));
         console.log('remove');
       }
@@ -68,7 +69,7 @@ class MainPageSidebar extends React.Component {
       <Sider className="ant-sider" theme="light" width="18%" id="sidebar" style={{ height: '100%', maxWidth: '344px', width: '18%' }} collapsible collapsed={collapsed} onCollapse={this.onCollapse}>
         <div className="sidebar">
           <Menu theme="light" id="sidebar" mode="inline" triggerSubMenuAction="click" openKeys={openKeys}>
-            <SubMenu key="ingredients" icon={<ShoppingCartOutlined />} title="Cook by Ingredients" onTitleClick={this.onTitleClick}>
+            <SubMenu key="ingredients" icon={IngredientsIcon} title="Cook by Ingredients" onTitleClick={this.onTitleClick}>
               <Row gutter={[16, 30]}>
                 <Col span={23}>
                   <PreferenceSelect variant={selectVariants.INCLUDE_INGREDIENTS} />
@@ -80,7 +81,7 @@ class MainPageSidebar extends React.Component {
                 </Col>
               </Row>
             </SubMenu>
-            <SubMenu key="moreFilters" icon={<ReconciliationOutlined />} title="Cook by Preferences" onTitleClick={this.onTitleClick}>
+            <SubMenu key="moreFilters" icon={SettingsIcon} title="Cook by Preferences" onTitleClick={this.onTitleClick}>
               <Row gutter={[16, 30]}>
                 <Col span={23}>
                   <PreferenceSelect variant={selectVariants.DIET} openDropdownOnClick />
