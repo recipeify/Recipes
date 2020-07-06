@@ -298,6 +298,12 @@ button.preference-search-button {
   visibility: visible;
 }
 
+.explore-title {
+  color: #ec7533;
+  font-size: 22px;
+  margin-top: 15px;
+}
+
 .carousel {
   .carousel-button {
     z-index: 1000;
@@ -322,7 +328,16 @@ button.preference-search-button {
      margin-left: 12px;
    }
 
-  //  .slick-cloned {
-  //    display: none !important;
-  //  }
+   .slider-row {
+    align-items: stretch;
+    flex-flow: nowrap;
+    display: flex;
+    padding: 15px
+   }
+
+   .arrow-col {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+   }
 }
