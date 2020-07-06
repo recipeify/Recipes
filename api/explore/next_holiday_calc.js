@@ -11,9 +11,12 @@ function nextHoliday(tz) {
     /* assuming Israeli users are jewish.
         This is obviously false but we'll use it for now */
     let hday = new Hebcal.HDate();
+    hday.il = true;
+    hday.setCity('Jerusalem');
+
     for (let i = 0; i < 21; i += 1) {
-      if (hday.holidays()) {
-        return hday.holidays()[0];
+      if (hday.holidays().length > 0) {
+        return hday.holidays()[0].desc[0].replace(/[0-9]/g, '');
       }
       hday = hday.next();
     }

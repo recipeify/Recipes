@@ -3,10 +3,11 @@ const asyncHandler = require('express-async-handler');
 const crypto = require('crypto');
 const moment = require('moment');
 const holiday = require('./next_holiday_calc');
-const MonthJson = require('./ingredients_of_the_month.json');
-const BoxesJson = require('./random_boxes.json');
 const recs = require('../recommend.js');
 const search = require('../search.js');
+const MonthJson = require('./ingredients_of_the_month.json');
+const BoxesJson = require('./random_boxes.json');
+const events = require('../resources/events.json');
 
 
 const router = express.Router();
@@ -21,7 +22,7 @@ async function innerSearch(searchString, amount, request) {
   const bool = {
     must: {
       simple_query_string: {
-        query: searchString.replace(' ', '+'),
+        query: searchString.replace(' |_', '+'),
         fields: ['title', 'ingredients', 'tags'],
       },
     },
@@ -56,8 +57,20 @@ function mealByTime(timeString) {
   return { name: greet, recipes: nextMeal };
 }
 
+function getBox(keys, monthIngs) {
+  const key = randomChoice(keys);
+  let box;
+
+  if (key === 'ingredient') {
+    box = randomChoice(monthIngs);
+  } else {
+    box = randomChoice(BoxesJson[key]);
+  }
+  return { type: key, name: box };
+}
+
 async function GetBoxes(size, Country, request, amount) {
-  const monthIngs = MonthJson[new Date().toLocaleDateString('default', { month: 'long' })];
+  const monthIngs = MonthJson[new Date().toLocaleDateString('en-GB', { month: 'long' })];
   const keys = Object.keys(BoxesJson);
   let n = size;
   keys.push('ingredient');
@@ -65,24 +78,29 @@ async function GetBoxes(size, Country, request, amount) {
   const nextHoliday = holiday(Country);
   const boxes = [];
   retval.explore = [];
+  const min = Math.min(10, amount);
 
   if (nextHoliday) {
     const holidayRecipes = await innerSearch(nextHoliday, amount, request);
-    retval.explore.push({ name: nextHoliday, recipes: holidayRecipes });
-    n -= 1;
+    if (holidayRecipes.length < min) {
+      events.tags.forEach((e) => {
+        if (nextHoliday.search(e.key) >= 0) {
+          e.tags.forEach(async (t) => {
+            const tempAmount = min - holidayRecipes.length;
+            holidayRecipes.concat(await innerSearch(t, tempAmount, request));
+          });
+        }
+      });
+    }
+    if (holidayRecipes.length !== 0) {
+      retval.explore.push({ type: 'Next Holiday', name: nextHoliday, recipes: holidayRecipes });
+      n -= 1;
+    }
   }
 
   // Get the n random boxes
   while (n > 0) {
-    const key = randomChoice(keys);
-    let box;
-
-    if (key === 'ingredient') {
-      box = randomChoice(monthIngs);
-    } else {
-      box = randomChoice(BoxesJson[key]);
-    }
-
+    const box = getBox(keys, monthIngs);
     // To avoid repetitions
     if (!boxes.includes(box)) {
       boxes.push(box);
@@ -92,9 +110,17 @@ async function GetBoxes(size, Country, request, amount) {
 
   // Fill the boxes
   boxes.forEach(async (box) => {
-    const res = await innerSearch(box, amount, request);
-    const title = box.concat(' recipes:');
-    retval.explore.push({ name: title, recipes: res });
+    const res = await innerSearch(box.name, amount, request);
+    if (res.length >= min) {
+      retval.explore.push({ type: box.type, name: box.name, recipes: res });
+    } else {
+      // Get a different box, hopefully one with more recipes.
+      const newBox = getBox(keys, monthIngs);
+      // To avoid repetitions
+      if (!boxes.includes(box)) {
+        boxes.push(newBox);
+      }
+    }
   });
 
   return retval;
@@ -105,7 +131,7 @@ router.post('/', asyncHandler(async (request, response, next) => {
     size = 10,
     Country = '',
     timeString = '',
-    amount = 30,
+    amount = 15,
   } = request.body;
 
   if (!search.isString(Country) || !search.isString(timeString)) {
