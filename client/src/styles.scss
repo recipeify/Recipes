@@ -72,7 +72,8 @@ div.authentication {
 
 #sidebar {
   background-color: #f5b43c;
-  width: 400px;
+  width: 18%;
+  max-width: 400px;
   min-height: 100vh;
   height: 100%;
 }
@@ -80,8 +81,10 @@ div.authentication {
 .sidebar {
   height: 100%;
   margin-top: 70px;
-  width: 400px;
+  width: 18%;
+  max-width: 400px;
   position: fixed;
+  left:0;
   .avatar {
     height: 200px;
     width: 200px;
@@ -119,17 +122,11 @@ div.authentication {
     z-index: 1000;
     padding-right: 50px;
     padding-bottom : 10px;
-    @media screen and (min-width: 2500px) {
+    @media screen and (min-width: 2650px) {
       width: 85%;
     }
-    @media screen and (min-width: 1920px) and (max-width: 2500px) {
-      width: 80%;
-    }
-    @media screen and (min-width: 1440px) and (max-width: 1919px) {
-      width: 73%;
-    }
-    @media screen and (max-width: 1439px) {
-      width: 70%;
+    @media screen and (max-width: 2649px) {
+      width: 82%;
     }
   }
 }
@@ -162,6 +159,9 @@ div.authentication {
   }
   .webp & {
     background-image: url('./Spin-1s-300px.webp');
+  }
+  &:-moz-loading {
+    visibility: hidden;
   }
   object-fit: cover;
   width: 300px;

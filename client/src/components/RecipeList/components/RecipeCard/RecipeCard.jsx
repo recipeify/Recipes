@@ -83,7 +83,7 @@ class RecipeCard extends React.Component {
         this.setState({ loadRecipeBookChange: true });
         addRecipe(token, id);
       } else {
-        message.info('To save recipe, please log in', 5);
+        message.info('To save a recipe, please log in', 5);
       }
     };
 
@@ -93,7 +93,7 @@ class RecipeCard extends React.Component {
         this.setState({ loadRecipeBookChange: true });
         removeRecipe(token, id);
       } else {
-        message.info('To save recipe, please log in', 5);
+        message.info('To save a recipe, please log in', 5);
       }
     };
 
