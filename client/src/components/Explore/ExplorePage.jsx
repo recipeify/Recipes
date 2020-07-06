@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import RecipeCarousel from '../RecipeCarousel';
 
 class ExplorePage extends React.Component {
-  componentDidUpdate() {
+  componentDidMount() {
     const {
       getExplore, token, authLoading, explore, explorePending,
     } = this.props;
@@ -15,18 +15,18 @@ class ExplorePage extends React.Component {
 
   render() {
     const { explore } = this.props;
-    if (explore.length === 0) {
-      return (
-        <div>loading</div>
-      );
-    }
-
     return (
       <div>
         <h1 className="explore-title">Explore new recipes</h1>
         {
            explore.filter((box) => (box.recipes.length > 7))
-             .map((box) => (<RecipeCarousel recipes={box.recipes} title={box.name} />))
+             .map((box) => (
+               <RecipeCarousel
+                 key={box.name}
+                 recipes={box.recipes}
+                 title={box.name}
+               />
+             ))
         }
       </div>
     );

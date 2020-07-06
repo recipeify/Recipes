@@ -28,10 +28,10 @@ const App = (props) => {
     if (loading !== authLoading) {
       setAuthLoading(loading);
     }
-    if (!isLoggedIn && isAuthenticated && user) {
+    if (!loading && !isLoggedIn && isAuthenticated && user) {
       onLogin(user, getTokenSilently, ingredients, diets);
     }
-    if (isLoggedIn && !isAuthenticated) {
+    if (!loading && isLoggedIn && !isAuthenticated) {
       onLogout(user);
     }
   });

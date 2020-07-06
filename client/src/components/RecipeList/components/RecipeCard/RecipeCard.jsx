@@ -3,11 +3,13 @@ import PropTypes from 'prop-types';
 import {
   Card, Modal, Button, Tag, Divider, Row, Col, Tooltip, message,
 } from 'antd';
+import PropogateLoader from 'react-spinners/PropagateLoader';
 import {
   InfoCircleOutlined, StarOutlined, ExportOutlined,
   CloseCircleOutlined, StarFilled, LoadingOutlined,
 } from '@ant-design/icons';
 import capitalize from 'lodash/capitalize';
+import Img from 'react-image';
 import RecipeNames from './RecipeConsts';
 import { getRandomID, minutesToText } from '../../../../common/helpers';
 
@@ -154,11 +156,42 @@ class RecipeCard extends React.Component {
           loading={loading}
           hoverable
           cover={(
-            <img
+            // <>
+            //   <img
+            //     className="recipe-image"
+            //     display={loading ? 'none' : 'initial'}
+            //     src={imgSrc}
+            //     alt={title}
+            //     onLoad={this.onLoad}
+            //   />
+            //   {
+            //   loading && (
+            //   <div
+            //     className="recipe-image"
+            //     display={loading ? 'initial' : 'none'}
+            //   >
+            //     <PropogateLoader
+            //       size={15}
+            //       color="#ec7533"
+            //     />
+            //   </div>
+            //   )
+            //   }
+            // </>
+            <Img
               className="recipe-image"
               src={imgSrc}
-              alt={title}
-              onLoad={this.onLoad}
+              loader={(
+                <div
+                  className="recipe-image"
+                  display={loading ? 'initial' : 'none'}
+                >
+                  <PropogateLoader
+                    size={15}
+                    color="#ec7533"
+                  />
+                </div>
+              )}
             />
           )}
           actions={[
