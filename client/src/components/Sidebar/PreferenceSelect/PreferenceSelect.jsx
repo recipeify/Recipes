@@ -98,7 +98,7 @@ class PreferenceSelect extends React.Component {
     } = this.props;
     const { data, value, placeholder } = this.state;
     const options = data.map((item) => (
-      <Option value={item.key}>{item.key}</Option>
+      <Option key={item.key} value={item.key}>{item.key}</Option>
     ));
     return (
       <>

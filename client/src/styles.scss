@@ -25,6 +25,13 @@ body {
   margin: 0;
 }
 
+.loading-screen {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
 #header {
   background-color: #ec7533;
   padding-left: 10px;
@@ -154,15 +161,15 @@ div.authentication {
 }
 
 .recipe-image {
-  .no-webp & {
-    background-image: url('./Spin-1s-300px.gif');
-  }
-  .webp & {
-    background-image: url('./Spin-1s-300px.webp');
-  }
   &:-moz-loading {
     visibility: hidden;
   }
+  // .no-webp & {
+  //   background-image: url('./Spin-1s-300px.gif');
+  // }
+  // .webp & {
+  //   background-image: url('./Spin-1s-300px.webp');
+  // }
   object-fit: cover;
   width: 300px;
   height: 300px;
