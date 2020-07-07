@@ -9,7 +9,6 @@ import { Row, Col } from 'antd';
 import { CaretLeftOutlined, CaretRightOutlined } from '@ant-design/icons';
 import { capitalize } from 'lodash';
 import RecipeCard from './RecipeList/components/RecipeCard';
-import spinner from '../assets/Spin-1s-300px-transparent.gif';
 
 class RecipeCarousel extends React.Component {
   constructor(props) {
@@ -28,13 +27,6 @@ class RecipeCarousel extends React.Component {
 
   render() {
     const { recipes, title } = this.props;
-    if (recipes.length === 0) {
-      return (
-        <div className="recipe-list-placeholders">
-          <img src={spinner} alt="" />
-        </div>
-      );
-    }
     const recipeCards = recipes.map(
       (recipe) => <RecipeCard className="carousel-item" key={recipe.id} recipe={recipe} />,
     );

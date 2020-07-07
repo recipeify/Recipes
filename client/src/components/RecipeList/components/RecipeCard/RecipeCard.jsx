@@ -3,13 +3,13 @@ import PropTypes from 'prop-types';
 import {
   Card, Modal, Button, Tag, Divider, Row, Col, Tooltip, message,
 } from 'antd';
-import PropogateLoader from 'react-spinners/PropagateLoader';
+import DotLoader from 'react-spinners/DotLoader';
 import {
   InfoCircleOutlined, StarOutlined, ExportOutlined,
   CloseCircleOutlined, StarFilled, LoadingOutlined,
 } from '@ant-design/icons';
 import capitalize from 'lodash/capitalize';
-import Img from 'react-image';
+// import Img from 'react-image';
 import RecipeNames from './RecipeConsts';
 import { getRandomID, minutesToText } from '../../../../common/helpers';
 
@@ -156,43 +156,24 @@ class RecipeCard extends React.Component {
           loading={loading}
           hoverable
           cover={(
-            <>
-              <img
-                className="recipe-image"
-                display={loading ? 'none' : 'initial'}
-                src={imgSrc}
-                alt={title}
-                onLoad={this.onLoad}
-              />
-              {
-              loading && (
+            <div className="recipe-image-container">
+              <div>
+                <img
+                  className="recipe-image"
+                  src={imgSrc}
+                  alt={title}
+                  onLoad={this.onLoad}
+                />
+              </div>
               <div
-                className="recipe-image"
-                display={loading ? 'initial' : 'none'}
+                className={`loading ${loading ? ' active' : ' hidden'}`}
               >
-                <PropogateLoader
-                  size={15}
+                <DotLoader
+                  size={60}
                   color="#ec7533"
                 />
               </div>
-              )
-              }
-            </>
-            // <Img
-            //   className="recipe-image"
-            //   src={imgSrc}
-            //   loader={(
-            //     <div
-            //       className="recipe-image"
-            //       display={loading ? 'initial' : 'none'}
-            //     >
-            //       <PropogateLoader
-            //         size={15}
-            //         color="#ec7533"
-            //       />
-            //     </div>
-            //   )}
-            // />
+            </div>
           )}
           actions={[
             <Tooltip title="Show info">

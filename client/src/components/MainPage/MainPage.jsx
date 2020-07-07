@@ -14,7 +14,6 @@ const { Header, Sider } = Layout;
 const MainPage = (props) => {
   const { filtersApplied, explore } = props;
   if (explore.length === 0) {
-  // if (true) {
     return (
       <div className="loading-screen">
         <PropogateLoader

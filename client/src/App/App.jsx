@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { createBrowserHistory } from 'history';
@@ -11,6 +11,8 @@ import PrivateRoute from '../PrivateRoute';
 export const history = createBrowserHistory();
 
 const App = (props) => {
+  const [firstEntryDone, markFirstEntryDone] = useState(false);
+
   const {
     isAuthenticated, loading, user, getTokenSilently,
   } = useAuth0();
@@ -20,6 +22,7 @@ const App = (props) => {
       isLoggedIn,
       onLogout,
       onLogin,
+      onUnauthedEntry,
       diets,
       ingredients,
       authLoading,
@@ -28,11 +31,17 @@ const App = (props) => {
     if (loading !== authLoading) {
       setAuthLoading(loading);
     }
-    if (!loading && !isLoggedIn && isAuthenticated && user) {
+    if (!loading && !isLoggedIn && !isAuthenticated && !firstEntryDone) {
+      onUnauthedEntry();
+      markFirstEntryDone(true);
+    }
+    if (!loading && !isLoggedIn && isAuthenticated && user && !firstEntryDone) {
       onLogin(user, getTokenSilently, ingredients, diets);
+      markFirstEntryDone(true);
     }
     if (!loading && isLoggedIn && !isAuthenticated) {
       onLogout(user);
+      markFirstEntryDone(false);
     }
   });
 
@@ -58,13 +67,15 @@ App.propTypes = {
   onLogout: PropTypes.func.isRequired,
   ingredients: PropTypes.arrayOf(PropTypes.object),
   diets: PropTypes.arrayOf(PropTypes.object),
-  authLoading: PropTypes.bool.isRequired,
+  authLoading: PropTypes.bool,
   setAuthLoading: PropTypes.func.isRequired,
+  onUnauthedEntry: PropTypes.func.isRequired,
 };
 
 App.defaultProps = {
   diets: [],
   ingredients: [],
+  authLoading: false,
 };
 
 export default App;

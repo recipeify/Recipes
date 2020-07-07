@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { uniqBy } from 'lodash';
 import RecipeCarousel from '../RecipeCarousel';
 
 class ExplorePage extends React.Component {
@@ -19,7 +20,7 @@ class ExplorePage extends React.Component {
       <div>
         <h1 className="explore-title">Explore new recipes</h1>
         {
-           explore.filter((box) => (box.recipes.length > 7))
+           uniqBy(explore.filter((box) => (box.recipes.length > 7)), 'name')
              .map((box) => (
                <RecipeCarousel
                  key={box.name}
