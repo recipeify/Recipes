@@ -3,23 +3,16 @@
 const express = require('express');
 const asyncHandler = require('express-async-handler');
 const mongoose = require('mongoose');
-const elasticsearch = require('elasticsearch');
 const recombee = require('recombee-api-client');
 const crypto = require('crypto');
 const User = require('./userModel');
+const search = require('../search.js');
 
 const rqs = recombee.requests;
 const recombeeClient = new recombee.ApiClient(process.env.RECOMBEE_DATABASE_ID,
   process.env.RECOMBEE_PRIVATE_TOKEN);
 
-
 const router = express.Router();
-
-const esClient = new elasticsearch.Client({
-  host: process.env.ELASTIC_SEARCH_HOST,
-  log: 'trace',
-  apiVersion: '7.2', // use the same version of your Elasticsearch instance
-});
 
 mongoose.connect(process.env.MONGODB_HOST,
   {
@@ -80,16 +73,7 @@ router.post('/preferences', asyncHandler(async (request, response, next) => {
 router.get('/get_recipes', asyncHandler(async (request, response, next) => {
   await User.findById(request.user.sub, 'recipes').exec()
     .catch((err) => next(err))
-    .then((user) => {
-      const body = {
-        ids: user.recipes,
-      };
-
-      return esClient.mget({
-        index: process.env.ELASTIC_SEARCH_INDEX,
-        body,
-      });
-    })
+    .then((user) => search.searchIdFunc(user.recipes))
     .then((query) => {
       response.send({
         // eslint-disable-next-line no-underscore-dangle

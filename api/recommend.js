@@ -9,25 +9,18 @@ const recombeeClient = new recombee.ApiClient(process.env.RECOMBEE_DATABASE_ID,
   process.env.RECOMBEE_PRIVATE_TOKEN);
 
 async function recPersonal(userHash, count) {
-  let result;
-  await recombeeClient.send(
-    new rqs.RecommendItemsToUser(userHash, count, { scenario: 'personal_view' }),
-  )
-    .then(async (recommendation) => {
-      result = { recipes: recommendation || [] };
-    })
-    .catch(() => {
-      recombeeClient.send(
-        new rqs.RecommendItemsToUser(userHash, count, { scenario: 'homepage_view' }),
-      );
-    })
-    .then((recommendation) => {
-      result = { recipes: recommendation || [] };
-    })
-    .catch((err) => {
-      throw (err);
-    });
-  return result;
+  let recommendation;
+  try {
+    recommendation = await recombeeClient.send(
+      new rqs.RecommendItemsToUser(userHash, count, { scenario: 'personal_view' }),
+    );
+    return { recipes: recommendation || [] };
+  } catch (e) {
+    recommendation = await recombeeClient.send(
+      new rqs.RecommendItemsToUser(userHash, count, { scenario: 'homepage_view' }),
+    );
+    return { recipes: recommendation || [] };
+  }
 }
 
 async function recPopular(userHash, count) {
