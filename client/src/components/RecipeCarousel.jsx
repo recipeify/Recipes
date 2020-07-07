@@ -9,7 +9,6 @@ import { Row, Col } from 'antd';
 import { CaretLeftOutlined, CaretRightOutlined } from '@ant-design/icons';
 import { capitalize } from 'lodash';
 import RecipeCard from './RecipeList/components/RecipeCard';
-import spinner from '../assets/Spin-1s-300px-transparent.gif';
 
 class RecipeCarousel extends React.Component {
   constructor(props) {
@@ -28,13 +27,6 @@ class RecipeCarousel extends React.Component {
 
   render() {
     const { recipes, title } = this.props;
-    if (recipes.length === 0) {
-      return (
-        <div className="recipe-list-placeholders">
-          <img src={spinner} alt="" />
-        </div>
-      );
-    }
     const recipeCards = recipes.map(
       (recipe) => <RecipeCard className="carousel-item" key={recipe.id} recipe={recipe} />,
     );
@@ -97,11 +89,11 @@ class RecipeCarousel extends React.Component {
         <Row className="carousel-title">
           <h1>{capitalize(title)}</h1>
         </Row>
-        <Row justify="space-around" align="middle">
-          <Col flex="24px">
+        <Row className="slider-row" justify="space-around" align="middle">
+          <Col className="arrow-col">
             {prevButton}
           </Col>
-          <Col style={{ width: '97%' }}>
+          <Col>
             <Slider
               className="carousel"
             // eslint-disable-next-line no-return-assign
@@ -111,7 +103,7 @@ class RecipeCarousel extends React.Component {
               {recipeCards}
             </Slider>
           </Col>
-          <Col flex="24px">
+          <Col className="arrow-col">
             {nextButton}
           </Col>
         </Row>

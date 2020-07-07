@@ -44,19 +44,13 @@ class MainPageSidebar extends React.Component {
     if (collapsed) {
       this.setState({ collapsed: !collapsed });
     } else {
-      console.log(clickEvent.key);
-      console.log(openKeys);
       const index = openKeys.indexOf(clickEvent.key);
       if (index === -1) {
         this.setState((prevState) => ({ openKeys: [clickEvent.key, ...prevState.openKeys] }));
-        console.log('add');
       } else {
-        console.log(index);
-        console.log([...openKeys]);
         this.setState((prevState) => ({
           openKeys: prevState.openKeys.length === 1 ? [] : [...prevState.openKeys].splice(index - 1, 1),
         }));
-        console.log('remove');
       }
     }
   };

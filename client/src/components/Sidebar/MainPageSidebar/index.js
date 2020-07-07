@@ -6,6 +6,7 @@ const mapStateToProps = (state) => ({
   user: state.user.user,
 });
 
+
 const mapDispatchToProps = (dispatch) => ({
   getResources: () => dispatch(
     fetchResources(),
