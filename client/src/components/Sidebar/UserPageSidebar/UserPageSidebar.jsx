@@ -33,7 +33,7 @@ class UserPageSiderbar extends React.Component {
     return (
       <div className="sidebar">
         <Row gutter={[16, 30]}>
-          <Col offset={1} span={21} style={{ textAlign: 'center' }}>
+          <Col offset={1} span={21} style={{ textAlign: 'center', marginTop: '10px'}}>
             <Avatar src={user.picture} className="avatar" />
           </Col>
         </Row>
