@@ -49,7 +49,9 @@ class MainPageSidebar extends React.Component {
         this.setState((prevState) => ({ openKeys: [clickEvent.key, ...prevState.openKeys] }));
       } else {
         this.setState((prevState) => ({
-          openKeys: prevState.openKeys.length === 1 ? [] : [...prevState.openKeys].splice(index - 1, 1),
+          openKeys: prevState.openKeys.length === 1
+            ? []
+            : [...prevState.openKeys].splice(index - 1, 1),
         }));
       }
     }

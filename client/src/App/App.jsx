@@ -11,7 +11,6 @@ import PrivateRoute from '../PrivateRoute';
 export const history = createBrowserHistory();
 
 const App = (props) => {
-
   const [firstEntryDone, markFirstEntryDone] = useState(false);
 
   const {
