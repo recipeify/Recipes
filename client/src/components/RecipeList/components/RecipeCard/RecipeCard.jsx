@@ -156,43 +156,43 @@ class RecipeCard extends React.Component {
           loading={loading}
           hoverable
           cover={(
-            // <>
-            //   <img
-            //     className="recipe-image"
-            //     display={loading ? 'none' : 'initial'}
-            //     src={imgSrc}
-            //     alt={title}
-            //     onLoad={this.onLoad}
-            //   />
-            //   {
-            //   loading && (
-            //   <div
-            //     className="recipe-image"
-            //     display={loading ? 'initial' : 'none'}
-            //   >
-            //     <PropogateLoader
-            //       size={15}
-            //       color="#ec7533"
-            //     />
-            //   </div>
-            //   )
-            //   }
-            // </>
-            <Img
-              className="recipe-image"
-              src={imgSrc}
-              loader={(
-                <div
-                  className="recipe-image"
-                  display={loading ? 'initial' : 'none'}
-                >
-                  <PropogateLoader
-                    size={15}
-                    color="#ec7533"
-                  />
-                </div>
-              )}
-            />
+            <>
+              <img
+                className="recipe-image"
+                display={loading ? 'none' : 'initial'}
+                src={imgSrc}
+                alt={title}
+                onLoad={this.onLoad}
+              />
+              {
+              loading && (
+              <div
+                className="recipe-image"
+                display={loading ? 'initial' : 'none'}
+              >
+                <PropogateLoader
+                  size={15}
+                  color="#ec7533"
+                />
+              </div>
+              )
+              }
+            </>
+            // <Img
+            //   className="recipe-image"
+            //   src={imgSrc}
+            //   loader={(
+            //     <div
+            //       className="recipe-image"
+            //       display={loading ? 'initial' : 'none'}
+            //     >
+            //       <PropogateLoader
+            //         size={15}
+            //         color="#ec7533"
+            //       />
+            //     </div>
+            //   )}
+            // />
           )}
           actions={[
             <Tooltip title="Show info">
