@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import RecipeList from './RecipeList';
-import { scrollRecipes, fetchRecipesByFilters } from '../../actions/recipeActions';
+import { scrollRecipes } from '../../actions/recipeActions';
 
 const mapStateToProps = (state, ownProps) => {
   const { siteMode } = ownProps;
@@ -25,33 +25,6 @@ const mapStateToProps = (state, ownProps) => {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  getRecipesByFilters: (
-    freeText,
-    include,
-    exclude,
-    diet,
-    dishType,
-    cuisine,
-    toCookTime,
-    fromCookTime,
-    from,
-    size,
-    token,
-  ) => dispatch(
-    fetchRecipesByFilters(
-      freeText,
-      include,
-      exclude,
-      diet,
-      dishType,
-      cuisine,
-      toCookTime,
-      fromCookTime,
-      from,
-      size,
-      token,
-    ),
-  ),
   scrollRecipes: (
     freeText,
     include,
