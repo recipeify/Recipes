@@ -66,7 +66,7 @@ class MainPageSidebar extends React.Component {
       openKeys,
     } = this.state;
     return (
-      <Sider theme="light" id="sidebar" width={344} collapsible collapsed={collapsed} onCollapse={this.onCollapse}>
+      <Sider theme="light" id="sidebar" width="18%" collapsible collapsed={collapsed} onCollapse={this.onCollapse} style={{ height: '100%', maxWidth: '400px', width: '18%' }}>
         <div className="sidebar">
           <Menu theme="light" id="sidebar" mode="inline" triggerSubMenuAction="click" openKeys={openKeys}>
             <SubMenu key="ingredients" icon={IngredientsIcon} title="Cook by Ingredients" onTitleClick={this.onTitleClick}>

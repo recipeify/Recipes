@@ -72,19 +72,23 @@ div.authentication {
 
 #sidebar {
   background-color: #f5b43c;
-  width: 18%;
-  max-width: 400px;
-  min-height: 100vh;
   height: 100%;
 }
 
 .sidebar {
   height: 100%;
-  margin-top: 70px;
-  width: 18%;
+  padding-top: 70px;
+  padding-bottom: 10%;
   max-width: 400px;
   position: fixed;
   left:0;
+  overflow: auto;
+  @media screen and (min-width: 2650px) {
+    width: 15%;
+  }
+  @media screen and (max-width: 2649px) {
+    width: 18%;
+  }
   .avatar {
     height: 200px;
     width: 200px;
@@ -93,7 +97,8 @@ div.authentication {
   }
   h1 {
     // font-family: 'Manrope', sans-serif;
-    font-size: 20px;
+    font-size: 1.25em;
+    margin-bottom: 20px;
   }
   .ant-collapse {
     display: inline-block;
