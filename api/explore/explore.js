@@ -126,7 +126,7 @@ async function GetBoxes(size, Country, request, amount) {
   return retval;
 }
 
-router.post('/', asyncHandler(async (request, response, next) => {
+router.post('/', asyncHandler(async (request, response) => {
   const {
     size = 10,
     Country = '',
@@ -139,15 +139,7 @@ router.post('/', asyncHandler(async (request, response, next) => {
     return;
   }
 
-  let retval;
-
-  await GetBoxes(size, Country, request, amount)
-    .then((boxes) => {
-      retval = boxes;
-    })
-    .catch((err) => {
-      throw (err);
-    });
+  const retval = await GetBoxes(size, Country, request, amount);
 
   const nextMeal = mealByTime(timeString);
   nextMeal.recipes = await innerSearch(nextMeal.recipes, amount, request);
@@ -164,22 +156,17 @@ router.post('/', asyncHandler(async (request, response, next) => {
     userHash = crypto.createHash('sha256').update('anonymous').digest('hex');
   }
 
-  await recs.recExplore(userHash, amount)
-    .then(async (recommendation) => {
-      if (recommendation.personal.recipes.length !== 0) {
-        let temp = recommendation.personal.recipes.recomms.map((j) => j.id);
-        temp = await search.searchIdFunc(temp);
-        retval.personal = temp.docs;
-      }
-      if (recommendation.popular.recipes.length !== 0) {
-        let temp = recommendation.popular.recipes.recomms.map((j) => j.id);
-        temp = await search.searchIdFunc(temp);
-        retval.popular = temp.docs;
-      }
-    })
-    .catch((err) => {
-      if (err) next(err);
-    });
+  const recommendation = await recs.recExplore(userHash, amount);
+  if (recommendation.personal.recipes.length !== 0) {
+    let temp = recommendation.personal.recipes.recomms.map((j) => j.id);
+    temp = await search.searchIdFunc(temp);
+    retval.personal = temp.docs;
+  }
+  if (recommendation.popular.recipes.length !== 0) {
+    let temp = recommendation.popular.recipes.recomms.map((j) => j.id);
+    temp = await search.searchIdFunc(temp);
+    retval.popular = temp.docs;
+  }
 
   response.send(retval);
 }));

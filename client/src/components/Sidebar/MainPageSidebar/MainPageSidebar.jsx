@@ -19,6 +19,35 @@ class MainPageSidebar extends React.Component {
     getResources();
   }
 
+  componentDidUpdate(prevProps) {
+    const {
+      getRecipesByFilters,
+      freeText,
+      includeTerms,
+      excludeTerms,
+      toCookTime,
+      fromCookTime,
+      diet,
+      cuisine,
+      dishType,
+      token,
+    } = this.props;
+    if (prevProps.token !== token) {
+      return;
+    }
+    getRecipesByFilters(
+      token,
+      freeText,
+      includeTerms,
+      excludeTerms,
+      diet,
+      dishType,
+      cuisine,
+      toCookTime,
+      fromCookTime,
+    );
+  }
+
   render() {
     return (
       <div className="sidebar">
@@ -64,7 +93,17 @@ class MainPageSidebar extends React.Component {
 }
 
 MainPageSidebar.propTypes = {
+  getRecipesByFilters: PropTypes.func.isRequired,
   getResources: PropTypes.func.isRequired,
+  freeText: PropTypes.string,
+  includeTerms: PropTypes.arrayOf(PropTypes.object).isRequired,
+  excludeTerms: PropTypes.arrayOf(PropTypes.object).isRequired,
+  diet: PropTypes.arrayOf(PropTypes.object),
+  dishType: PropTypes.arrayOf(PropTypes.object),
+  cuisine: PropTypes.arrayOf(PropTypes.object),
+  toCookTime: PropTypes.number,
+  fromCookTime: PropTypes.number,
+  token: PropTypes.string,
   user: PropTypes.shape({
     picture: PropTypes.string,
     name: PropTypes.string,
@@ -72,6 +111,13 @@ MainPageSidebar.propTypes = {
 };
 
 MainPageSidebar.defaultProps = {
+  freeText: '',
+  diet: [],
+  dishType: [],
+  cuisine: [],
+  toCookTime: 600,
+  fromCookTime: 0,
+  token: undefined,
   user: {},
 };
 
