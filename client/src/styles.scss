@@ -72,17 +72,21 @@ div.authentication {
 
 #sidebar {
   background-color: #f5b43c;
+  max-width: 400px;
+  min-height: 100vh;
   height: 100%;
 }
 
 .sidebar {
   height: 100%;
-  padding-top: 70px;
-  padding-bottom: 10%;
+  margin-top: 70px;
+  width: 18%;
   max-width: 400px;
   position: fixed;
   left:0;
   overflow: auto;
+  margin-bottom: 100px;
+  padding-bottom: 25px;
   @media screen and (min-width: 2650px) {
     width: 15%;
   }
@@ -90,15 +94,14 @@ div.authentication {
     width: 18%;
   }
   .avatar {
-    height: 200px;
-    width: 200px;
+    height: 13vw;
+    width: 13vw;
     border-radius: 50%;
     margin: 0 auto;
   }
   h1 {
     // font-family: 'Manrope', sans-serif;
-    font-size: 1.25em;
-    margin-bottom: 20px;
+    font-size: 1.15vw;
   }
   .ant-collapse {
     display: inline-block;
@@ -213,7 +216,7 @@ div.authentication {
 }
 
 #page-sidebar {
-  max-width: 344px;
+  max-width: 400px;
   // width: 350px;
   > div {
     padding: 20px;
