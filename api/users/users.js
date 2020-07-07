@@ -73,9 +73,7 @@ router.post('/preferences', asyncHandler(async (request, response, next) => {
 router.get('/get_recipes', asyncHandler(async (request, response, next) => {
   await User.findById(request.user.sub, 'recipes').exec()
     .catch((err) => next(err))
-    .then((user) => {
-      return search.searchIdFunc(user.recipes);
-    })
+    .then((user) => search.searchIdFunc(user.recipes))
     .then((query) => {
       response.send({
         // eslint-disable-next-line no-underscore-dangle
