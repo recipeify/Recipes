@@ -18,7 +18,7 @@ const MainPage = (props) => {
         <Header id="header">
           <Navigation siteMode="explore" />
         </Header>
-        <Layout>
+        <Layout hasSider>
           <MainPageSidebar />
           <Layout id="content" style={{ padding: '0 24px 24px' }}>
             <div>
