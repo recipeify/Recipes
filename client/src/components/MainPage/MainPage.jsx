@@ -13,22 +13,22 @@ const { Header } = Layout;
 const MainPage = (props) => {
   const { filtersApplied } = props;
   return (
-      <>
-        <Layout style={{ height: '100%' }}>
-          <Header id="header">
-            <Navigation siteMode="explore" />
-          </Header>
-          <Layout>
-            <MainPageSidebar />
-            <Layout id="content" style={{ padding: '0 24px 24px' }}>
-              <div>
-                <FreeTextSearch />
-              </div>
-              { filtersApplied ? <RecipeList siteMode="explore" /> : <ExplorePage /> }
-            </Layout>
+    <>
+      <Layout style={{ height: '100%' }}>
+        <Header id="header">
+          <Navigation siteMode="explore" />
+        </Header>
+        <Layout>
+          <MainPageSidebar />
+          <Layout id="content" style={{ padding: '0 24px 24px' }}>
+            <div>
+              <FreeTextSearch />
+            </div>
+            { filtersApplied ? <RecipeList siteMode="explore" /> : <ExplorePage /> }
           </Layout>
         </Layout>
-      </>
+      </Layout>
+    </>
   );
 };
 

@@ -72,7 +72,8 @@ div.authentication {
 
 #sidebar {
   background-color: #f5b43c;
-  max-width: 400px;
+  width: 18%;
+  max-width: 344px;
   min-height: 100vh;
   height: 100%;
 }
@@ -81,27 +82,18 @@ div.authentication {
   height: 100%;
   margin-top: 70px;
   width: 18%;
-  max-width: 400px;
+  max-width: 344px;
   position: fixed;
   left:0;
-  overflow: auto;
-  margin-bottom: 100px;
-  padding-bottom: 25px;
-  @media screen and (min-width: 2650px) {
-    width: 15%;
-  }
-  @media screen and (max-width: 2649px) {
-    width: 18%;
-  }
   .avatar {
-    height: 13vw;
-    width: 13vw;
+    height: 200px;
+    width: 200px;
     border-radius: 50%;
     margin: 0 auto;
   }
   h1 {
     // font-family: 'Manrope', sans-serif;
-    font-size: 1.15vw;
+    font-size: 20px;
   }
   .ant-collapse {
     display: inline-block;
@@ -216,7 +208,7 @@ div.authentication {
 }
 
 #page-sidebar {
-  max-width: 400px;
+  max-width: 344px;
   // width: 350px;
   > div {
     padding: 20px;
@@ -334,5 +326,3 @@ button.preference-search-button {
   //    display: none !important;
   //  }
 }
-
-@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@500&family=Pompiere&display=swap');
