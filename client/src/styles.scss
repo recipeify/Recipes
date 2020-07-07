@@ -1,8 +1,3 @@
-@font-face {
-  font-family: 'sidebar';
-  src: url(https://fonts.googleapis.com/css2?family=Baloo+2:wght@500&display=swap)
-}
-
 * {
   box-sizing: border-box;
 }
@@ -70,16 +65,14 @@ div.authentication {
 }
 
 .recipe-list-placeholders{
-  height: 100vh;
+  height: 100%;
   display: flex;
-  > img {
-    margin: auto;
-  }
+  justify-content: center;
+  align-items: center;  
 }
 
 #sidebar {
   background-color: #f5b43c;
-  width: 18%;
   max-width: 400px;
   min-height: 100vh;
   height: 100%;
@@ -88,7 +81,7 @@ div.authentication {
 .sidebar {
   height: 100%;
   margin-top: 70px;
-  width: 18%;
+  width: 100%;
   max-width: 400px;
   position: fixed;
   left:0;
@@ -160,20 +153,35 @@ div.authentication {
   }
 }
 
-.recipe-image {
-  &:-moz-loading {
-    visibility: hidden;
-  }
-  // .no-webp & {
-  //   background-image: url('./Spin-1s-300px.gif');
-  // }
-  // .webp & {
-  //   background-image: url('./Spin-1s-300px.webp');
-  // }
-  object-fit: cover;
+.recipe-image-container {
   width: 300px;
   height: 300px;
-  background-position: center;
+  position: relative;
+  > div {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  .recipe-image {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+  }
+  .loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff;
+    &.active {
+      z-index: 10;
+    };
+    &.hidden {
+      display: none;
+    }   
+  }
 }
 
 .recipe-modal-image {
@@ -313,7 +321,7 @@ button.preference-search-button {
 
 .carousel {
   .carousel-button {
-    z-index: 1000;
+    z-index: 10;
     color: #fff;
     font-size: 16px;
     background-color: #900c3f !important;

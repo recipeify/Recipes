@@ -16,6 +16,10 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
+  onUnauthedEntry: () => {
+    const date = new Date().toString();
+    dispatch(fetchExplore('', date));
+  },
   onLogin: async (user, getTokenSilently, ingredients, diets) => {
     const token = await getTokenSilently();
     if (token) {
