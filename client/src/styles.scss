@@ -73,27 +73,43 @@ div.authentication {
 
 #sidebar {
   background-color: #f5b43c;
-  max-width: 400px;
   min-height: 100vh;
   height: 100%;
+  overflow: auto;
+  margin-bottom: 100px;
+  padding-bottom: 120px;
+  .ant-menu-inline-collapsed {
+    width: 5vw;
+  }
 }
 
 .sidebar {
-  height: 100%;
-  margin-top: 70px;
-  width: 100%;
-  max-width: 400px;
   position: fixed;
-  left:0;
+  height: 100%;
+  padding-top: 70px;
+  width: 18%;
+  @media screen and (min-width: 2650px) {
+    width: 15%;
+  }
+  @media screen and (max-width: 2649px) {
+    width: 18%;
+  }
   .avatar {
     height: 13vw;
     width: 13vw;
     border-radius: 50%;
     margin: 0 auto;
   }
+
+  .ant-menu-submenu > .ant-menu {
+    background-color: #f5b43c;
+    border-radius: 2px;
+  }
   h1 {
     // font-family: 'Manrope', sans-serif;
-    font-size: 1.25vw;
+    font-size: 1.05vw;
+    margin-bottom: 20px;
+    text-align: center;
   }
   .ant-collapse {
     display: inline-block;
@@ -105,6 +121,7 @@ div.authentication {
 #content {
   background-color: #fcf8f5;
   margin-top: 70px;
+  overflow: hidden;
 }
 
 .search-box {
@@ -114,20 +131,14 @@ div.authentication {
 .search-box-wrapper {
   background-color: #fcf8f5;
   height: 70px;
+  margin-bottom: 30px;
   width: 100%;
   div.ant-row {
-    position: fixed;
+    position: fixed !important;
     background-color: #fcf8f5;
     -webkit-transform: translateZ(0);
-    z-index: 1000;
-    padding-right: 50px;
-    padding-bottom : 10px;
-    @media screen and (min-width: 2650px) {
-      width: 85%;
-    }
-    @media screen and (max-width: 2649px) {
-      width: 82%;
-    }
+    z-index: 1;
+    width: 94%;
   }
 }
 
@@ -223,7 +234,7 @@ div.authentication {
 }
 
 #page-sidebar {
-  max-width: 400px;
+  max-width: 344px;
   // width: 350px;
   > div {
     padding: 20px;
@@ -281,6 +292,7 @@ button.preference-search-button {
 }
 
 .free-text-search {
+  width: 90%;
   .ant-input, .anticon {
     font-size: 20px;
   }
