@@ -192,7 +192,7 @@ router.post('/recently_viewed', asyncHandler(async (request, response, next) => 
 
   const userHash = crypto.createHash('sha256').update(request.user.sub).digest('hex');
   await recombeeClient.send(
-    new rqs.RecommendItemsToUser(userHash, count, { scenario: 'recently_viewed' }),
+    new rqs.RecommendItemsToUser(userHash, count, { scenario: 'recently_viewed', cascadeCreate: true }),
   )
     .then((recommendation) => {
       response.send({ recipes: recommendation.recomms.map((e) => e.id) || [] });
