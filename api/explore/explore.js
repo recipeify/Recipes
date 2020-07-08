@@ -36,7 +36,6 @@ async function innerSearch(searchString, amount, request) {
     const user = await auth.checkJwt(request);
     if (user) {
       await User.findById(user.sub, 'excludeTerms diet', (err, prefs) => {
-        if (err) throw (err);
         if (prefs) {
           if (prefs.excludeTerms.length > 0) {
             bool.must_not = prefs.excludeTerms.map((term) => ({ match: { ingredients: { query: term, fuzziness: 'AUTO:0,4' } } }));

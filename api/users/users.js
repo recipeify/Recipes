@@ -31,10 +31,10 @@ db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 router.get('/preferences', asyncHandler(async (request, response, next) => {
   await User.findById(request.user.sub, 'excludeTerms diet', (err, user) => {
-    if (err) next(err);
-    if (!user) { response.sendStatus(404); } else {
+    if (!user) { response.send({ excludeTerms: [], diet: [] }); } else {
       response.send(user);
     }
+    if (err) next(err);
   });
 }));
 
@@ -84,8 +84,8 @@ router.get('/get_recipes', asyncHandler(async (request, response, next) => {
 
 router.get('/get_recipes_ids', asyncHandler(async (request, response, next) => {
   await User.findById(request.user.sub, 'recipes', (err, recipes) => {
-    if (err) next(err);
     response.send({ recipes: recipes || [] });
+    if (err) next(err);
   });
 }));
 
