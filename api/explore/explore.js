@@ -2,6 +2,8 @@ const express = require('express');
 const asyncHandler = require('express-async-handler');
 const crypto = require('crypto');
 const moment = require('moment');
+const get = require('lodash/get');
+
 const holiday = require('./next_holiday_calc');
 const recs = require('../recommend.js');
 const search = require('../search.js');
@@ -9,6 +11,8 @@ const MonthJson = require('./ingredients_of_the_month.json');
 const BoxesJson = require('./random_boxes.json');
 const events = require('../resources/events.json');
 
+const auth = require('../auth');
+const User = require('../users/userModel');
 
 const router = express.Router();
 
@@ -20,13 +24,58 @@ function randomChoice(arr) {
 
 async function innerSearch(searchString, amount, request) {
   const bool = {
-    must: {
+    must: [{
       simple_query_string: {
         query: searchString.replace(' |_', '+'),
         fields: ['title', 'ingredients', 'tags'],
       },
-    },
+    }],
   };
+
+  try {
+    const user = await auth.checkJwt(request);
+    if (user) {
+      await User.findById(user.sub, 'excludeTerms diet', (err, prefs) => {
+        if (err) throw (err);
+        if (prefs.excludeTerms.length > 0) {
+          bool.must_not = prefs.excludeTerms.map((term) => ({ match: { ingredients: { query: term, fuzziness: 'AUTO:0,4' } } }));
+        }
+        if (prefs.diet.length > 0) {
+          const dietQueryPart = {
+            bool: {
+              must: [],
+            },
+          };
+          prefs.diet.forEach((item) => {
+            if (!get(item, 'tags', null)) {
+              dietQueryPart.bool.must.push(
+                {
+                  bool: {
+                    must: [
+                      { match: { tags: item } },
+                    ],
+                  },
+                },
+              );
+            } else {
+              dietQueryPart.bool.must.push(
+                {
+                  bool: {
+                    should: item.tags.map((tag) => ({ match: { tags: tag } })),
+                    minimum_should_match: 1,
+                  },
+                },
+              );
+            }
+          });
+          bool.must.push(dietQueryPart);
+        }
+      });
+    }
+  } catch (e) {
+    // eslint-disable-next-line no-console
+    console.error('failed to check jwt', e);
+  }
 
   const values = await search.searchFunc(bool, 0, amount, request);
   return values.items;
@@ -40,19 +89,22 @@ function mealByTime(timeString) {
 
   if (time.isBetween(moment('05:00:00', format), moment('09:59:59', format), null, '[]')) {
     nextMeal = 'Breakfast';
-    greet = 'Good Morning, try breakfast recipes:';
+    greet = 'Good morning! here are some breakfast recipes';
   } else if (time.isBetween(moment('10:00:00', format), moment('11:59:59', format), null, '[]')) {
     nextMeal = 'Brunch';
-    greet = 'Good Morning, try brunch recipes:';
+    greet = 'Good morning! here are some brunch recipes';
   } else if (time.isBetween(moment('12:00:00', format), moment('16:59:59', format), null, '[]')) {
     nextMeal = 'Lunch';
-    greet = 'Good Afternoon, try lunch recipes:';
+    greet = 'Good afternoon! here are some lunch recipes';
   } else if (time.isBetween(moment('17:00:00', format), moment('20:59:59', format), null, '[]')) {
     nextMeal = 'Dinner';
-    greet = 'Good Evening, try dinner recipes:';
-  } else if (time.isBetween(moment('21:00:00', format), moment('04:59:59', format), null, '[]')) {
+    greet = 'Good evening! here are some dinner recipes';
+  } else if (time.isBetween(moment('21:00:00', format), moment('23:59:59', format), null, '[]')) {
     nextMeal = 'Night Snack';
-    greet = 'Good Night, try night snack recipes:';
+    greet = 'Good night! here are some night snack recipes';
+  } else if (time.isBetween(moment('00:00:00', format), moment('04:59:59', format), null, '[]')) {
+    nextMeal = 'Night Snack';
+    greet = 'Good night! here are some night snack recipes';
   }
   return { name: greet, recipes: nextMeal };
 }
@@ -63,19 +115,19 @@ function getBox(keys, monthIngs) {
 
   if (key === 'ingredient') {
     box = randomChoice(monthIngs);
-  } else {
-    box = randomChoice(BoxesJson[key]);
+    return { type: 'seasonal ingredient', name: box };
   }
+  box = randomChoice(BoxesJson[key]);
   return { type: key, name: box };
 }
 
-async function GetBoxes(size, Country, request, amount) {
+async function GetBoxes(size, dateString, request, amount) {
   const monthIngs = MonthJson[new Date().toLocaleDateString('en-GB', { month: 'long' })];
   const keys = Object.keys(BoxesJson);
   let n = size;
   keys.push('ingredient');
   const retval = {};
-  const nextHoliday = holiday(Country);
+  const nextHoliday = holiday(dateString);
   const boxes = [];
   retval.explore = [];
   const min = Math.min(10, amount);
@@ -129,27 +181,18 @@ async function GetBoxes(size, Country, request, amount) {
 router.post('/', asyncHandler(async (request, response, next) => {
   const {
     size = 10,
-    Country = '',
-    timeString = '',
+    dateString = '',
     amount = 15,
   } = request.body;
 
-  if (!search.isString(Country) || !search.isString(timeString)) {
+  if (!search.isString(dateString)) {
     response.sendStatus(400);
     return;
   }
 
-  let retval;
+  const retval = await GetBoxes(size, dateString, request, amount);
 
-  await GetBoxes(size, Country, request, amount)
-    .then((boxes) => {
-      retval = boxes;
-    })
-    .catch((err) => {
-      throw (err);
-    });
-
-  const nextMeal = mealByTime(timeString);
+  const nextMeal = mealByTime(new Date(dateString).toTimeString().substr(0, 8));
   nextMeal.recipes = await innerSearch(nextMeal.recipes, amount, request);
 
   if (nextMeal.recipes.length !== 0) {
@@ -158,30 +201,37 @@ router.post('/', asyncHandler(async (request, response, next) => {
 
   let userHash;
 
-  if (request.openid) {
-    userHash = crypto.createHash('sha256').update(request.openid.user.sub).digest('hex');
-  } else {
-    userHash = crypto.createHash('sha256').update('anonymous').digest('hex');
+  try {
+    const user = await auth.checkJwt(request);
+    if (user) {
+      userHash = crypto.createHash('sha256').update(user.sub).digest('hex');
+    } else {
+      userHash = crypto.createHash('sha256').update('anonymous').digest('hex');
+    }
+  } catch (e) {
+  // eslint-disable-next-line no-console
+    console.error('failed to check jwt', e);
   }
+  console.log('HASH');
+  console.log(userHash);
 
-  await recs.recExplore(userHash, amount)
-    .then(async (recommendation) => {
-      if (recommendation.personal.recipes.length !== 0) {
-        let temp = recommendation.personal.recipes.recomms.map((j) => j.id);
-        temp = await search.searchIdFunc(temp);
-        retval.personal = temp.docs;
-      }
-      if (recommendation.popular.recipes.length !== 0) {
-        let temp = recommendation.popular.recipes.recomms.map((j) => j.id);
-        temp = await search.searchIdFunc(temp);
-        retval.popular = temp.docs;
-      }
-    })
-    .catch((err) => {
-      if (err) next(err);
-    });
+  try {
+    const recommendation = await recs.recExplore(userHash, amount);
+    if (recommendation.personal.recipes.length !== 0) {
+      let temp = recommendation.personal.recipes.recomms.map((j) => j.id);
+      temp = await search.searchIdFunc(temp);
+      retval.personal = temp;
+    }
+    if (recommendation.popular.recipes.length !== 0) {
+      let temp = recommendation.popular.recipes.recomms.map((j) => j.id);
+      temp = await search.searchIdFunc(temp);
+      retval.popular = temp;
+    }
 
-  response.send(retval);
+    response.send(retval);
+  } catch (err) {
+    next(err);
+  }
 }));
 
 module.exports.router = router;

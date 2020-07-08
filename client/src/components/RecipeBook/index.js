@@ -4,6 +4,7 @@ import { fetchUserRecipes } from '../../actions/userActions';
 
 const mapStateToProps = (state) => ({
   token: state.user.token,
+  userRecipes: state.user.recipes.items,
 });
 
 const mapDispatchToProps = (dispatch) => ({

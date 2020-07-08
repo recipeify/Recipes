@@ -1,8 +1,3 @@
-@font-face {
-  font-family: 'sidebar';
-  src: url(https://fonts.googleapis.com/css2?family=Baloo+2:wght@500&display=swap)
-}
-
 * {
   box-sizing: border-box;
 }
@@ -23,6 +18,13 @@ body {
 #root {
   min-height: 100%;
   margin: 0;
+}
+
+.loading-screen {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
 
 #header {
@@ -63,16 +65,14 @@ div.authentication {
 }
 
 .recipe-list-placeholders{
-  height: 100vh;
+  height: 100%;
   display: flex;
-  > img {
-    margin: auto;
-  }
+  justify-content: center;
+  align-items: center;  
 }
 
 #sidebar {
   background-color: #f5b43c;
-  width: 18%;
   max-width: 400px;
   min-height: 100vh;
   height: 100%;
@@ -81,7 +81,7 @@ div.authentication {
 .sidebar {
   height: 100%;
   margin-top: 70px;
-  width: 18%;
+  width: 100%;
   max-width: 400px;
   position: fixed;
   left:0;
@@ -93,7 +93,7 @@ div.authentication {
   }
   h1 {
     // font-family: 'Manrope', sans-serif;
-    font-size: 1.25vw;
+    font-size: 20px;
   }
   .ant-collapse {
     display: inline-block;
@@ -153,20 +153,35 @@ div.authentication {
   }
 }
 
-.recipe-image {
-  .no-webp & {
-    background-image: url('./Spin-1s-300px.gif');
-  }
-  .webp & {
-    background-image: url('./Spin-1s-300px.webp');
-  }
-  &:-moz-loading {
-    visibility: hidden;
-  }
-  object-fit: cover;
+.recipe-image-container {
   width: 300px;
   height: 300px;
-  background-position: center;
+  position: relative;
+  > div {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  .recipe-image {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+  }
+  .loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff;
+    &.active {
+      z-index: 10;
+    };
+    &.hidden {
+      display: none;
+    }   
+  }
 }
 
 .recipe-modal-image {
@@ -298,4 +313,59 @@ button.preference-search-button {
   visibility: visible;
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@500&family=Pompiere&display=swap');
+.explore-title {
+  color: #ec7533;
+  font-size: 22px;
+  margin-top: 15px;
+}
+
+.explore-divider {
+  height: 2px !important;
+}
+
+.carousel {
+  .carousel-button {
+    z-index: 10;
+    color: #fff;
+    font-size: 16px;
+    background-color: #900c3f !important;
+    border-color: #900c3f !important;
+    &:hover {
+      background-color: #bd4271 !important;
+      border-color: #900c3f !important;
+    }
+  }
+  .slick-slide {
+    padding: 0 8px;
+    box-sizing: border-box;
+   }
+   .slick-prev, .slick-next {
+     display: none !important;
+   }
+   .carousel-title {
+     > h1 {
+        font-size: 20px;
+     }
+     > h2 {
+       border-right: 1px solid #757073;
+       color:  #757073;
+       font-size: 20px;
+       padding-right: 12px;
+       margin-right: 12px;
+     }
+     
+   }
+
+   .slider-row {
+    align-items: stretch;
+    flex-flow: nowrap;
+    display: flex;
+    padding: 15px
+   }
+
+   .arrow-col {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+   }
+}

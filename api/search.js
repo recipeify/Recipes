@@ -63,6 +63,10 @@ async function searchFunc(bool, from, size, request) {
 }
 
 async function searchIdFunc(ids) {
+  if (!ids.length) {
+    return [];
+  }
+
   const body = {
     ids,
   };
@@ -71,8 +75,8 @@ async function searchIdFunc(ids) {
     index: process.env.ELASTIC_SEARCH_INDEX,
     body,
   });
-
-  return query;
+  // eslint-disable-next-line no-underscore-dangle
+  return query.docs.map((e) => e._source);
 }
 
 // eslint-disable-next-line no-unused-vars
@@ -238,8 +242,7 @@ router.post('/ids', asyncHandler(async (request, response, _next) => {
   const query = searchIdFunc(ids);
 
   response.send({
-    // eslint-disable-next-line no-underscore-dangle
-    items: query.docs.map((e) => e._source),
+    items: query,
   });
 }));
 

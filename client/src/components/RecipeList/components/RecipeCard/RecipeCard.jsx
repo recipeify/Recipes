@@ -3,11 +3,13 @@ import PropTypes from 'prop-types';
 import {
   Card, Modal, Button, Tag, Divider, Row, Col, Tooltip, message,
 } from 'antd';
+import DotLoader from 'react-spinners/DotLoader';
 import {
   InfoCircleOutlined, StarOutlined, ExportOutlined,
   CloseCircleOutlined, StarFilled, LoadingOutlined,
 } from '@ant-design/icons';
 import capitalize from 'lodash/capitalize';
+// import Img from 'react-image';
 import RecipeNames from './RecipeConsts';
 import { getRandomID, minutesToText } from '../../../../common/helpers';
 
@@ -154,12 +156,24 @@ class RecipeCard extends React.Component {
           loading={loading}
           hoverable
           cover={(
-            <img
-              className="recipe-image"
-              src={imgSrc}
-              alt={title}
-              onLoad={this.onLoad}
-            />
+            <div className="recipe-image-container">
+              <div>
+                <img
+                  className="recipe-image"
+                  src={imgSrc}
+                  alt={title}
+                  onLoad={this.onLoad}
+                />
+              </div>
+              <div
+                className={`loading ${loading ? ' active' : ' hidden'}`}
+              >
+                <DotLoader
+                  size={60}
+                  color="#ec7533"
+                />
+              </div>
+            </div>
           )}
           actions={[
             <Tooltip title="Show info">

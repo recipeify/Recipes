@@ -1,5 +1,5 @@
 {
-    "easy": [
+    "easy recipes": [
         "easy",
         "five ingredients",
         "one pan",
@@ -9,17 +9,16 @@
         "three ingredients",
         "two ingredients"
     ],
-    "daily cooking": [
+    "everyday food": [
         "family friendly",
         "kid friendly",
         "meal prep"
     ],
-    "social gathering": [
+    "cook for friends": [
         "appetizer",
         "barbecue",
         "dip",
         "drinks",
-        "game night",
         "party",
         "picnic"
     ],

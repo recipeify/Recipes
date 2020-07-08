@@ -59,7 +59,7 @@ async function recExplore(userHash, count) {
 
 const router = express.Router();
 
-router.post('/personal', asyncHandler(async (request, response, next) => {
+router.post('/personal', asyncHandler(async (request, response) => {
   const {
     count = 10,
   } = request.body;
@@ -71,15 +71,10 @@ router.post('/personal', asyncHandler(async (request, response, next) => {
 
   const userHash = crypto.createHash('sha256').update(request.openid.user.sub).digest('hex');
 
-  await recPersonal(userHash, count)
-    .then(async (recommendation) => {
-      let temp = recommendation.recipes.recomms.map((j) => j.id);
-      temp = await search.searchIdFunc(temp);
-      response.send({ recipes: temp.docs });
-    })
-    .catch((err) => {
-      if (err) next(err);
-    });
+  const recommendation = await recPersonal(userHash, count);
+  let temp = recommendation.recipes.recomms.map((j) => j.id);
+  temp = await search.searchIdFunc(temp);
+  response.send({ recipes: temp.docs });
 }));
 
 router.post('/popular', asyncHandler(async (request, response, next) => {
