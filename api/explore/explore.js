@@ -201,11 +201,19 @@ router.post('/', asyncHandler(async (request, response, next) => {
 
   let userHash;
 
-  if (request.openid) {
-    userHash = crypto.createHash('sha256').update(request.openid.user.sub).digest('hex');
-  } else {
-    userHash = crypto.createHash('sha256').update('anonymous').digest('hex');
+  try {
+    const user = await auth.checkJwt(request);
+    if (user) {
+      userHash = crypto.createHash('sha256').update(user.sub).digest('hex');
+    } else {
+      userHash = crypto.createHash('sha256').update('anonymous').digest('hex');
+    }
+  } catch (e) {
+  // eslint-disable-next-line no-console
+    console.error('failed to check jwt', e);
   }
+  console.log('HASH');
+  console.log(userHash);
 
   try {
     const recommendation = await recs.recExplore(userHash, amount);

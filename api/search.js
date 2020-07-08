@@ -63,6 +63,10 @@ async function searchFunc(bool, from, size, request) {
 }
 
 async function searchIdFunc(ids) {
+  if (!ids.length) {
+    return [];
+  }
+
   const body = {
     ids,
   };
