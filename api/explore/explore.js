@@ -214,8 +214,6 @@ router.post('/', asyncHandler(async (request, response, next) => {
   // eslint-disable-next-line no-console
     console.error('failed to check jwt', e);
   }
-  console.log('HASH');
-  console.log(userHash);
 
   try {
     const recommendation = await recs.recExplore(userHash, amount);
