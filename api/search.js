@@ -48,7 +48,7 @@ async function searchFunc(bool, from, size, request) {
     if (user) {
       // TODO: only query relevant items to make this a bit more effcient
       const result = await User.findById(user.sub, 'recipes');
-      const savedIds = new Set(result.recipes);
+      const savedIds = new Set(result ? result.recipes : []);
       items = items.map((i) => ({ ...i, isSaved: savedIds.has(i.id) }));
     }
   } catch (e) {

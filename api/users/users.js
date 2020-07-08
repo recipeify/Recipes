@@ -31,10 +31,10 @@ db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 router.get('/preferences', asyncHandler(async (request, response, next) => {
   await User.findById(request.user.sub, 'excludeTerms diet', (err, user) => {
-    if (err) next(err);
-    if (!user) { response.sendStatus(404); } else {
+    if (!user) { response.send({ excludeTerms: [], diet: [] }); } else {
       response.send(user);
     }
+    if (err) next(err);
   });
 }));
 
@@ -73,7 +73,7 @@ router.post('/preferences', asyncHandler(async (request, response, next) => {
 router.get('/get_recipes', asyncHandler(async (request, response, next) => {
   await User.findById(request.user.sub, 'recipes').exec()
     .catch((err) => next(err))
-    .then((user) => search.searchIdFunc(user.recipes))
+    .then((user) => search.searchIdFunc(user ? user.recipes : []))
     .then((query) => {
       response.send({
         // eslint-disable-next-line no-underscore-dangle
@@ -84,8 +84,8 @@ router.get('/get_recipes', asyncHandler(async (request, response, next) => {
 
 router.get('/get_recipes_ids', asyncHandler(async (request, response, next) => {
   await User.findById(request.user.sub, 'recipes', (err, recipes) => {
-    if (err) next(err);
     response.send({ recipes: recipes || [] });
+    if (err) next(err);
   });
 }));
 
@@ -192,7 +192,7 @@ router.post('/recently_viewed', asyncHandler(async (request, response, next) => 
 
   const userHash = crypto.createHash('sha256').update(request.user.sub).digest('hex');
   await recombeeClient.send(
-    new rqs.RecommendItemsToUser(userHash, count, { scenario: 'recently_viewed' }),
+    new rqs.RecommendItemsToUser(userHash, count, { scenario: 'recently_viewed', cascadeCreate: true }),
   )
     .then((recommendation) => {
       response.send({ recipes: recommendation.recomms.map((e) => e.id) || [] });

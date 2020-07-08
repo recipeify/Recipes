@@ -12,12 +12,12 @@ async function recPersonal(userHash, count) {
   let recommendation;
   try {
     recommendation = await recombeeClient.send(
-      new rqs.RecommendItemsToUser(userHash, count, { scenario: 'personal_view' }),
+      new rqs.RecommendItemsToUser(userHash, count, { scenario: 'personal_view', cascadeCreate: true }),
     );
     return { recipes: recommendation || [] };
   } catch (e) {
     recommendation = await recombeeClient.send(
-      new rqs.RecommendItemsToUser(userHash, count, { scenario: 'homepage_view' }),
+      new rqs.RecommendItemsToUser(userHash, count, { scenario: 'homepage_view', cascadeCreate: true }),
     );
     return { recipes: recommendation || [] };
   }
@@ -26,7 +26,7 @@ async function recPersonal(userHash, count) {
 async function recPopular(userHash, count) {
   let result;
   await recombeeClient.send(
-    new rqs.RecommendItemsToUser(userHash, count, { scenario: 'popular_view' }),
+    new rqs.RecommendItemsToUser(userHash, count, { scenario: 'popular_view', cascadeCreate: true }),
   )
     .then((recommendation) => {
       result = { recipes: recommendation || [] };
@@ -44,14 +44,12 @@ async function recExplore(userHash, count) {
 
   await recPersonal(userHash, count)
     .then((res) => { result.personal = res; })
-    .catch((err) => {
-      throw (err);
+    .catch(() => {
     });
 
   await recPopular(userHash, count)
     .then((res) => { result.popular = res; })
-    .catch((err) => {
-      throw (err);
+    .catch(() => {
     });
   return result;
 }

@@ -36,39 +36,40 @@ async function innerSearch(searchString, amount, request) {
     const user = await auth.checkJwt(request);
     if (user) {
       await User.findById(user.sub, 'excludeTerms diet', (err, prefs) => {
-        if (err) throw (err);
-        if (prefs.excludeTerms.length > 0) {
-          bool.must_not = prefs.excludeTerms.map((term) => ({ match: { ingredients: { query: term, fuzziness: 'AUTO:0,4' } } }));
-        }
-        if (prefs.diet.length > 0) {
-          const dietQueryPart = {
-            bool: {
-              must: [],
-            },
-          };
-          prefs.diet.forEach((item) => {
-            if (!get(item, 'tags', null)) {
-              dietQueryPart.bool.must.push(
-                {
-                  bool: {
-                    must: [
-                      { match: { tags: item } },
-                    ],
+        if (prefs) {
+          if (prefs.excludeTerms.length > 0) {
+            bool.must_not = prefs.excludeTerms.map((term) => ({ match: { ingredients: { query: term, fuzziness: 'AUTO:0,4' } } }));
+          }
+          if (prefs.diet.length > 0) {
+            const dietQueryPart = {
+              bool: {
+                must: [],
+              },
+            };
+            prefs.diet.forEach((item) => {
+              if (!get(item, 'tags', null)) {
+                dietQueryPart.bool.must.push(
+                  {
+                    bool: {
+                      must: [
+                        { match: { tags: item } },
+                      ],
+                    },
                   },
-                },
-              );
-            } else {
-              dietQueryPart.bool.must.push(
-                {
-                  bool: {
-                    should: item.tags.map((tag) => ({ match: { tags: tag } })),
-                    minimum_should_match: 1,
+                );
+              } else {
+                dietQueryPart.bool.must.push(
+                  {
+                    bool: {
+                      should: item.tags.map((tag) => ({ match: { tags: tag } })),
+                      minimum_should_match: 1,
+                    },
                   },
-                },
-              );
-            }
-          });
-          bool.must.push(dietQueryPart);
+                );
+              }
+            });
+            bool.must.push(dietQueryPart);
+          }
         }
       });
     }
@@ -212,8 +213,6 @@ router.post('/', asyncHandler(async (request, response, next) => {
   // eslint-disable-next-line no-console
     console.error('failed to check jwt', e);
   }
-  console.log('HASH');
-  console.log(userHash);
 
   try {
     const recommendation = await recs.recExplore(userHash, amount);
