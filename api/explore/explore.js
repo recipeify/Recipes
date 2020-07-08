@@ -86,6 +86,8 @@ function mealByTime(timeString) {
   let greet = '';
   const format = 'HH:mm:ss';
   const time = moment(timeString, format);
+  console.log(timeString);
+  console.log(time);
 
   if (time.isBetween(moment('05:00:00', format), moment('09:59:59', format), null, '[]')) {
     nextMeal = 'Breakfast';
@@ -99,7 +101,10 @@ function mealByTime(timeString) {
   } else if (time.isBetween(moment('17:00:00', format), moment('20:59:59', format), null, '[]')) {
     nextMeal = 'Dinner';
     greet = 'Good Evening, try dinner recipes:';
-  } else if (time.isBetween(moment('21:00:00', format), moment('04:59:59', format), null, '[]')) {
+  } else if (time.isBetween(moment('21:00:00', format), moment('23:59:59', format), null, '[]')) {
+    nextMeal = 'Night Snack';
+    greet = 'Good Night, try night snack recipes:';
+  } else if (time.isBetween(moment('00:00:00', format), moment('04:59:59', format), null, '[]')) {
     nextMeal = 'Night Snack';
     greet = 'Good Night, try night snack recipes:';
   }
@@ -189,7 +194,7 @@ router.post('/', asyncHandler(async (request, response) => {
 
   const retval = await GetBoxes(size, dateString, request, amount);
 
-  const nextMeal = mealByTime(dateString);
+  const nextMeal = mealByTime(new Date(dateString).toTimeString().substr(0, 8));
   nextMeal.recipes = await innerSearch(nextMeal.recipes, amount, request);
 
   if (nextMeal.recipes.length !== 0) {
