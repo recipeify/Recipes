@@ -86,9 +86,11 @@ class RecipeCarousel extends React.Component {
 
     return (
       <div className="carousel" key={`carousel-${title}`}>
+        {title && (
         <Row className="carousel-title">
           <h1>{capitalize(title)}</h1>
         </Row>
+        )}
         <Row className="slider-row" justify="space-around" align="middle">
           <Col className="arrow-col">
             {prevButton}

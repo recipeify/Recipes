@@ -151,8 +151,6 @@ Navigation.propTypes = {
     picture: PropTypes.string,
   }).isRequired,
   isLoggedIn: PropTypes.bool.isRequired,
-  onLogin: PropTypes.func.isRequired,
-  onLogout: PropTypes.func.isRequired,
   siteMode: PropTypes.string.isRequired,
   token: PropTypes.string,
   ingredients: PropTypes.arrayOf(PropTypes.object),

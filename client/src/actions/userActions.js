@@ -174,21 +174,21 @@ const fetchUserPreferencesFailure = (error) => ({
 });
 
 
-function fetchUserPreferences(token, diets, ingredients) {
+function fetchUserPreferences(token, dietsDataset, ingredientsDataset) {
   return async (dispatch) => {
     try {
       dispatch(fetchUserPreferencesPending());
       const response = await getUserPreferences(token);
       const { excludeTerms, diet } = response;
       const userDiet = diet.map((item) => {
-        const dietObj = find(diets, { key: item });
+        const dietObj = find(dietsDataset, { key: item });
         if (dietObj) {
           return dietObj;
         }
         return ({ key: item });
       });
       const userBlacklist = excludeTerms.map((item) => {
-        const ingredientObj = find(ingredients, { key: item });
+        const ingredientObj = find(ingredientsDataset, { key: item });
         if (ingredientObj) {
           return ingredientObj;
         }

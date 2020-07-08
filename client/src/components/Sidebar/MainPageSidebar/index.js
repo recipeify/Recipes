@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 import { fetchRecipesByFilters } from '../../../actions/recipeActions';
 import { fetchResources } from '../../../actions/resourceActions';
+import { fetchUserPreferences } from '../../../actions/userActions';
 import MainPageSidebar from './MainPageSidebar';
 
 const mapStateToProps = (state) => ({
@@ -14,6 +15,8 @@ const mapStateToProps = (state) => ({
   fromCookTime: state.filters.fromCookTime,
   token: state.user.token,
   user: state.user.user,
+  dietsDataset: state.resources.diets,
+  ingredientsDataset: state.resources.ingredients,
 });
 
 
@@ -48,6 +51,9 @@ const mapDispatchToProps = (dispatch) => ({
   getResources: () => dispatch(
     fetchResources(),
   ),
+  getUserPreferences: (token, ingredients, diets) => {
+    dispatch(fetchUserPreferences(token, ingredients, diets));
+  },
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MainPageSidebar);

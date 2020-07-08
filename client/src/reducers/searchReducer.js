@@ -114,14 +114,6 @@ export default function searchReducer(state = initialState, action) {
         }
         draft.filtersApplied = true;
         break;
-      case (userActions.FETCH_USER_PREFERENCES_SUCCESS):
-        draft.exclude = uniqBy(draft.exclude.concat(
-          action.payload.excludeTerms.map((term) => ({ ...term, preset: true })),
-        ), 'key');
-        draft.diet = uniqBy(draft.diet.concat(
-          action.payload.diet.map((term) => ({ ...term, preset: true })),
-        ), 'key');
-        break;
       case (searchActions.REMOVE_INGREDIENT_TO_EXCLUDE):
         draft.exclude = draft.exclude.filter((item) => item.key !== action.payload.key);
         filtersAppliedDraft = areFiltersApplied(draft);
@@ -202,6 +194,32 @@ export default function searchReducer(state = initialState, action) {
         if (filtersAppliedDraft !== state.filtersApplied) {
           draft.filtersApplied = filtersAppliedDraft;
         }
+        break;
+      // User preferences
+      case (userActions.FETCH_USER_PREFERENCES_SUCCESS):
+        draft.exclude = uniqBy(draft.exclude.concat(
+          action.payload.excludeTerms.map((term) => ({ ...term, preset: true })),
+        ), 'key');
+        draft.diet = uniqBy(draft.diet.concat(
+          action.payload.diet.map((term) => ({ ...term, preset: true })),
+        ), 'key');
+        break;
+      case (userActions.ADD_USER_BLACKLIST):
+        draft.exclude.push({ ...action.payload, preset: true });
+        break;
+      case (userActions.REMOVE_USER_BLACKLIST):
+        draft.exclude = draft.exclude.filter(
+          (item) => item.key !== action.payload.key,
+        );
+        break;
+      case (userActions.ADD_USER_DIET):
+        draft.diet.push({ ...action.payload, preset: true });
+        break;
+      case (userActions.REMOVE_USER_DIET):
+        draft.diet = draft.diet.filter(
+          (item) => item.key !== action.payload.key,
+        );
+        break;
     }
   });
 }

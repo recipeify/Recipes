@@ -15,9 +15,9 @@ export const fetchExplorePending = () => ({
   type: exploreActions.FETCH_EXPLORE_PENDING,
 });
 
-export const fetchExploreSuccess = (explore) => ({
+export const fetchExploreSuccess = (boxes) => ({
   type: exploreActions.FETCH_EXPLORE_SUCCESS,
-  payload: explore,
+  payload: boxes,
 });
 
 export const fetchExploreFailure = (error) => ({
@@ -30,7 +30,8 @@ export function fetchExplore(token, date) {
     try {
       dispatch(fetchExplorePending());
       const response = await getExplorePage(token, date);
-      return dispatch(fetchExploreSuccess(response.explore));
+      const { explore, popular, personal } = response;
+      return dispatch(fetchExploreSuccess({ explore, popular, personal }));
     } catch (error) {
       return dispatch(fetchExploreFailure(error));
     }

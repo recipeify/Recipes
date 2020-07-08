@@ -126,7 +126,7 @@ async function GetBoxes(size, Country, request, amount) {
   return retval;
 }
 
-router.post('/', asyncHandler(async (request, response) => {
+router.post('/', asyncHandler(async (request, response, next) => {
   const {
     size = 10,
     Country = '',
@@ -156,19 +156,23 @@ router.post('/', asyncHandler(async (request, response) => {
     userHash = crypto.createHash('sha256').update('anonymous').digest('hex');
   }
 
-  const recommendation = await recs.recExplore(userHash, amount);
-  if (recommendation.personal.recipes.length !== 0) {
-    let temp = recommendation.personal.recipes.recomms.map((j) => j.id);
-    temp = await search.searchIdFunc(temp);
-    retval.personal = temp.docs;
-  }
-  if (recommendation.popular.recipes.length !== 0) {
-    let temp = recommendation.popular.recipes.recomms.map((j) => j.id);
-    temp = await search.searchIdFunc(temp);
-    retval.popular = temp.docs;
-  }
+  try {
+    const recommendation = await recs.recExplore(userHash, amount);
+    if (recommendation.personal.recipes.length !== 0) {
+      let temp = recommendation.personal.recipes.recomms.map((j) => j.id);
+      temp = await search.searchIdFunc(temp);
+      retval.personal = temp.docs;
+    }
+    if (recommendation.popular.recipes.length !== 0) {
+      let temp = recommendation.popular.recipes.recomms.map((j) => j.id);
+      temp = await search.searchIdFunc(temp);
+      retval.popular = temp.docs;
+    }
 
-  response.send(retval);
+    response.send(retval);
+  } catch (err) {
+    next(err);
+  }
 }));
 
 module.exports.router = router;

@@ -12,11 +12,20 @@ import TimeSlider from '../TimeSlider';
 const { Panel } = Collapse;
 
 class MainPageSidebar extends React.Component {
-  componentDidMount() {
+  async componentDidMount() {
     const {
       getResources,
+      dietsDataset,
+      ingredientsDataset,
+      getUserPreferences,
+      token,
     } = this.props;
-    getResources();
+    if (dietsDataset.length === 0 || ingredientsDataset.length === 0) {
+      getResources();
+    }
+    if (token) {
+      getUserPreferences(token, ingredientsDataset, dietsDataset);
+    }
   }
 
   componentDidUpdate(prevProps) {
@@ -108,6 +117,9 @@ MainPageSidebar.propTypes = {
     picture: PropTypes.string,
     name: PropTypes.string,
   }),
+  ingredientsDataset: PropTypes.arrayOf(PropTypes.object),
+  dietsDataset: PropTypes.arrayOf(PropTypes.object),
+  getUserPreferences: PropTypes.func.isRequired,
 };
 
 MainPageSidebar.defaultProps = {
@@ -119,6 +131,8 @@ MainPageSidebar.defaultProps = {
   fromCookTime: 0,
   token: undefined,
   user: {},
+  ingredientsDataset: [],
+  dietsDataset: [],
 };
 
 export default MainPageSidebar;

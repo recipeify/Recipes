@@ -6,6 +6,8 @@ const mapStateToProps = (state) => ({
   authLoading: state.user.pending,
   token: state.user.token,
   explore: state.explore.explore,
+  popular: state.explore.popular,
+  personal: state.explore.personal,
   explorePending: state.explore.loading,
   exploreError: state.explore.error,
 });
