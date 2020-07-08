@@ -77,7 +77,7 @@ router.get('/get_recipes', asyncHandler(async (request, response, next) => {
     .then((query) => {
       response.send({
         // eslint-disable-next-line no-underscore-dangle
-        items: query.docs.map((e) => ({ ...e._source, isSaved: true })),
+        items: query.map((e) => ({ ...e._source, isSaved: true })),
       });
     });
 }));

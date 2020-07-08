@@ -20,17 +20,17 @@ class ExplorePage extends React.Component {
       <>
         <div>
           <h1 className="explore-title">Recommended for you</h1>
-          {/* <RecipeCarousel
+          <RecipeCarousel
             key="personal"
             recipes={personal}
-          /> */}
+          />
         </div>
         <div>
           <h1 className="explore-title">Popular on Recipeify</h1>
-          {/* <RecipeCarousel
+          <RecipeCarousel
             key="popular"
             recipes={popular}
-          /> */}
+          />
         </div>
         <div>
           <h1 className="explore-title">Explore new recipes</h1>
