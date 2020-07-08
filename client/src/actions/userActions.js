@@ -3,6 +3,7 @@ import {
   sendView, getUserRecipes, addRecipes, removeRecipes, setUserPreferences, getUserPreferences,
 } from '../service/apiRequests';
 import { updateRecipeSaved } from './recipeActions';
+import { updateExploreSaved } from './exploreActions';
 
 export const userActions = {
   AUTH_LOADING: 'AUTH_LOADING',
@@ -92,6 +93,7 @@ function addRecipe(token, recipeID) {
       dispatch(addRecipePending());
       await addRecipes(token, [recipeID]);
       dispatch(updateRecipeSaved(recipeID, true));
+      dispatch(updateExploreSaved(recipeID, true));
       return dispatch(addRecipeSuccess());
     } catch (error) {
       return dispatch(addRecipeFailure(error));
@@ -123,6 +125,7 @@ function removeRecipe(token, recipeID) {
       dispatch(removeRecipePending());
       await removeRecipes(token, [recipeID]);
       dispatch(updateRecipeSaved(recipeID, false));
+      dispatch(updateExploreSaved(recipeID, false));
       dispatch(removeRecipeUserPage(recipeID));
       return dispatch(removeRecipeSuccess());
     } catch (error) {

@@ -24,7 +24,7 @@ class RecipeBook extends React.Component {
             <Navigation siteMode="myRecipes" />
           </Header>
           <Layout>
-            <Sider theme="light" id="sidebar" width={400} style={{ height: '100%' }}>
+            <Sider theme="light" id="sidebar" width="18%" style={{ height: '100%' }}>
               <UserPageSiderbar />
             </Sider>
             <Layout id="content" style={{ padding: '0 24px 24px' }}>

@@ -35,6 +35,31 @@ export default function exploreReducer(state = initialState, action) {
           draft.mealByTime = action.payload.mealByTime;
         }
         return draft;
+      case exploreActions.UPDATE_EXPLORE_SAVED:
+        draft.explore = draft.explore.map((i) => {
+          i.recipes = i.recipes.map((j) => {
+            if (j.id === action.payload.id) {
+              return { ...j, isSaved: action.payload.value };
+            } return j;
+          });
+          return i;
+        });
+        draft.popular = draft.popular.map((i) => {
+          if (i.id === action.payload.id) {
+            return { ...i, isSaved: action.payload.value };
+          } return i;
+        });
+        draft.personal = draft.personal.map((i) => {
+          if (i.id === action.payload.id) {
+            return { ...i, isSaved: action.payload.value };
+          } return i;
+        });
+        draft.mealByTime.recipes = draft.mealByTime.recipes.map((i) => {
+          if (i.id === action.payload.id) {
+            return { ...i, isSaved: action.payload.value };
+          } return i;
+        });
+        return draft;
       case (exploreActions.FETCH_EXPLORE_FAILURE):
         draft = { ...initialState };
         draft.error = action.payload.error;

@@ -4,6 +4,7 @@ export const exploreActions = {
   FETCH_EXPLORE_PENDING: 'FETCH_EXPLORE_PENDING',
   FETCH_EXPLORE_SUCCESS: 'FETCH_EXPLORE_SUCCESS',
   FETCH_EXPLORE_FAILURE: 'FETCH_EXPLORE_FAILURE',
+  UPDATE_EXPLORE_SAVED: 'UPDATE_EXPLORE_SAVED',
   CLEAR_EXPLORE: 'CLEAR_EXPLORE',
 };
 
@@ -18,6 +19,11 @@ export const fetchExplorePending = () => ({
 export const fetchExploreSuccess = (boxes) => ({
   type: exploreActions.FETCH_EXPLORE_SUCCESS,
   payload: boxes,
+});
+
+export const updateExploreSaved = (id, isSaved) => ({
+  type: exploreActions.UPDATE_EXPLORE_SAVED,
+  payload: { id, value: isSaved },
 });
 
 export const fetchExploreFailure = (error) => ({
