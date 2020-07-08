@@ -17,6 +17,7 @@ class ExplorePage extends React.Component {
 
   render() {
     const {
+      isLoggedIn,
       explore,
       personal,
       mealsByTime,
@@ -38,7 +39,7 @@ class ExplorePage extends React.Component {
             <Divider className="explore-divider" />
           </>
         )}
-        {personal.length > 0 && (
+        {personal.length > 0 && isLoggedIn && (
           <>
             <div>
               <h1 className="explore-title">Recommended for you</h1>
@@ -66,6 +67,7 @@ class ExplorePage extends React.Component {
                   key={box.name}
                   recipes={box.recipes}
                   title={box.name}
+                  type={box.type}
                 />
               ))
           }
@@ -86,6 +88,7 @@ ExplorePage.propTypes = {
   personal: PropTypes.arrayOf(PropTypes.object).isRequired,
   welcome: PropTypes.string.isRequired,
   tryRecipes: PropTypes.arrayOf(PropTypes.object).isRequired,
+  isLoggedIn: PropTypes.bool.isRequired,
 };
 
 export default ExplorePage;

@@ -26,7 +26,7 @@ class RecipeCarousel extends React.Component {
   }
 
   render() {
-    const { recipes, title } = this.props;
+    const { recipes, title, type } = this.props;
     const recipeCards = recipes.map(
       (recipe) => <RecipeCard className="carousel-item" key={recipe.id} recipe={recipe} />,
     );
@@ -88,6 +88,11 @@ class RecipeCarousel extends React.Component {
       <div className="carousel" key={`carousel-${title}`}>
         {title && (
         <Row className="carousel-title">
+          {type && (
+            <>
+              <h2>{capitalize(type)}</h2>
+            </>
+          )}
           <h1>{capitalize(title)}</h1>
         </Row>
         )}
@@ -117,6 +122,11 @@ class RecipeCarousel extends React.Component {
 RecipeCarousel.propTypes = {
   recipes: PropTypes.arrayOf(PropTypes.object).isRequired,
   title: PropTypes.string.isRequired,
+  type: PropTypes.string,
+};
+
+RecipeCarousel.defaultProps = {
+  type: '',
 };
 
 export default RecipeCarousel;

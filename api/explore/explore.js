@@ -115,9 +115,9 @@ function getBox(keys, monthIngs) {
 
   if (key === 'ingredient') {
     box = randomChoice(monthIngs);
-  } else {
-    box = randomChoice(BoxesJson[key]);
+    return { type: 'seasonal ingredient', name: box };
   }
+  box = randomChoice(BoxesJson[key]);
   return { type: key, name: box };
 }
 

@@ -343,8 +343,17 @@ button.preference-search-button {
      display: none !important;
    }
    .carousel-title {
-     font-size: 20px;
-     margin-left: 12px;
+     > h1 {
+        font-size: 20px;
+     }
+     > h2 {
+       border-right: 1px solid #757073;
+       color:  #757073;
+       font-size: 20px;
+       padding-right: 12px;
+       margin-right: 12px;
+     }
+     
    }
 
    .slider-row {

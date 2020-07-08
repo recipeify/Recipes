@@ -16,6 +16,7 @@ const mapStateToProps = (state) => {
     }
   }
   return {
+    isLoggedIn: state.user.loggedIn,
     authLoading: state.user.pending,
     token: state.user.token,
     explore: state.explore.explore,
