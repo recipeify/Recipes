@@ -2,6 +2,8 @@ const express = require('express');
 const asyncHandler = require('express-async-handler');
 const crypto = require('crypto');
 const moment = require('moment');
+const get = require('lodash/get');
+
 const holiday = require('./next_holiday_calc');
 const recs = require('../recommend.js');
 const search = require('../search.js');
@@ -9,6 +11,8 @@ const MonthJson = require('./ingredients_of_the_month.json');
 const BoxesJson = require('./random_boxes.json');
 const events = require('../resources/events.json');
 
+const auth = require('../auth');
+const User = require('../users/userModel');
 
 const router = express.Router();
 
@@ -20,13 +24,58 @@ function randomChoice(arr) {
 
 async function innerSearch(searchString, amount, request) {
   const bool = {
-    must: {
+    must: [{
       simple_query_string: {
         query: searchString.replace(' |_', '+'),
         fields: ['title', 'ingredients', 'tags'],
       },
-    },
+    }],
   };
+
+  try {
+    const user = await auth.checkJwt(request);
+    if (user) {
+      await User.findById(user.sub, 'excludeTerms diet', (err, prefs) => {
+        if (err) throw (err);
+        if (prefs.excludeTerms.length > 0) {
+          bool.must_not = prefs.excludeTerms.map((term) => ({ match: { ingredients: { query: term, fuzziness: 'AUTO:0,4' } } }));
+        }
+        if (prefs.diet.length > 0) {
+          const dietQueryPart = {
+            bool: {
+              must: [],
+            },
+          };
+          prefs.diet.forEach((item) => {
+            if (!get(item, 'tags', null)) {
+              dietQueryPart.bool.must.push(
+                {
+                  bool: {
+                    must: [
+                      { match: { tags: item } },
+                    ],
+                  },
+                },
+              );
+            } else {
+              dietQueryPart.bool.must.push(
+                {
+                  bool: {
+                    should: item.tags.map((tag) => ({ match: { tags: tag } })),
+                    minimum_should_match: 1,
+                  },
+                },
+              );
+            }
+          });
+          bool.must.push(dietQueryPart);
+        }
+      });
+    }
+  } catch (e) {
+    // eslint-disable-next-line no-console
+    console.error('failed to check jwt', e);
+  }
 
   const values = await search.searchFunc(bool, 0, amount, request);
   return values.items;
@@ -160,12 +209,12 @@ router.post('/', asyncHandler(async (request, response) => {
   if (recommendation.personal.recipes.length !== 0) {
     let temp = recommendation.personal.recipes.recomms.map((j) => j.id);
     temp = await search.searchIdFunc(temp);
-    retval.personal = temp.docs;
+    retval.personal = temp;
   }
   if (recommendation.popular.recipes.length !== 0) {
     let temp = recommendation.popular.recipes.recomms.map((j) => j.id);
     temp = await search.searchIdFunc(temp);
-    retval.popular = temp.docs;
+    retval.popular = temp;
   }
 
   response.send(retval);
