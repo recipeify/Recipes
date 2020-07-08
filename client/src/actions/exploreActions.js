@@ -30,8 +30,12 @@ export function fetchExplore(token, date) {
     try {
       dispatch(fetchExplorePending());
       const response = await getExplorePage(token, date);
-      const { explore, popular, personal } = response;
-      return dispatch(fetchExploreSuccess({ explore, popular, personal }));
+      const {
+        explore, popular, personal, mealByTime,
+      } = response;
+      return dispatch(fetchExploreSuccess({
+        explore, popular, personal, mealByTime,
+      }));
     } catch (error) {
       return dispatch(fetchExploreFailure(error));
     }

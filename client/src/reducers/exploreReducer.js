@@ -7,6 +7,7 @@ const initialState = {
   explore: [],
   popular: [],
   personal: [],
+  mealByTime: {},
   loading: false,
   error: null,
 };
@@ -29,6 +30,9 @@ export default function exploreReducer(state = initialState, action) {
         }
         if (get(action.payload, 'personal')) {
           draft.personal = action.payload.personal;
+        }
+        if (get(action.payload, 'mealByTime')) {
+          draft.mealByTime = action.payload.mealByTime;
         }
         return draft;
       case (exploreActions.FETCH_EXPLORE_FAILURE):

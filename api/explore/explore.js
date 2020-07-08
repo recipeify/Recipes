@@ -86,27 +86,25 @@ function mealByTime(timeString) {
   let greet = '';
   const format = 'HH:mm:ss';
   const time = moment(timeString, format);
-  console.log(timeString);
-  console.log(time);
 
   if (time.isBetween(moment('05:00:00', format), moment('09:59:59', format), null, '[]')) {
     nextMeal = 'Breakfast';
-    greet = 'Good Morning, try breakfast recipes:';
+    greet = 'Good morning! here are some breakfast recipes';
   } else if (time.isBetween(moment('10:00:00', format), moment('11:59:59', format), null, '[]')) {
     nextMeal = 'Brunch';
-    greet = 'Good Morning, try brunch recipes:';
+    greet = 'Good morning! here are some brunch recipes';
   } else if (time.isBetween(moment('12:00:00', format), moment('16:59:59', format), null, '[]')) {
     nextMeal = 'Lunch';
-    greet = 'Good Afternoon, try lunch recipes:';
+    greet = 'Good afternoon! here are some lunch recipes';
   } else if (time.isBetween(moment('17:00:00', format), moment('20:59:59', format), null, '[]')) {
     nextMeal = 'Dinner';
-    greet = 'Good Evening, try dinner recipes:';
+    greet = 'Good evening! here are some dinner recipes';
   } else if (time.isBetween(moment('21:00:00', format), moment('23:59:59', format), null, '[]')) {
     nextMeal = 'Night Snack';
-    greet = 'Good Night, try night snack recipes:';
+    greet = 'Good night! here are some night snack recipes';
   } else if (time.isBetween(moment('00:00:00', format), moment('04:59:59', format), null, '[]')) {
     nextMeal = 'Night Snack';
-    greet = 'Good Night, try night snack recipes:';
+    greet = 'Good night! here are some night snack recipes';
   }
   return { name: greet, recipes: nextMeal };
 }

@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Divider } from 'antd';
 import { uniqBy } from 'lodash';
 import RecipeCarousel from '../RecipeCarousel';
 
@@ -15,23 +16,47 @@ class ExplorePage extends React.Component {
   }
 
   render() {
-    const { explore, popular, personal } = this.props;
+    const {
+      explore,
+      personal,
+      mealsByTime,
+      welcome,
+      tryRecipes,
+    } = this.props;
     return (
       <>
-        <div>
-          <h1 className="explore-title">Recommended for you</h1>
-          <RecipeCarousel
-            key="personal"
-            recipes={personal}
-          />
-        </div>
-        <div>
+        {welcome && (
+          <>
+            <div>
+              <h1 className="explore-title">{welcome}</h1>
+              <RecipeCarousel
+                key="time-of-day"
+                recipes={mealsByTime}
+                title={tryRecipes}
+              />
+            </div>
+            <Divider className="explore-divider" />
+          </>
+        )}
+        {personal.length > 0 && (
+          <>
+            <div>
+              <h1 className="explore-title">Recommended for you</h1>
+              <RecipeCarousel
+                key="personal"
+                recipes={personal}
+              />
+            </div>
+            <Divider className="explore-divider" />
+          </>
+        )}
+        {/* <div>
           <h1 className="explore-title">Popular on Recipeify</h1>
           <RecipeCarousel
             key="popular"
             recipes={popular}
           />
-        </div>
+        </div> */}
         <div>
           <h1 className="explore-title">Explore new recipes</h1>
           {
@@ -56,8 +81,11 @@ ExplorePage.propTypes = {
   explore: PropTypes.arrayOf(PropTypes.object).isRequired,
   authLoading: PropTypes.bool.isRequired,
   explorePending: PropTypes.bool.isRequired,
-  popular: PropTypes.arrayOf(PropTypes.object).isRequired,
+  // popular: PropTypes.arrayOf(PropTypes.object).isRequired,
+  mealsByTime: PropTypes.arrayOf(PropTypes.object).isRequired,
   personal: PropTypes.arrayOf(PropTypes.object).isRequired,
+  welcome: PropTypes.string.isRequired,
+  tryRecipes: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 export default ExplorePage;
