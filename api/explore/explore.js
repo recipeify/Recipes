@@ -193,7 +193,7 @@ router.post('/', asyncHandler(async (request, response, next) => {
 
   const retval = await GetBoxes(size, dateString, request, amount);
 
-  const nextMeal = mealByTime(new Date(dateString).toTimeString().substr(0, 8));
+  const nextMeal = mealByTime(dateString.substr(16, 8));
   nextMeal.recipes = await innerSearch(nextMeal.recipes, amount, request);
 
   if (nextMeal.recipes.length !== 0) {
