@@ -118,13 +118,13 @@ function getBox(keys, monthIngs) {
   return { type: key, name: box };
 }
 
-async function GetBoxes(size, Country, request, amount) {
+async function GetBoxes(size, dateString, request, amount) {
   const monthIngs = MonthJson[new Date().toLocaleDateString('en-GB', { month: 'long' })];
   const keys = Object.keys(BoxesJson);
   let n = size;
   keys.push('ingredient');
   const retval = {};
-  const nextHoliday = holiday(Country);
+  const nextHoliday = holiday(dateString);
   const boxes = [];
   retval.explore = [];
   const min = Math.min(10, amount);
@@ -178,19 +178,18 @@ async function GetBoxes(size, Country, request, amount) {
 router.post('/', asyncHandler(async (request, response) => {
   const {
     size = 10,
-    Country = '',
-    timeString = '',
+    dateString = '',
     amount = 15,
   } = request.body;
 
-  if (!search.isString(Country) || !search.isString(timeString)) {
+  if (!search.isString(dateString)) {
     response.sendStatus(400);
     return;
   }
 
-  const retval = await GetBoxes(size, Country, request, amount);
+  const retval = await GetBoxes(size, dateString, request, amount);
 
-  const nextMeal = mealByTime(timeString);
+  const nextMeal = mealByTime(dateString);
   nextMeal.recipes = await innerSearch(nextMeal.recipes, amount, request);
 
   if (nextMeal.recipes.length !== 0) {
