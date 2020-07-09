@@ -27,7 +27,7 @@ async function innerSearch(searchString, amount, request) {
     must: [{
       simple_query_string: {
         query: searchString.replace(' |_', '+'),
-        fields: ['title', 'ingredients', 'tags'],
+        fields: ['ingredients', 'tags'],
       },
     }],
   };
