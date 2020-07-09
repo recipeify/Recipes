@@ -20,11 +20,11 @@ export const selectVariants = {
 
 const selectConfig = {
   [selectVariants.INCLUDE_INGREDIENTS]: {
-    title: 'Add ingredient to include',
+    title: 'Add ingredient',
     color: 'green',
   },
   [selectVariants.EXCLUDE_INGREDIENTS]: {
-    title: 'Add ingredient to exclude',
+    title: 'Exclude Ingredient',
     color: 'volcano',
   },
   [selectVariants.DIET]: {
@@ -37,7 +37,7 @@ const selectConfig = {
     title: 'Search recipes by dish type',
   },
   [selectVariants.PERSONAL_EXCLUDES]: {
-    title: 'Ingerdient blacklist',
+    title: 'Ingredient blacklist',
   },
   [selectVariants.PERSONAL_DIET]: {
     title: 'Dietary preferences',
