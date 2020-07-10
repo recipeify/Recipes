@@ -60,8 +60,8 @@ class MainPageSidebar extends React.Component {
   render() {
     return (
       <div className="sidebar">
-        <Collapse bordered={false} defaultActiveKey={['ingredients', 'moreFilters']}>
-          <Panel header="Cook by ingredients" key="ingredients">
+        <Collapse bordered={false} defaultActiveKey={['ingredients', 'moreFilters']} className="sidebar-collapse">
+          <Panel header="Cook by ingredients" key="ingredients" >
             <Row gutter={[16, 30]}>
               <Col span={23}>
                 <PreferenceSelect variant={selectVariants.INCLUDE_INGREDIENTS} />

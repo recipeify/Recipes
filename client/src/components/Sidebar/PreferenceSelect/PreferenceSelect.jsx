@@ -112,11 +112,14 @@ class PreferenceSelect extends React.Component {
           </Col>
         </Row>
         <Row gutter={[0, 20]}>
-          <Col span={24}>
+          <Col span={24} id={`dropdown-${variant}`} style={{ position: 'relative', overflow: 'visible' }}>
             <Select
               className="search-box"
               showSearch
               allowClear
+              dropdownAlign={{
+                overflow: { adjustY: false, adjustX: false },
+              }}
               onFocus={() => this.handleClick()}
               onBlur={() => this.setState({ value: undefined })}
               value={value}
@@ -131,6 +134,8 @@ class PreferenceSelect extends React.Component {
               notFoundContent={null}
               placeholder={placeholder}
               autoFocus
+              dropdownStyle={{ overflow: 'visible', position: 'relative' }}
+              getPopupContainer={() => document.getElementById(`dropdown-${variant}`)}
             >
               {options}
             </Select>
