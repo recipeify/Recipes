@@ -16,7 +16,7 @@ function nextHoliday(tz) {
 
     for (let i = 0; i < 21; i += 1) {
       if (hday.holidays().length > 0) {
-        return hday.holidays()[0].desc[0].replace(/[0-9]/g, '');
+        return hday.holidays()[0].split(':')[0].desc[0].replace(/[0-9]/g, '');
       }
       hday = hday.next();
     }
