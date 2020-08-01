@@ -8,8 +8,9 @@ import ExplorePage from '../Explore';
 import MainPageSidebar from '../Sidebar/MainPageSidebar';
 import Navigation from '../Navigation';
 import FreeTextSearch from '../Sidebar/FreeTextSearch';
+import SiteFooter from '../SiteFooter';
 
-const { Header, Sider } = Layout;
+const { Header, Sider, Footer } = Layout;
 
 const MainPage = (props) => {
   const { filtersApplied, explore } = props;
@@ -41,6 +42,9 @@ const MainPage = (props) => {
             { filtersApplied ? <RecipeList siteMode="explore" /> : <ExplorePage /> }
           </Layout>
         </Layout>
+        <Footer id="footer">
+          <SiteFooter />
+        </Footer>
       </Layout>
     </>
   );

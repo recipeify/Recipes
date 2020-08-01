@@ -41,6 +41,15 @@ body {
   max-height: 60px !important;
 }
 
+#footer {
+  background-color: rgb(250, 250, 250);
+  color: #000;
+  a {
+    color: #900c3f;
+    font-size: 16px;
+  }
+}
+
 div.authentication {
   button {
     margin-top: 20px;
@@ -386,4 +395,16 @@ button.preference-search-button {
     flex-direction: column;
     justify-content: center;
    }
+}
+
+#privacy {
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 60px;
+  max-width: 750px;
+  font-size: 16px;
+  a {
+    color: #ec7533;
+    font-size: 16px;
+  }
 }

@@ -5,8 +5,9 @@ import { Layout } from 'antd';
 import RecipeList from '../RecipeList';
 import Navigation from '../Navigation';
 import UserPageSiderbar from '../Sidebar/UserPageSidebar';
+import SiteFooter from '../SiteFooter';
 
-const { Header, Sider } = Layout;
+const { Header, Sider, Footer } = Layout;
 
 class RecipeBook extends React.Component {
   componentDidMount() {
@@ -31,6 +32,9 @@ class RecipeBook extends React.Component {
               <RecipeList siteMode="myRecipes" />
             </Layout>
           </Layout>
+          <Footer id="footer">
+            <SiteFooter />
+          </Footer>
         </Layout>
       </>
     );
