@@ -63,7 +63,7 @@ class PreferenceSelect extends React.Component {
   }
 
   onEnterPreference(value) {
-    const { addPreference, appliedPreferenceList } = this.props;
+    const { addPreference } = this.props;
     const { data } = this.state;
     const option = [...data.filter((item) => item.key === value)];
     if (option.length === 0) {
@@ -71,10 +71,8 @@ class PreferenceSelect extends React.Component {
       this.setState({ value: undefined, data: [] });
     }
     if (option[0]) {
-      if (!appliedPreferenceList.includes(option[0])) {
-        addPreference(option[0]);
-        this.setState({ value: null, data: [] });
-      }
+      addPreference(option[0]);
+      this.setState({ value: null, data: [] });
     }
   }
 
