@@ -60,7 +60,7 @@ class MainPageSidebar extends React.Component {
   render() {
     return (
       <div className="sidebar">
-        <Collapse bordered={false} defaultActiveKey={['ingredients', 'moreFilters']}>
+        <Collapse bordered={false} defaultActiveKey={['ingredients', 'moreFilters']} className="sidebar-collapse">
           <Panel header="Cook by ingredients" key="ingredients">
             <Row gutter={[16, 30]}>
               <Col span={23}>
