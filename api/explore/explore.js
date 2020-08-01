@@ -134,7 +134,7 @@ async function GetBoxes(size, dateString, request, amount) {
   const min = Math.min(10, amount);
 
   if (nextHoliday) {
-    const holidayOptions = [nextHoliday.replace(' |_', '+')]
+    const holidayOptions = [nextHoliday.replace(' |_', '+')];
     events.tags.forEach((e) => {
       if (nextHoliday.search(e.key) >= 0) {
         e.tags.forEach(async (t) => {
@@ -142,7 +142,7 @@ async function GetBoxes(size, dateString, request, amount) {
         });
       }
     });
-    const nextHolidaySearsh = holidayOptions.join(" ");
+    const nextHolidaySearsh = holidayOptions.join(' ');
     const holidayRecipes = await innerSearch(nextHolidaySearsh, amount, request);
     if (holidayRecipes.length !== 0) {
       retval.explore.push({ type: 'Next Holiday', name: nextHoliday, recipes: holidayRecipes });
