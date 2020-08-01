@@ -115,6 +115,10 @@ div.authentication {
   }
 }
 
+.sidebar-collapse > .ant-collapse-item > .ant-collapse-content {
+  overflow: visible;
+}
+
 #content {
   background-color: #fcf8f5;
   margin-top: 70px;
@@ -122,6 +126,7 @@ div.authentication {
 
 .search-box {
   width: 100%;
+  overflow: visible;
 }
 
 .search-box-wrapper {
