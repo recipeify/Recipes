@@ -26,7 +26,7 @@ async function innerSearch(searchString, amount, request) {
   const bool = {
     must: [{
       simple_query_string: {
-        query: searchString.replace(' |_', '+'),
+        query: searchString,
         fields: ['ingredients', 'tags'],
       },
     }],
@@ -134,17 +134,16 @@ async function GetBoxes(size, dateString, request, amount) {
   const min = Math.min(10, amount);
 
   if (nextHoliday) {
-    const holidayRecipes = await innerSearch(nextHoliday, amount, request);
-    if (holidayRecipes.length < min) {
-      events.tags.forEach((e) => {
-        if (nextHoliday.search(e.key) >= 0) {
-          e.tags.forEach(async (t) => {
-            const tempAmount = min - holidayRecipes.length;
-            holidayRecipes.concat(await innerSearch(t, tempAmount, request));
-          });
-        }
-      });
-    }
+    const holidayOptions = [nextHoliday.replace(' |_', '+')];
+    events.tags.forEach((e) => {
+      if (nextHoliday.search(e.key) >= 0) {
+        e.tags.forEach(async (t) => {
+          holidayOptions.push(t.replace(' |_', '+'));
+        });
+      }
+    });
+    const nextHolidaySearsh = holidayOptions.join(' ');
+    const holidayRecipes = await innerSearch(nextHolidaySearsh, amount, request);
     if (holidayRecipes.length !== 0) {
       retval.explore.push({ type: 'Next Holiday', name: nextHoliday, recipes: holidayRecipes });
       n -= 1;
@@ -163,7 +162,7 @@ async function GetBoxes(size, dateString, request, amount) {
 
   // Fill the boxes
   boxes.forEach(async (box) => {
-    const res = await innerSearch(box.name, amount, request);
+    const res = await innerSearch(box.name.replace(' |_', '+'), amount, request);
     if (res.length >= min) {
       retval.explore.push({ type: box.type, name: box.name, recipes: res });
     } else {
@@ -194,7 +193,7 @@ router.post('/', asyncHandler(async (request, response, next) => {
   const retval = await GetBoxes(size, dateString, request, amount);
 
   const nextMeal = mealByTime(dateString.substr(16, 8));
-  nextMeal.recipes = await innerSearch(nextMeal.recipes, amount, request);
+  nextMeal.recipes = await innerSearch(nextMeal.recipes.replace(' |_', '+'), amount, request);
 
   if (nextMeal.recipes.length !== 0) {
     retval.mealByTime = nextMeal;
