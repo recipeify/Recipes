@@ -26,14 +26,12 @@ function nextHoliday(tz) {
     let hday = new Hebcal.HDate();
     const tuBAv = new Hebcal.HDate(15, 'Av');
     year.addHoliday(new Hebcal.holidays.Event(tuBAv, "Tu B'Av", Hebcal.holidays.masks.USER_EVENT));
-    console.log(tuBAv.holidays());
     hday.il = true;
     hday.setCity('Jerusalem');
 
     for (let i = 0; i < 21; i += 1) {
       if (hday.holidays().length > 0) {
         const holiday = hday.holidays()[0].desc[0].replace(/[0-9]/g, '').split(':')[0];
-        console.log(holiday);
         if (hebHolidays.includes(holiday)) {
           return holiday;
         }
