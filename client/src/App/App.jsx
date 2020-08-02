@@ -7,6 +7,7 @@ import GA from '../common/GoogleAnalytics';
 import MainPage from '../components/MainPage';
 import RecipeBook from '../components/RecipeBook';
 import PrivateRoute from '../PrivateRoute';
+import Privacy from '../components/Privacy';
 
 export const history = createBrowserHistory();
 
@@ -51,6 +52,7 @@ const App = (props) => {
       <Switch>
         <Route path="/" exact component={MainPage} />
         <PrivateRoute path="/myrecipes" component={RecipeBook} />
+        <Route path="/privacy" component={Privacy} />
       </Switch>
     </BrowserRouter>
   );
