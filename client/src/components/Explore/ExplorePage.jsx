@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Divider } from 'antd';
+import { Divider, message } from 'antd';
 import { uniqBy } from 'lodash';
 import RecipeCarousel from '../RecipeCarousel';
 
@@ -24,6 +24,10 @@ class ExplorePage extends React.Component {
       welcome,
       tryRecipes,
     } = this.props;
+
+    message.config({
+      maxCount: 1,
+    });
     return (
       <>
         {welcome && (
