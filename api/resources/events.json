@@ -102,11 +102,31 @@
     },
     {
       "key": "Hanukkah",
-      "tags": ["hanukkah"]
+      "tags": ["hanukkah", "Chanukah", "fried"]
     },
     {
       "key": "Passover",
-      "tags": ["passover"]
+      "tags": ["passover", "Pesach"]
+    },
+    {
+      "key": "Tu B'Shvat",
+      "tags": ["dried fruit"]
+    },
+    {
+      "key": "Lag B'Omer",
+      "tags": ["bonfire"]
+    },
+    {
+      "key": "Shavuot",
+      "tags": ["cheese"]
+    },
+    {
+      "key": "Yom HaAtzma'ut",
+      "tags": ["barbecue", "barbeque"]
+    },
+    {
+      "key": "Tu B'Av",
+      "tags": ["romantic", "valentine"]
     }
   ]
 }
