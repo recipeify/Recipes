@@ -1,8 +1,9 @@
 # import json
 
 from scrapy.crawler import CrawlerProcess
+from recombee_api_client.api_client import RecombeeClient
 
-import recipescrapers.recipe_scrapers
+import scraper.recipescraper
 from elasticsearch import Elasticsearch
 from dotenv import load_dotenv
 import os
@@ -26,19 +27,19 @@ from .tasty import Tasty
 load_dotenv(dotenv_path='Recipes/scraper/.env')
 
 URLS = {
-    recipescrapers.recipe_scrapers.BBCFood.host(): BBCFood,
-    recipescrapers.recipe_scrapers.BBCGoodFood.host(): BBCGoodFood,
-    recipescrapers.recipe_scrapers.BettyCrocker.host(): BettyCrocker,
-    recipescrapers.recipe_scrapers.BonAppetit.host(): BonAppetit,
-    recipescrapers.recipe_scrapers.AllRecipes.host(): AllRecipes,
-    recipescrapers.recipe_scrapers.BudgetBytes.host(): BudgetBytes,
-    recipescrapers.recipe_scrapers.Cookstr.host(): Cookstr,
-    recipescrapers.recipe_scrapers.CopyKat.host(): CopyKat,
-    recipescrapers.recipe_scrapers.Delish.host(): Delish,
-    recipescrapers.recipe_scrapers.Epicurious.host(): Epicurious,
-    recipescrapers.recipe_scrapers.Food.host(): Food,
-    recipescrapers.recipe_scrapers.FoodNetwork.host(): FoodNetwork,
-    recipescrapers.recipe_scrapers.Tasty.host(): Tasty
+    recipescraper.BBCFood.host(): BBCFood,
+    recipescraper.BBCGoodFood.host(): BBCGoodFood,
+    recipescraper.BettyCrocker.host(): BettyCrocker,
+    recipescraper.BonAppetit.host(): BonAppetit,
+    recipescraper.AllRecipes.host(): AllRecipes,
+    recipescraper.BudgetBytes.host(): BudgetBytes,
+    recipescraper.Cookstr.host(): Cookstr,
+    recipescraper.CopyKat.host(): CopyKat,
+    recipescraper.Delish.host(): Delish,
+    recipescraper.Epicurious.host(): Epicurious,
+    recipescraper.Food.host(): Food,
+    recipescraper.FoodNetwork.host(): FoodNetwork,
+    recipescraper.Tasty.host(): Tasty
 }
 
 
@@ -50,15 +51,16 @@ def connect_to_es():
 
 
 # Default = periodic crawler(init=0), for Testing purposes I am using the initial crawler(init=1)
-def init_crawler(num=0, init=1):
+def init_crawler(num=0, init=0):
     es = connect_to_es()
+    client = RecombeeClient(os.getenv("RECOMBEE_DATABASE_ID"), os.getenv("RECOMBEE_PRIVATE_TOKEN"))
     #Create a crawling process for all crawlers to make use of Scrapy's concurrency
     process = CrawlerProcess(settings=get_project_settings())
     for host, site in URLS.items():
         #Create an instance of each site's crawler
         obj = site(math.floor(num / len(URLS.items())), init)
         #Instruct the process to crawl each individual site, but only start the actual crawling process once they're all ready
-        obj.crawl(es, process)
+        obj.crawl(es, client, process)
     process.start()
     process.stop()
 

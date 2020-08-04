@@ -4,5 +4,5 @@ class AbstractCrawler:
         self.num = num
         self.init = init
 
-    def crawl(self, es, process):
+    def crawl(self, es, client, process):
         raise NotImplementedError("This should be implemented.")
