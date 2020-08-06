@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { editUserPreferences, fetchUserRecipes } from '../../../actions/userActions';
+import { editUserPreferences } from '../../../actions/userActions';
 import { fetchResources } from '../../../actions/resourceActions';
 import UserPageSiderbar from './UserPageSidebar';
 
@@ -11,7 +11,6 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  getUserRecipes: (token) => dispatch(fetchUserRecipes(token)),
   updateUserPreferences: (token, blacklist, diet) => dispatch(editUserPreferences(
     token, blacklist, diet,
   )),

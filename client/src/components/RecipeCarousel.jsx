@@ -121,12 +121,13 @@ class RecipeCarousel extends React.Component {
 
 RecipeCarousel.propTypes = {
   recipes: PropTypes.arrayOf(PropTypes.object).isRequired,
-  title: PropTypes.string.isRequired,
+  title: PropTypes.string,
   type: PropTypes.string,
 };
 
 RecipeCarousel.defaultProps = {
   type: '',
+  title: '',
 };
 
 export default RecipeCarousel;

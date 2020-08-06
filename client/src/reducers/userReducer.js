@@ -18,6 +18,11 @@ const initialState = {
     blacklist: [],
     diet: [],
   },
+  recentlyViewed: {
+    pending: false,
+    error: null,
+    items: [],
+  },
 };
 
 export default function userReducer(state = initialState, action) {
@@ -47,6 +52,21 @@ export default function userReducer(state = initialState, action) {
       case (userActions.FETCH_USER_RECIPES_FAILURE):
         draft.recipes = {
           ...initialState.recipes,
+          error: action.payload.error,
+        };
+        break;
+      case (userActions.FETCH_RECENTLY_VIEWED_PENDING):
+        draft.recentlyViewed.pending = true;
+        break;
+      case (userActions.FETCH_RECENTLY_VIEWED_SUCCESS):
+        draft.recentlyViewed = {
+          ...initialState.recentlyViewed,
+          items: action.payload.recipes,
+        };
+        break;
+      case (userActions.FETCH_RECENTLY_VIEWED_FAILURE):
+        draft.recentlyViewed = {
+          ...initialState.recentlyViewed,
           error: action.payload.error,
         };
         break;

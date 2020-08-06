@@ -11,9 +11,14 @@ const { Header, Sider, Footer } = Layout;
 
 class RecipeBook extends React.Component {
   componentDidMount() {
-    const { getUserRecipes, token } = this.props;
+    const {
+      getUserRecipes,
+      getRecentlyViewed,
+      token,
+    } = this.props;
     if (token) {
       getUserRecipes(token);
+      getRecentlyViewed(token);
     }
   }
 
@@ -44,6 +49,7 @@ class RecipeBook extends React.Component {
 RecipeBook.propTypes = {
   token: PropTypes.string.isRequired,
   getUserRecipes: PropTypes.func.isRequired,
+  getRecentlyViewed: PropTypes.func.isRequired,
 };
 
 export default RecipeBook;

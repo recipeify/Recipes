@@ -91,7 +91,7 @@ ExplorePage.propTypes = {
   mealsByTime: PropTypes.arrayOf(PropTypes.object).isRequired,
   personal: PropTypes.arrayOf(PropTypes.object).isRequired,
   welcome: PropTypes.string.isRequired,
-  tryRecipes: PropTypes.arrayOf(PropTypes.object).isRequired,
+  tryRecipes: PropTypes.string.isRequired,
   isLoggedIn: PropTypes.bool.isRequired,
 };
 

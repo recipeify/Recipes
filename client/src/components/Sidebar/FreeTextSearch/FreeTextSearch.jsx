@@ -26,6 +26,7 @@ class FreeTextSearch extends React.Component {
               placeholder="What do you feel like cooking?"
               onSearch={(value) => this.onSearch(value)}
               allowClear
+              autoFocus
               size="large"
               style={{ marginTop: '20px' }}
             />
