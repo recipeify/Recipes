@@ -97,6 +97,7 @@ export default function searchReducer(state = initialState, action) {
         } else {
           draft.include.push(action.payload);
         }
+        draft.include = uniqBy(draft.include, 'key');
         draft.filtersApplied = true;
         break;
       case (searchActions.REMOVE_INGREDIENT_TO_INCLUDE):
@@ -112,6 +113,7 @@ export default function searchReducer(state = initialState, action) {
         } else {
           draft.exclude.push(action.payload);
         }
+        draft.exclude = uniqBy(draft.exclude, 'key');
         draft.filtersApplied = true;
         break;
       case (searchActions.REMOVE_INGREDIENT_TO_EXCLUDE):
@@ -128,6 +130,7 @@ export default function searchReducer(state = initialState, action) {
         } else {
           draft.diet.push(action.payload);
         }
+        draft.diet = uniqBy(draft.diet, 'key');
         draft.filtersApplied = true;
         break;
       case (searchActions.REMOVE_DIETARY_PREFERENCE):
@@ -144,6 +147,7 @@ export default function searchReducer(state = initialState, action) {
         } else {
           draft.dishType.push(action.payload);
         }
+        draft.dishType = uniqBy(draft.dishType, 'key');
         draft.filtersApplied = true;
         break;
       case (searchActions.REMOVE_DISH_TYPE):
@@ -160,6 +164,8 @@ export default function searchReducer(state = initialState, action) {
         } else {
           draft.cuisine.push(action.payload);
         }
+        draft.cuisine = uniqBy(draft.cuisine, 'key');
+        draft.filtersApplied = true;
         break;
       case (searchActions.REMOVE_CUISINE):
         draft.cuisine = draft.cuisine.filter((item) => item.key !== action.payload.key);
