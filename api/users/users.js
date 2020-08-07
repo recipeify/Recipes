@@ -191,16 +191,16 @@ router.post('/recently_viewed', asyncHandler(async (request, response, next) => 
   } = request.body;
 
   const userHash = crypto.createHash('sha256').update(request.user.sub).digest('hex');
-  await recombeeClient.send(
-    new rqs.RecommendItemsToUser(userHash, count, { scenario: 'recently_viewed', cascadeCreate: true }),
-  )
-    .then((recommendation) => {
-      response.send({ recipes: recommendation.recomms.map((e) => e.id) || [] });
-    })
-    .catch(() => response.send({ recipes: [] }))
-    .catch((err) => {
-      if (err) next(err);
-    });
+  try {
+    const recommendation = await recombeeClient.send(
+      new rqs.RecommendItemsToUser(userHash, count, { scenario: 'recently_viewed', cascadeCreate: true }),
+    );
+    const ids = recommendation.recipes.recomms.map((j) => j.id);
+    const recipes = await search.searchIdFunc(ids);
+    response.send({ recipes: recipes.docs });
+  } catch (e) {
+    response.send({ recipes: [] });
+  }
 }));
 
 module.exports.router = router;
