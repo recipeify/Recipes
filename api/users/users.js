@@ -198,8 +198,12 @@ router.post('/recently_viewed', asyncHandler(async (request, response, next) => 
     const ids = recommendation.recipes.recomms.map((j) => j.id);
     const recipes = await search.searchIdFunc(ids);
     response.send({ recipes: recipes.docs });
-  } catch (e) {
-    response.send({ recipes: [] });
+  } catch (err) {
+    try {
+      response.send({ recipes: [] });
+    } catch (e) {
+      next(e);
+    }
   }
 }));
 
