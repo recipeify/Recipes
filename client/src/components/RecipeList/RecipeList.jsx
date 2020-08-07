@@ -50,7 +50,7 @@ class RecipeList extends React.Component {
 
     if (error) {
       return (
-        <div>
+        <div style={{ paddingTop: '20px', marginTop: 'auto' }}>
           Error!
           {error.message}
         </div>
@@ -63,6 +63,14 @@ class RecipeList extends React.Component {
           <source srcSet={webpSpin} type="image/webp" />
           <img src={gifSpin} alt="" />
         </picture>
+      );
+    }
+
+    if (recipes.length === 0) {
+      return (
+        <div style={{ paddingTop: '20px' }}>
+          <h3> No recipes matches your criteria :( </h3>
+        </div>
       );
     }
 

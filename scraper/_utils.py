@@ -1,6 +1,7 @@
 from datetime import datetime
 import json
 from elasticsearch import exceptions
+from recombee_api_client.api_requests import SetItemValues
 import logging
 
 PLACEHOLDER_IMAGE_URL = {
@@ -13,15 +14,15 @@ PLACEHOLDER_IMAGE_URL = {
     'cookstr': '',
     'copykat': 'https://copykat.com/wp-content/uploads/2018/06/image-coming-soon.jpg',
     'delish': '',
-    'epicurious':'https://www.epicurious.com/static/img/misc/epicurious-social-logo.png',
-    'food':'https://img.sndimg.com/food/image/upload/q_92,fl_progressive,w_1200,c_scale/v1/gk-static/fdc-new/img/fdc-shareGraphic.png',
-    'foodnetwork':'https://food.fnr.sndimg.com/content/dam/images/food/editorial/homepage/fn-feature.jpg.rend.hgtvcom.406.229.suffix/1474463768097.jpeg',
-    'tasty':''
+    'epicurious': 'https://www.epicurious.com/static/img/misc/epicurious-social-logo.png',
+    'food': 'https://img.sndimg.com/food/image/upload/q_92,fl_progressive,w_1200,c_scale/v1/gk-static/fdc-new/img/fdc-shareGraphic.png',
+    'foodnetwork': 'https://food.fnr.sndimg.com/content/dam/images/food/editorial/homepage/fn-feature.jpg.rend.hgtvcom.406.229.suffix/1474463768097.jpeg',
+    'tasty': ''
 
 }
 
 
-def insert_to_es(es, s, name):
+def insert_to_es(es, client, s, name):
     r = {}
 
     # Not Sure about this one. Scrapy seems to have trouble finding 'new' recipes quick enough.
@@ -102,8 +103,19 @@ def insert_to_es(es, s, name):
 
     try:
         s = es.create(index='recipes', id=r['id'], body=json.dumps(r))
+        t = client.send(SetItemValues(r['id'],
+                                      {
+                                          'title': r['title'],
+                                          'ingredients': r['ingredients'],
+                                          'link': r['link'],
+                                          'image': r['image'],
+                                          'tags': r['tags'],
+                                          'total_time': r['total_time'],
+                                          'rating': r['rating'],
+                                          'time_acquired': r['time_acquired'],
+                                      },
+                                      cascade_create=True))
     except exceptions.ConflictError as e:
         if e.status_code == 409:
             return False
-
     return True

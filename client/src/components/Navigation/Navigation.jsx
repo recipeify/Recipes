@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable react/no-unused-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -136,7 +138,9 @@ const Navigation = (props) => {
   return (
     <Row className="ant-row">
       <Col flex="100px">
-        <img src={logo} alt="recipeify" id="logo" />
+        <Link to="/">
+          <img src={logo} alt="recipeify" id="logo" />
+        </Link>
       </Col>
       {isAuthenticated ? loggedInRow() : notLoggedInRow}
     </Row>
