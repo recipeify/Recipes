@@ -57,8 +57,8 @@ const App = (props) => {
       <Switch>
         <Route path="/" exact component={MainPage} />
         <PrivateRoute path="/myrecipes" component={RecipeBook} />
-        <Route component={NotFound} />
         <Route path="/privacy" component={Privacy} />
+        <Route component={NotFound} />
       </Switch>
     </BrowserRouter>
   );
