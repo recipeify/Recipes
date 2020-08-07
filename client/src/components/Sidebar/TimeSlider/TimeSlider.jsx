@@ -51,14 +51,14 @@ class TimeSlider extends React.Component {
 
       <>
         <Row>
-          <Col span={20}>
+          <Col span={18}>
             <h1
               className="search-box-label"
             >
               Cooking time limit
             </h1>
           </Col>
-          <Col span={4}>
+          <Col span={5}>
             <Switch
               id="time-switch"
               unCheckedChildren="Any"

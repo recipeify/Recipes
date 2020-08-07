@@ -90,7 +90,7 @@ class MainPageSidebar extends React.Component {
               </Col>
             </Row>
             <Row gutter={[16, 30]}>
-              <Col span={23}>
+              <Col span={24}>
                 <TimeSlider />
               </Col>
             </Row>
