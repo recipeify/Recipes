@@ -133,7 +133,6 @@ class PreferenceSelect extends React.Component {
               }}
               notFoundContent={null}
               placeholder={placeholder}
-              autoFocus
               dropdownStyle={{ overflow: 'visible', position: 'relative' }}
               getPopupContainer={() => document.getElementById(`dropdown-${variant}`)}
             >

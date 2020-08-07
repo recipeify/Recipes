@@ -1,6 +1,12 @@
 import { find } from 'lodash';
 import {
-  sendView, getUserRecipes, addRecipes, removeRecipes, setUserPreferences, getUserPreferences,
+  sendView,
+  getUserRecipes,
+  addRecipes,
+  removeRecipes,
+  setUserPreferences,
+  getUserPreferences,
+  getRecentlyViewed,
 } from '../service/apiRequests';
 import { updateRecipeSaved } from './recipeActions';
 import { updateExploreSaved } from './exploreActions';
@@ -22,6 +28,9 @@ export const userActions = {
   FETCH_USER_RECIPES_PENDING: 'FETCH_USER_RECIPES_PENDING',
   FETCH_USER_RECIPES_SUCCESS: 'FETCH_USER_RECIPES_SUCCESS',
   FETCH_USER_RECIPES_FAILURE: 'FETCH_USER_RECIPES_FAILURE',
+  FETCH_RECENTLY_VIEWED_PENDING: 'FETCH_RECENTLY_VIEWED_PENDING',
+  FETCH_RECENTLY_VIEWED_SUCCESS: 'FETCH_RECENTLY_VIEWED_SUCCESS',
+  FETCH_RECENTLY_VIEWED_FAILURE: 'FETCH_RECENTLY_VIEWED_FAILURE',
   FETCH_USER_PREFERENCES_PENDING: 'FETCH_USER_PREFERENCES_PENDING',
   FETCH_USER_PREFERENCES_SUCCESS: 'FETCH_USER_PREFERENCES_SUCCESS',
   FETCH_USER_PREFERENCES_FAILURE: 'FETCH_USER_PREFERENCES_FAILURE',
@@ -162,6 +171,31 @@ const fetchUserRecipes = (token) => {
   };
 };
 
+const fetchRecentlyViewedPending = () => ({
+  type: userActions.FETCH_RECENTLY_VIEWED_PENDING,
+});
+
+const fetchRecentlyViewedSuccess = (recipes) => ({
+  type: userActions.FETCH_RECENTLY_VIEWED_SUCCESS,
+  payload: { recipes },
+});
+
+const fetchRecentlyViewedFailure = (error) => ({
+  type: userActions.FETCH_RECENTLY_VIEWED_FAILURE,
+  payload: { error },
+});
+
+const fetchRecentlyViewed = (token) => async (dispatch) => {
+  try {
+    dispatch(fetchRecentlyViewedPending());
+    const response = await getRecentlyViewed(token);
+    dispatch(fetchRecentlyViewedSuccess(response.items));
+    return response.recipes;
+  } catch (error) {
+    return dispatch(fetchRecentlyViewedFailure(error));
+  }
+};
+
 const fetchUserPreferencesPending = () => ({
   type: userActions.FETCH_USER_PREFERENCES_PENDING,
 });
@@ -265,5 +299,6 @@ export {
   addUserBlacklistItem,
   removeUserBlacklistItem,
   fetchUserPreferences,
+  fetchRecentlyViewed,
   editUserPreferences,
 };

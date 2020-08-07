@@ -106,6 +106,20 @@ export const setUserPreferences = async (token, dietaryPrefs, blacklist) => {
   return response.json();
 };
 
+export const getRecentlyViewed = async (token) => {
+  const response = await fetch('/api/users/recently_viewed',
+    {
+      method: 'POST',
+      headers: {
+        ...globalHeaders,
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  handleErrors(response);
+  return response.json();
+};
+
+
 export const getExplorePage = async (token, date) => {
   const response = await fetch('/api/explore',
     {

@@ -6,7 +6,7 @@ const mapStateToProps = (state) => {
   const greeting = state.explore.mealByTime.name;
   const firstName = state.user.user.given_name;
   let welcome = '';
-  let tryRecipes = [];
+  let tryRecipes = '';
   if (greeting) {
     [welcome, tryRecipes] = greeting.split('!');
     if (firstName) {
