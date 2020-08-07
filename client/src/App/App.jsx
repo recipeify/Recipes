@@ -1,12 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import {
+  BrowserRouter,
+  Route,
+  Switch,
+} from 'react-router-dom';
 import { createBrowserHistory } from 'history';
 import { useAuth0 } from '../react-auth0-spa';
 import GA from '../common/GoogleAnalytics';
 import MainPage from '../components/MainPage';
 import RecipeBook from '../components/RecipeBook';
 import PrivateRoute from '../PrivateRoute';
+import NotFound from '../components/NotFound';
 import Privacy from '../components/Privacy';
 
 export const history = createBrowserHistory();
@@ -52,6 +57,7 @@ const App = (props) => {
       <Switch>
         <Route path="/" exact component={MainPage} />
         <PrivateRoute path="/myrecipes" component={RecipeBook} />
+        <Route component={NotFound} />
         <Route path="/privacy" component={Privacy} />
       </Switch>
     </BrowserRouter>
