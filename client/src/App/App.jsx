@@ -12,6 +12,7 @@ import MainPage from '../components/MainPage';
 import RecipeBook from '../components/RecipeBook';
 import PrivateRoute from '../PrivateRoute';
 import NotFound from '../components/NotFound';
+import Privacy from '../components/Privacy';
 
 export const history = createBrowserHistory();
 
@@ -57,6 +58,7 @@ const App = (props) => {
         <Route path="/" exact component={MainPage} />
         <PrivateRoute path="/myrecipes" component={RecipeBook} />
         <Route component={NotFound} />
+        <Route path="/privacy" component={Privacy} />
       </Switch>
     </BrowserRouter>
   );

@@ -1,7 +1,7 @@
 from datetime import datetime
 from scrapy.spiders import SitemapSpider
 from scrapy.exceptions import CloseSpider
-from recipescrapers.recipe_scrapers import scrape_me
+from scraper.recipescraper import scrape_me
 from scraper._utils import insert_to_es
 from dateutil import parser
 
@@ -20,6 +20,7 @@ class FilteredSitemapSpider(SitemapSpider):
             self.allowed_domains = kwargs.get('allowed_domains')
 
             self.es = kwargs.get('es')
+            self.client = kwargs.get('client')
             self.num = kwargs.get('num')
             self.sitename = kwargs.get('sitename')
             self.init = kwargs.get('init')
@@ -42,7 +43,7 @@ class FilteredSitemapSpider(SitemapSpider):
     def parse_recipes(self, response):
         try:
             if self.num == 0 or self.i <= self.num:
-                self.i += insert_to_es(self.es, scrape_me(response.url, response.body), self.sitename)
+                self.i += insert_to_es(self.es, self.client, scrape_me(response.url, response.body), self.sitename)
             else:
                 raise CloseSpider('Crawled enough pages')
         except ValueError:

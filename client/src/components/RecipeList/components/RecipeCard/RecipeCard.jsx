@@ -192,7 +192,11 @@ class RecipeCard extends React.Component {
           <Meta
             className="recipe-card-meta"
             title={title}
-            description={site}
+            description={rating ? [site,
+              <span style={{ float: 'right' }}>
+                {` ${parseFloat((rating * 5).toFixed(2))}/5 `}
+                <StarFilled />
+              </span>] : site}
           />
         </Card>
 
