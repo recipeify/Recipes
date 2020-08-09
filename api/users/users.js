@@ -195,7 +195,7 @@ router.post('/recently_viewed', asyncHandler(async (request, response, next) => 
     const recommendation = await recombeeClient.send(
       new rqs.RecommendItemsToUser(userHash, count, { scenario: 'recently_viewed', cascadeCreate: true }),
     );
-    const ids = recommendation.recipes.recomms.map((j) => j.id);
+    const ids = recommendation.recomms.map((j) => j.id);
     const recipes = await search.searchIdFunc(ids);
     response.send({ recipes });
   } catch (err) {
