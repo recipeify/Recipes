@@ -197,8 +197,10 @@ router.post('/recently_viewed', asyncHandler(async (request, response, next) => 
     );
     const ids = recommendation.recipes.recomms.map((j) => j.id);
     const recipes = await search.searchIdFunc(ids);
-    response.send({ recipes: recipes.docs });
+    response.send({ recipes });
   } catch (err) {
+    // eslint-disable-next-line no-console
+    console.log(err);
     try {
       response.send({ recipes: [] });
     } catch (e) {
