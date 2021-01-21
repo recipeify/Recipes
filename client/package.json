@@ -10,7 +10,7 @@
     "@testing-library/user-event": "^7.1.2",
     "antd": "^4.2.0",
     "history": "^4.10.1",
-    "immer": "^6.0.3",
+    "immer": "^8.0.1",
     "lodash": "^4.17.19",
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
