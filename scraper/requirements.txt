@@ -1,4 +1,4 @@
-certifi==2020.4.5.1
+certifi==2022.12.7
 Scrapy==2.2.0
 elasticsearch==7.0.4
 python-dotenv==0.13.0
